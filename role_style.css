@@ -1,0 +1,17 @@
+.main-body {
+    display: flex;
+}
+
+.col-left{
+    flex: 1;
+}
+
+
+.col-right {
+    flex: 3;
+    padding: 1em;
+}
+
+.content-body {
+    text-align: left;
+}

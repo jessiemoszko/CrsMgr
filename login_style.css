@@ -1,0 +1,12 @@
+.input-container {
+    display: flex;
+    flex-direction: column;;
+}
+
+.form-input {
+    flex: 0 0 48%; /* Adjust this value as needed to fit half the page */
+}
+
+.form-input input {
+    width: 75%;
+}
