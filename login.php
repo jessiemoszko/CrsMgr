@@ -6,7 +6,7 @@ $errors = array();
 
 //Database params
 $db_host = 'localhost:3308';
-$db_name = 'cga';
+$db_name = 'CRS';
 $db_user = 'root';
 $db_pass = '';
 

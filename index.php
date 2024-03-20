@@ -4,7 +4,7 @@ session_start();
 
 // Database connection parameters
 $db_host = 'localhost:3308';
-$db_name = 'cga';
+$db_name = 'CRS';
 $db_user = 'root';
 $db_pass = '';
 
