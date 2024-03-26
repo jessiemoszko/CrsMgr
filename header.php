@@ -10,7 +10,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 $username = $_SESSION['username'];
 $name = $_SESSION['name'];
 $role_name = $_SESSION['role_name'];
-$session_user_id = $_SESSION['user_id'];
+$session_userID = $_SESSION['userID'];
 
 ?>
 
