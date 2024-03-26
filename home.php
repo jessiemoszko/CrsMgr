@@ -12,13 +12,13 @@ $db_pass = '';
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
     $role_name = $_SESSION['role_name'];
-    $session_user_id = $_SESSION['user_id'];
-    $role_id = $_SESSION['role_id'];
+    $session_userID = $_SESSION['userID'];
+    $roleID = $_SESSION['roleID'];
 }
 
 function isProfessor()
 {
-    if ($_SESSION['role_id'] == 2) {
+    if ($_SESSION['roleID'] == 2) {
         return true;
     }
     return false;
@@ -26,7 +26,7 @@ function isProfessor()
 
 function isStudent()
 {
-    if ($_SESSION['role_id'] == 4) {
+    if ($_SESSION['roleID'] == 4) {
         return true;
     }
     return false;

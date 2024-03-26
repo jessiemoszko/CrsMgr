@@ -27,8 +27,8 @@ $errors = array();
 $username = $_SESSION['username'];
 $name = $_SESSION['name'];
 $role_name = $_SESSION['role_name'];
-$session_user_id = $_SESSION['user_id'];
-$role_id = $_SESSION['role_id'];
+$session_userID = $_SESSION['userID'];
+$roleID = $_SESSION['roleID'];
 
 ?>
 

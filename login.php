@@ -51,7 +51,7 @@ if (isset($_POST['login_user'])) {
     
     if (count($errors) == 0) {
 
-        $query = "SELECT * FROM users as u WHERE username='$username' AND password='$password' LIMIT 1";
+        $query = "SELECT * FROM user as u WHERE username='$username' AND password='$password' LIMIT 1";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
         if (mysqli_num_rows($result) == 1) {
@@ -61,14 +61,14 @@ if (isset($_POST['login_user'])) {
             $check = mysqli_fetch_assoc($result);
             $_SESSION['first_login'] = $check['first_login'];
 
-            $_SESSION['user_id'] = $check['user_id'];
+            $_SESSION['userID'] = $check['userID'];
             $_SESSION['username'] = $username;
             $_SESSION['name'] = $check['first_name'] . " " . $check['last_name'];
 
-            $_SESSION['role_id'] = $check['role_id'];
-            $roles = get_records_where('roles', 'role_id', $check['role_id']);
+            $_SESSION['roleID'] = $check['roleID'];
+            $roles = get_records_where('role', 'roleID', $check['roleID']);
             foreach ($roles as $role) {
-                if ($role['role_id'] == $check['role_id']) {
+                if ($role['roleID'] == $check['roleID']) {
                     $_SESSION['role_name'] = $role['role_name'];
                 }
             }
