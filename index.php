@@ -2,11 +2,7 @@
 // Initialize the session
 session_start();
 
-// Database connection parameters
-$db_host = 'localhost:3308';
-$db_name = 'CRS';
-$db_user = 'root';
-$db_pass = '';
+require("Database/DB.php");
 
 // Attempt to connect to MySQL database
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);

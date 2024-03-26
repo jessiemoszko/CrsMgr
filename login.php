@@ -4,11 +4,7 @@ session_start();
 
 $errors = array();
 
-//Database params
-$db_host = 'localhost:3308';
-$db_name = 'CRS';
-$db_user = 'root';
-$db_pass = '';
+require("Database/DB.php");
 
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
