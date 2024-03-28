@@ -28,12 +28,12 @@ $session_userID = $_SESSION['userID'];
 <body>
 
     <header class="header">
-        <div class="header-text">Welcome</div>
+        <div class="header-text">Welcome <?php echo $name?></div>
         <div class="user" onclick="toggleDropdown()">
             <?php
             $userInitials = "JM";
             ?>
-            <div class="initials" <?php echo $userInitials; ?>></div>
+            <div class="initials"><?php echo $userInitials; ?></div>
             <div class="dropdown" id="dropdown">
                 <a href="logout.php">Logout</a>
             </div>

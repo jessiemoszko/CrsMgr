@@ -1,4 +1,9 @@
 <?php
+
+    include 'header.php';
+    include 'sidebar.php';
+
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Specify the directory where you want to save the uploaded file
         $upload_directory = "uploads/";
@@ -28,9 +33,6 @@
         }
     }
     ?>
-
-<?php include 'header.php'?>
-<?php include 'sidebar.php'?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,13 +78,9 @@
 
             </tr>
         </table>
-
     </div>
-
-
-
- 
-
 </body>
 
 </html>
+
+

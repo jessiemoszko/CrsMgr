@@ -32,6 +32,9 @@
 
     <ul>
         <li>
+            <a href="index.php">Home</a>
+        </li>
+        <li>
             <a href="#">Annoucement</a>
         </li>
         <li>
@@ -41,7 +44,7 @@
             <a href="#">Group</a>
         </li>
         <li>
-            <a href="#">Assignment</a>
+            <a href="assignment.php">Assignment</a>
         </li>
 
     </ul>
@@ -53,6 +56,9 @@
         </li>
         <li>
             <a href="#">Reset Password</a>
+        </li>
+        <li>
+            <a href="logout.php">Logout</a>
         </li>
         </ul>
     </div>

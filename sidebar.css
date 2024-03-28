@@ -16,9 +16,6 @@ ul {
     color: #CCD5E1;
 }
 
-hr {
-    color: white;
-}
 
 .sidebar {
     height: 100%;
@@ -30,9 +27,7 @@ hr {
     padding-top: 10px;
 }
 
-.sidebar hr {
-    color: white;
-}
+
 .course-selection {
 
     padding: 10px;
@@ -79,4 +74,8 @@ ul {
     width: 250px;
     position: absolute;
     bottom: 0;
+}
+
+.sidebar hr {
+    color: white;
 }
