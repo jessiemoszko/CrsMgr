@@ -13,7 +13,6 @@ $db_name = 'crs';
 $db_user = 'root';
 $db_pass = 'mysql';
 
-
 // Attempt to connect to MySQL database
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
