@@ -4,10 +4,7 @@ session_start();
 
 unset($_REQUEST);
 
-$db_host = 'localhost:3308';
-$db_name = 'CRS';
-$db_user = 'root';
-$db_pass = '';
+require("Database/DB.php");
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];

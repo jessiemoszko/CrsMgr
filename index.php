@@ -6,11 +6,13 @@ include 'sidebar.php';
 // Initialize the session
 session_start();
 
+
 // Database connection parameters
 $db_host = 'localhost:3306';
 $db_name = 'crs';
 $db_user = 'root';
 $db_pass = 'mysql';
+
 
 // Attempt to connect to MySQL database
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
