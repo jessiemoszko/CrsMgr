@@ -1,8 +1,18 @@
 <?php
+
+include 'header.php';
+include 'sidebar.php';
+
 // Initialize the session
 session_start();
 
-require("Database/DB.php");
+
+// Database connection parameters
+$db_host = 'localhost:3306';
+$db_name = 'crs';
+$db_user = 'root';
+$db_pass = 'mysql';
+
 
 // Attempt to connect to MySQL database
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
@@ -33,35 +43,25 @@ $roleID = $_SESSION['roleID'];
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Welcome</title>
+    <link rel="stylesheet" href="student.css">
+    <title>Student</title>
 </head>
 
 <body>
 
-    <header>
-        <div class="title-bar">
-            <h1>Course Manager</h1>
-            <nav>
-                <div class="header-minimum">
-                    <p>Logged in as <b><?= $name ?></b></p>
-                    <a href="javascript:void(0);" class="hamburger-icon" onclick="toggleHamburger(this)">
-                        <div class="hamburger bar1"></div>
-                        <div class="hamburger bar2"></div>
-                        <div class="hamburger bar3"></div>
-                    </a>
-                </div>
-                <ul class="header-link" id="header-link">
-                    <li><a href="logout.php">Logout</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+
+    <div class="content">
+        <h1>Main Content</h1>
+        <p>This is the main content area.</p>
+
+    </div>
+</body>
+
+</html>
 
 </body>
 
-<php require footer.php ?>
+<!-- <?php include 'footer.php' ?> -->
 
 </html>

@@ -4,7 +4,14 @@ session_start();
 
 $errors = array();
 
-require("Database/DB.php");
+
+//Database params
+$db_host = 'localhost:3306';
+$db_name = 'crs';
+$db_user = 'root';
+$db_pass = 'mysql';
+=======
+
 
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
@@ -44,7 +51,7 @@ if (isset($_POST['login_user'])) {
     if (empty($password)) {
         array_push($errors, "Password is required!");
     }
-    
+
     if (count($errors) == 0) {
 
         $query = "SELECT * FROM user as u WHERE username='$username' AND password='$password' LIMIT 1";
@@ -91,7 +98,6 @@ if (isset($_POST['login_user'])) {
                 exit;
             }
             */
-
         } else {
             array_push($errors, "Invalid username or password");
         }
@@ -105,21 +111,25 @@ if (isset($_POST['login_user'])) {
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="login_style.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <title>Login</title>
 </head>
 
 <body>
 
-    <header>
-        <h1>Login</h1>
-    </header>
+    <div class="overlay">
 
-    <main>
+    <div style="margin-top: 200px">
+        <br>
+    </div>
 
+        <div>
+            <h1 class="logo">Course Manager</h1>
+        </div>
 
         <div class="form-container">
 
@@ -127,31 +137,36 @@ if (isset($_POST['login_user'])) {
                 <br>
                 <div class="input-container">
                     <div class="form-input">
-                        <label>Username</label>
+                        <h2>Login</h2>
                         <span>
-                            <input type="text" name="username" value="<?= $username; ?>">
+                            <input type="text" name="username" placeholder="USERNAME" value="<?= $username; ?>">
                         </span>
 
                     </div>
-                    
+
+                    <br>
+
                     <div class="form-input">
-                        <label>Password</label>
                         <span>
-                            <input type="password" name="password">
+                            <input type="password" name="password" placeholder="PASSWORD">
                         </span>
 
                     </div>
+
+                    <br>
 
                     <div class="form-submit">
                         <input type="submit" name="login_user" value="Login">
-                        <br><br>
                     </div>
+                    <br><br>
+
                 </div>
             </form>
         </div>
 
-    </main>
+    </div>
 
-    </body>
+
+</body>
 
 </html>
