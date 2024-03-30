@@ -27,23 +27,25 @@ $session_userID = $_SESSION['userID'];
 
 <body>
 
-    <header>
-        <div class="title-bar">
-            <h1><?= $name ?></h1>
-            <nav>
-                <div class="header-minimum">                    
-                <a href="javascript:void(0);" class="hamburger-icon" onclick="toggleHamburger(this)">
-                        <div class="hamburger bar1"></div>
-                        <div class="hamburger bar2"></div>
-                        <div class="hamburger bar3"></div>
-                    </a>
-
-                    <ul class="header-link" id="header-link">
-                        <li><a href="javascript:void(0)" onclick="history.back()">&larr;</a></li>
-                        <li><a href="?page=home">Home</a></li>
-                        <li><a href="logout.php">Logout</a></li>
-                    </ul>
-                </div>
-            </nav>
+    <header class="header">
+        <div class="header-text">Welcome <?php echo $name?></div>
+        <div class="user" onclick="toggleDropdown()">
+            <?php
+            $userInitials = "JM";
+            ?>
+            <div class="initials"><?php echo $userInitials; ?></div>
+            <div class="dropdown" id="dropdown">
+                <a href="logout.php">Logout</a>
+            </div>
         </div>
+
     </header>
+
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdown");
+            dropdown.classList.toggle("show");
+        }
+    </script>
+
+</body>

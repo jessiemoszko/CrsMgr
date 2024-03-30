@@ -1,0 +1,80 @@
+body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    height: 100vh; /* Set height to 100% of the viewport height */
+    background-image: url(backdrop.jpg);
+    background-size: cover; /* Cover the entire background */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+    position: relative; /* Required for overlay */
+
+    font-family: 'Karla';
+}
+    
+.overlay {
+
+    position: absolute; /* Position the overlay relative to the body */
+    top: 0; /* Position overlay at the top of the body */
+    left: 0; /* Position overlay at the left of the body */
+    width: 100%; /* Cover the entire width of the body */
+    height: 100%; /* Cover the entire height of the body */
+    background: linear-gradient(0deg, rgba(53, 65, 85, 0.95) 32.83%, rgba(48, 60, 76, 0.95) 79.54%, rgba(41, 51, 63, 0.95) 100%);
+}
+
+h2 {
+    color: white;
+    font-size: 28px;
+    font-family: Karla;
+    font-weight: 500;
+    word-wrap: break-word
+}
+
+.logo {
+    color: white;
+    text-align: center;
+    font-family: 'Karla', sans-serif;
+   
+}
+
+.form-container {
+    text-align: center;
+    color: white;
+}
+
+.form-input input {
+    width: 429px;
+    height: 41px;
+    left: 0px;
+    top: 0px;
+    background: #F1F5F9;
+    border-radius: 5px
+
+    
+}
+
+.form-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+}
+
+
+.form-submit input {
+    width: 429px;
+    height: 41px;
+    left: 134px;
+    top: 2px;
+    text-align: center;
+    background: #0A0D0F;
+    color: white;
+    font-size: 22px;
+    font-family: Karla;
+    font-weight: 400;
+    word-wrap: break-word
+}
+
+
+
+

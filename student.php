@@ -1,42 +1,27 @@
 <?php require("header.php"); ?>
 
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <link rel="stylesheet" href="role_style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="student.css">
+    <title>Student</title>
 </head>
 
-<main>
-    <div class="main-body">
-        <section class="col-left">
-            <div class="user-info">
-                <p>Role: <?= $_SESSION['role_name'] ?></p>
-            </div>
-            <hr>
-            <div class="main-menu">
-                <div class="menu-list">
-                    <h2><a href="?page=announcement-home">Announcement</a></h2>
-                </div>
-                <div class="menu-list">
-                    <h2><a href="?page=course-material-home">Course Material</a></h2>
-                </div>
-                <div class="menu-list">
-                    <h2><a href="?page=group-home">Group</a></h2>
-                </div>
-                <div class="menu-list">
-                    <h2><a href="?page=assignment-home">Assignment</a></h2>
-                </div>
-                <div class="menu-list">
-                    <h2><a href="?page=reset-email">Reset Email</a></h2>
-                </div>
-                <div class="menu-list">
-                    <h2><a href="?page=reset-password">Reset Password</a></h2>
-                </div>
-            </div>
-        </section>
+<body>
 
-        <section class="col-right">
-            
-        </section>
+    <?php include 'sidebar.php'; ?>
+
+
+    <div class="content">
+        <h1>Main Content</h1>
+        <p>This is the main content area.</p>
+
     </div>
-</main>
+</body>
+
+</html>
 
 <?php require("footer.php"); ?>
