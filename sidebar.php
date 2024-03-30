@@ -52,10 +52,7 @@
     <div>
         <ul class="bottom">
         <li>
-            <a href="#">Reset Email</a>
-        </li>
-        <li>
-            <a href="#">Reset Password</a>
+            <a href="manage-account.php">Manage Account</a>
         </li>
         <li>
             <a href="logout.php">Logout</a>
