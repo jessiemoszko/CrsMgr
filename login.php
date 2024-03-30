@@ -108,7 +108,7 @@ if (isset($_POST['login_user'])) {
     <link rel="stylesheet" href="login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <title>Login</title>
 </head>
 
@@ -116,9 +116,9 @@ if (isset($_POST['login_user'])) {
 
     <div class="overlay">
 
-    <div style="margin-top: 200px">
-        <br>
-    </div>
+        <div style="margin-top: 200px">
+            <br>
+        </div>
 
         <div>
             <h1 class="logo">Course Manager</h1>

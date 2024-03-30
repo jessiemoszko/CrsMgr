@@ -1,9 +1,7 @@
 <?php
 
 // $db_host = 'localhost:3308';
-$db_host = 'localhost';
-$db_name = 'CRS';
+$db_host = 'localhost:3306';
+$db_name = 'crs';
 $db_user = 'root';
-$db_pass = '';
-
-?>
+$db_pass = 'mysql';

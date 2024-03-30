@@ -19,6 +19,7 @@
                     <li><a href="?page=grades">Grades</a></li>
                     <li><a href="?page=assignments">Assignments</a></li>
                     <li><a href="?page=announcements">Announcements</a></li>
+                    <li><a href="course_ material.php">Course Material</a></li>
                 </ul>
             </div>
         </section>
