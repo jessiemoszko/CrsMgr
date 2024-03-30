@@ -6,18 +6,6 @@ $errors = array();
 
 require("Database/DB.php");
 
-$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-
-if (!$conn) {
-    die("ERROR: Could not connect DB " . mysqli_connect_error());
-}
-
-$select_db = mysqli_select_db($conn, $db_name);
-
-if (!$select_db) {
-    die("ERROR: Could not select DB " . mysqli_error($conn));
-}
-
 function get_records_where($table, $key, $value)
 {
     global $conn;

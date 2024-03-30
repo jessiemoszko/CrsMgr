@@ -51,15 +51,12 @@
 
     <div>
         <ul class="bottom">
-            <li>
-                <a href="#">Reset Email</a>
-            </li>
-            <li>
-                <a href="#">Reset Password</a>
-            </li>
-            <li>
-                <a href="logout.php">Logout</a>
-            </li>
+        <li>
+            <a href="manage-account.php">Manage Account</a>
+        </li>
+        <li>
+            <a href="logout.php">Logout</a>
+        </li>
         </ul>
     </div>
 

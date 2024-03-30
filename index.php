@@ -8,14 +8,6 @@ session_start();
 
 require("Database/DB.php");
 
-// Attempt to connect to MySQL database
-$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-
-// Check database connection
-if (!$conn) {
-    die("ERROR: Could not connect DB " . mysqli_connect_error());
-}
-
 // Check if the user is logged in, if not then redirect to login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("Location: login.php");
