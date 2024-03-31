@@ -1,5 +1,6 @@
 <?php
-
+require 'session.php';
+$pageTitle = "Course Material";
 include 'header.php';
 include 'sidebar.php';
 
@@ -39,35 +40,37 @@ $course_materials = array(
 </head>
 
 <body>
-    <?php if (isProfessor()) { ?>
-        <div class="form">
-            <br>
-            <form class="add-week-form" action="" method="post">
-                <input type="text" id="new-week" name="new_week" placeholder="Enter week title">
-                <button type="submit" name="add_week">Add Week</button>
-            </form>
-            <br>
-            <form action="add-material">
-                <input type="text" id="new-assignment" name="new_assignment" placeholder="Enter assignment title">
-                <button type="submit" name="add_assignment">Add Assignment</button>
-            </form>
+    <main>
+    <div class='container'>
+        <?php if (isProfessor()) { ?>
+            <div class="form">
+                <br>
+                <form class="add-week-form" action="" method="post">
+                    <input type="text" id="new-week" name="new_week" placeholder="Enter week title">
+                    <button type="submit" name="add_week">Add Week</button>
+                </form>
+                <br>
+                <form action="add-material">
+                    <input type="text" id="new-assignment" name="new_assignment" placeholder="Enter assignment title">
+                    <button type="submit" name="add_assignment">Add Assignment</button>
+                </form>
+            </div>
+        <?php } ?>
+        <div class="main">
+            <h3>Course Materials</h3>
+            <?php foreach ($course_materials as $week => $materials) : ?>
+                <h4 class="week-header"><?php echo $week; ?></h4>
+                <ul class="course-materials">
+                    <?php foreach ($materials as $material) : ?>
+                        <li><?php echo $material; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endforeach; ?>
         </div>
-    <?php } ?>
 
-
-
-    <div class="main">
-        <h3>Course Materials</h3>
-        <?php foreach ($course_materials as $week => $materials) : ?>
-            <h4 class="week-header"><?php echo $week; ?></h4>
-            <ul class="course-materials">
-                <?php foreach ($materials as $material) : ?>
-                    <li><?php echo $material; ?></li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endforeach; ?>
+        
     </div>
-
+    </main>
     <script>
         // Add click event listener to week headers to toggle course materials
         document.querySelectorAll('.week-header').forEach(item => {

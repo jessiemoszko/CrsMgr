@@ -1,6 +1,9 @@
 
 .header {
-    margin-left: 250px;
+    position: absolute;
+    top:0;
+    left: 250px;
+    right: 0px;
     background: #FFFFFF;
     box-shadow: 5px 0px 4px rgba(0, 0, 0, 0.65);
     padding: 10px 30px;

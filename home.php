@@ -1,5 +1,6 @@
 <?php
-
+ $pageTitle='Welcome';
+ 
 session_start();
 
 unset($_REQUEST);

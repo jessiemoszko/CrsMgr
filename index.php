@@ -1,26 +1,8 @@
 <?php
-
+require 'session.php';
+$pageTitle='Welcome '.$name;
 include 'header.php';
 include 'sidebar.php';
-
-// Initialize the session
-session_start();
-
-require("Database/DB.php");
-
-// Check if the user is logged in, if not then redirect to login page
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("Location: login.php");
-    exit;
-}
-
-$errors = array();
-
-$username = $_SESSION['username'];
-$name = $_SESSION['name'];
-$role_name = $_SESSION['role_name'];
-$session_userID = $_SESSION['userID'];
-$roleID = $_SESSION['roleID'];
 
 ?>
 

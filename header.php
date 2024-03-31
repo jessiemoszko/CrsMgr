@@ -1,34 +1,4 @@
 <?php
-// Initialize the session
-session_start();
-
-// Checks if user is logged in
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: login.php");
-    exit;
-}
-
-$username = $_SESSION['username'];
-$name = $_SESSION['name'];
-$role_name = $_SESSION['role_name'];
-$session_userID = $_SESSION['userID'];
-$roleID = $_SESSION['roleID'];
-
-function isProfessor()
-{
-    if ($_SESSION['roleID'] == 2) {
-        return true;
-    }
-    return false;
-}
-
-function isStudent()
-{
-    if ($_SESSION['roleID'] == 4) {
-        return true;
-    }
-    return false;
-}
 
 // Function to extract initials from a name
 function extractInitials($name)
@@ -58,9 +28,8 @@ function extractInitials($name)
 </head>
 
 <body>
-
     <header class="header">
-        <div class="header-text">Welcome <?php echo $name ?></div>
+        <div class="header-text"><?php echo $pageTitle?></div>
         <div class="user" onclick="toggleDropdown()">
             <div class="initials"><?php $initials = extractInitials($name);
                                     echo $initials; ?></div>
@@ -68,7 +37,6 @@ function extractInitials($name)
                 <a href="logout.php">Logout</a>
             </div>
         </div>
-
     </header>
 
     <script>

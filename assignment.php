@@ -1,5 +1,6 @@
 <?php
-
+    require 'session.php'; 
+    $pageTitle='Assignments';
     include 'header.php';
     include 'sidebar.php';
 
@@ -43,31 +44,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assignment.css">
     <title>Assignment Upload</title>
-    <style>
-        body {
-
-            font-family: 'Karla', sans-serif;
-
-        }
-        table {margin-left: 300px; margin-top: 50px; color: black;}
-        tr {
-            border: 2px solid black;
-        }
-
-    </style>
 </head>
-
-<body>
-    <div>
+<main>
+<body >
+    <div class="container">
         <table>
             <tr>
                 <th>Assignment Name</th>
+                <th>File</th>
+                <th>Posted Date</th>
                 <th>Due Date</th>
                 <th>Upload</th>
             </tr>
             <tr>
                 <td>Assign1</td>
+                <td>File</td>
+                <td>Feb 2</td>
                 <td>April 7</td>
                 <td>
                     <form method="post" enctype="multipart/form-data" id="f1">
@@ -80,6 +74,7 @@
         </table>
     </div>
 </body>
+</main>
 
 </html>
 

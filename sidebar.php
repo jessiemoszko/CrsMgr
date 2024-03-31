@@ -11,13 +11,11 @@
     <title>Student Dashboard</title>
 </head>
 
+<body>
 <div class="sidebar">
-
     <div class="course-selection">
-        <h2>Course Manager</h2>
-
+        <h2 class="side">Course Manager</h2>
         <hr>
-
         <label for="courses">Select a Course:</label>
         <select id="courses" name="courses">
             <option value="math">COMP5531</option>
@@ -25,17 +23,14 @@
             <option value="history">COMP5541</option>
             <option value="english">COMP6721</option>
         </select>
-
         <hr>
-
     </div>
-
-    <ul>
+    <ul class="side-ul">
         <li>
             <a href="index.php">Home</a>
         </li>
         <li>
-            <a href="#">Annoucement</a>
+            <a href="#">Announcement</a>
         </li>
         <li>
             <a href="course_ material.php">Course Material</a>
@@ -46,22 +41,18 @@
         <li>
             <a href="assignment.php">Assignment</a>
         </li>
-
     </ul>
-
     <div>
         <ul class="bottom">
-        <li>
-            <a href="manage-account.php">Manage Account</a>
-        </li>
-        <li>
-            <a href="logout.php">Logout</a>
-        </li>
+            <li>
+                <a href="manage-account.php">Manage Account</a>
+            </li>
+            <li>
+                <a href="logout.php">Logout</a>
+            </li>
         </ul>
     </div>
-
 </div>
-
 </body>
 
 </html>

@@ -1,17 +1,16 @@
 body {
-    margin: 0;
-    font-family: 'Karla', sans-serif;
-    color: white;
+    color: black;
 }
 
-h2 {
+.side h2 {
+    color: white !important;
     margin-left: 10px;
     margin-right: 10px;
 
 }
 
-ul {
-
+.side-ul ul {
+    padding-left: 0%;
     font-size: 15px;
     color: #CCD5E1;
 }
@@ -29,10 +28,9 @@ ul {
 
 
 .course-selection {
-
+    color: white !important;
     padding: 10px;
     text-align: center;
-    
 }
 
 .sidebar select {
@@ -60,11 +58,6 @@ ul {
     border-radius: 10px;
 }
 
-ul {
-
-    padding-left: 0%;
-}
-
 .content {
     margin-left: 250px; /* Adjust this value to match sidebar width */
     padding: 20px;
@@ -79,3 +72,4 @@ ul {
 .sidebar hr {
     color: white;
 }
+
