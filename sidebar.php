@@ -33,7 +33,7 @@
             <a href="#">Announcement</a>
         </li>
         <li>
-            <a href="course_ material.php">Course Material</a>
+            <a href="course_material.php">Course Material</a>
         </li>
         <li>
             <a href="#">Group</a>
