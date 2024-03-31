@@ -2,19 +2,6 @@ body {
     color: black;
 }
 
-.side h2 {
-    color: white !important;
-    margin-left: 10px;
-    margin-right: 10px;
-
-}
-
-.side-ul ul {
-    padding-left: 0%;
-    font-size: 15px;
-    color: #CCD5E1;
-}
-
 
 .sidebar {
     height: 100%;
@@ -26,14 +13,13 @@ body {
     padding-top: 10px;
 }
 
-
 .course-selection {
     color: white !important;
     padding: 10px;
     text-align: center;
 }
 
-.sidebar select {
+.course-selection select {
     width: 150px;
     height: 40px;
     left: 0px;
@@ -42,12 +28,26 @@ body {
     border-radius: 5px
 }
 
-.sidebar li {
+.side h2 {
+    color: white !important;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+
+ul.side-ul {
+    padding-left: 0%;
+    margin-left: 0px;
+    font-size: 15px;
+    color: #CCD5E1;
+}
+
+.side-ul li {
+    margin-left: 0px;
     list-style-type: none;
 }
 
 .sidebar a {
-    padding: 10px;
     display: block;
     color: white;
     text-decoration: none;
@@ -57,19 +57,3 @@ body {
     background-color: #0A0D0F;
     border-radius: 10px;
 }
-
-.content {
-    margin-left: 250px; /* Adjust this value to match sidebar width */
-    padding: 20px;
-}
-
-.bottom {
-    width: 250px;
-    position: absolute;
-    bottom: 0;
-}
-
-.sidebar hr {
-    color: white;
-}
-
