@@ -6,8 +6,6 @@ $errors = array();
 
 require("Database/DB.php");
 
-$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-
 function get_records_where($table, $key, $value)
 {
     global $conn;
