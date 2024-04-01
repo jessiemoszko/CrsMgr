@@ -1,31 +1,29 @@
-<?php require("header.php"); ?>
+<?php 
 
+require 'session.php';
+$pageTitle='Welcome '.ucwords($name);
+require 'header.php';
+require 'sidebar.php';
+
+ ?>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="role_style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style1.css">
+    <title>Document</title>
 </head>
+<body>
+    <main>
+        <div class="container">
+        <h1>main content</h1>
+        </div>
+      
 
-<main>
-    <div class="main-body">
-        <section class="col-left">
-            <div class="user-info">
-                <p>Role: <?= $_SESSION['role_name'] ?></p>
-            </div>
-            <hr>
-            <div class="main-menu">
-                <br>
-                <h3>Manage</h3>
-                <ul class="menu-list">
-                    <li><a href="?page=manage-students">Manage Students</a></li>
-                    <li><a href="?page=grades">Grades</a></li>
-                    <li><a href="?page=assignments">Assignments</a></li>
-                    <li><a href="?page=announcements">Announcements</a></li>
-                    <li><a href="course_ material.php">Course Material</a></li>
-                </ul>
-            </div>
-        </section>
-        <section class="col-right">
-            
-        </section>
-    </div>
-</main>
-<?php require("footer.php"); ?>
+    </main>
+    
+</body>
+</html>
+
