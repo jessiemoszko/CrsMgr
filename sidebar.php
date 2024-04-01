@@ -1,3 +1,12 @@
+<?php 
+
+    require 'Database/DB.php';
+
+    $sql = "SELECT `course_id`, `course_name`, `course_code`, `dept_name`, `semester`, `room_no`, `instructor_name` FROM `courses`";
+    $result = $conn->query($sql);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,10 +27,15 @@
         <div class="select-container">
         <label for="courses" class="label">Select a Course:</label>
         <select id="courses" name="courses">
-            <option value="math">COMP5531</option>
-            <option value="science">COMP5201</option>
-            <option value="history">COMP5541</option>
-            <option value="english">COMP6721</option>
+            <?php
+             if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<option value="' . $row["course_code"] . '">' . $row["course_code"] . '</option>';
+                    }
+                } else {
+                    echo '<option value="">No courses available</option>';
+                }
+            ?>
         </select>
         </div>
         <hr>
