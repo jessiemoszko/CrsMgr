@@ -1,12 +1,25 @@
 body {
     color: black;
+    font-family: 'Karla', sans serif;
+}
+
+hr {
+    height: 0.25px;
+    background-color: white;
+}
+
+.label {
+    margin-bottom: 10px;
+}
+
+select {
+    margin-top: 10px;
 }
 
 .side h2 {
-    color: white !important;
+    color: white;
     margin-left: 10px;
     margin-right: 10px;
-
 }
 
 .side-ul ul {
@@ -14,7 +27,6 @@ body {
     font-size: 15px;
     color: #CCD5E1;
 }
-
 
 .sidebar {
     height: 100%;
@@ -26,10 +38,14 @@ body {
     padding-top: 10px;
 }
 
+.select-container {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
 
 .course-selection {
+    padding: 0px 10px 0px 10px;
     color: white !important;
-    padding: 10px;
     text-align: center;
 }
 
@@ -69,6 +85,3 @@ body {
     bottom: 0;
 }
 
-.sidebar hr {
-    color: white;
-}
