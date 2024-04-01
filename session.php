@@ -1,4 +1,6 @@
 <?php
+
+require 'Database\DB.php';
 // Initialize the session
 session_start();
 
