@@ -24,13 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Retrieve form data for adding a new row
         $title = $_POST['title'];
         $postDate = $_POST['post_date'];
-        
+
         // Handle file upload
         $uploadedFile = ''; // Initialize empty string
         if ($_FILES['file']['name']) {
             $targetDir = "uploads/"; // Specify the target directory where files will be uploaded
             $targetFile = $targetDir . basename($_FILES["file"]["name"]); // Specify the path of the uploaded file
-            
+
             // Upload the file
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFile)) {
                 $uploadedFile = $targetFile; // Set the uploaded file path
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Sorry, there was an error uploading your file.";
             }
         }
-    
+
         // Insert new row into the database
         $insertQuery = "INSERT INTO course_material (Title, `Post Date`, `Uploaded File`) VALUES ('$title', '$postDate', '$uploadedFile')";
         if (mysqli_query($conn, $insertQuery)) {
@@ -67,14 +67,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <main>
         <div class="container">
-       
+
             <h1>Lecture Notes</h1>
             <table>
                 <tr>
                     <th>Title</th>
                     <th>Post Date</th>
                     <th>Uploaded File</th>
-                    <?php if (isProfessor()) {echo "<th>Action</th>";}?>
+                    <?php if (isProfessor()) {
+                        echo "<th>Action</th>";
+                    } ?>
                 </tr>
                 <?php
                 // Loop through the fetched data and display in table rows
@@ -85,44 +87,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $fileName = basename($row['Uploaded File']);
                     echo "<td><a href='" . $row['Uploaded File'] . "' target='_blank'>" . $fileName . "</a></td>";
                     if (isProfessor()) {
-                    echo "<td>";
-                    // Form for deleting a row
-                    echo "<form method='POST' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>";
-                    echo "<input type='hidden' name='delete_id' value='" . $row['material_ID'] . "'>";
-                    echo "<input type='submit' value='Delete'>";
-                    echo "</form>";
-                    echo "</td>";
-                    echo "</tr>";
-                }
+                        echo "<td>";
+                        // Form for deleting a row
+                        echo "<form method='POST' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>";
+                        echo "<input type='hidden' name='delete_id' value='" . $row['material_ID'] . "'>";
+                        echo "<input type='submit' value='Delete'>";
+                        echo "</form>";
+                        echo "</td>";
+                        echo "</tr>";
+                    }
                 }
                 ?>
             </table>
 
             <?php if (isProfessor()) { ?>
 
-            <h3>Add New Material</h3>
-            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required><br><br>
-                
-                <label for="post_date">Post Date:</label>
-                <input type="date" id="post_date" name="post_date" required><br><br>
-                
-                <label for="file">Upload File:</label>
-                <input type="file" id="file" name="file" required><br><br>
-                
-                <input type="submit" value="Add New Material" class="button">
-            </form>
+                <h3>Add New Material</h3>
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required><br><br>
+
+                    <label for="post_date">Post Date:</label>
+                    <input type="date" id="post_date" name="post_date" required><br><br>
+
+                    <label for="file">Upload File:</label>
+                    <input type="file" id="file" name="file" required><br><br>
+
+                    <input type="submit" value="Add New Material" class="button">
+                </form>
 
             <?php } ?>
         </div>
-
     </main>
-    <script>
-
-    </script>
-
-
 </body>
 
 </html>
