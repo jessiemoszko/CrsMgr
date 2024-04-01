@@ -21,6 +21,31 @@ main {
 
 }
 
+table {
+    position: relative;
+    background: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    border-collapse: collapse;
+}
+
+tr {
+    border-bottom: 1px solid black;
+ 
+}
+
+tr:last-child {
+    border-bottom: none;
+}
+
+th, td {
+    border: none;
+    padding: 18px;
+    text-align: left;
+}
+
+
+
 .button {
     font-family: 'Karla', sans-serif;
     background-color:  #29333F; 

@@ -10,7 +10,7 @@ $result = mysqli_query($conn, $query);
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if the form is for deleting a row
+    // Check if the form is deleting a row
     if (isset($_POST['delete_id'])) {
         $deleteID = $_POST['delete_id'];
         $deleteQuery = "DELETE FROM course_material WHERE material_ID = '$deleteID'";
@@ -63,12 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="course_material.css">
     <title>Course Material</title>
 </head>
-
-<style>
-    table, th, tr, td {
-    border: 1px solid black;
-}
-</style>
 
 <body>
     <main>
