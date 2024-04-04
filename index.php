@@ -1,21 +1,24 @@
 <?php
 require 'session.php';
 
-$roleID = $_SESSION['roleID'];
+if (isStudent()) {
+    header("Location: student.php");
+    exit();
+} 
 
-switch ($roleID) {
-    case 4:
-        header("Location: student.php");
-        exit();
-    case 3:
-        header("Location: TA.php");
-        exit();
-    case 2:
-        header("Location: professor.php");
-        exit();
-    case 1:
-        header("Location: admin.php");
-        exit();
+if (isTA()) {
+    header("Location: TA.php");
+    exit();
+} 
+
+if (isProfessor()) {
+    header("Location: professor.php");
+    exit();
+} 
+
+if (isAdmin()) {
+    header("Location: admin.php");
+    exit();
 }
 
 $pageTitle='Welcome '.$name;
