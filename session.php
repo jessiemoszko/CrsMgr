@@ -16,9 +16,25 @@ $role_name = $_SESSION['role_name'];
 $session_userID = $_SESSION['userID'];
 $roleID = $_SESSION['roleID'];
 
+function isAdmin()
+{
+    if ($_SESSION['roleID'] == 1) {
+        return true;
+    }
+    return false;
+}
+
 function isProfessor()
 {
     if ($_SESSION['roleID'] == 2) {
+        return true;
+    }
+    return false;
+}
+
+function isTA()
+{
+    if ($_SESSION['roleID'] == 3) {
         return true;
     }
     return false;
