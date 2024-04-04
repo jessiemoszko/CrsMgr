@@ -1,5 +1,23 @@
 <?php
 require 'session.php';
+
+$roleID = $_SESSION['roleID'];
+
+switch ($roleID) {
+    case 4:
+        header("Location: student.php");
+        exit();
+    case 3:
+        header("Location: TA.php");
+        exit();
+    case 2:
+        header("Location: professor.php");
+        exit();
+    case 1:
+        header("Location: admin.php");
+        exit();
+}
+
 $pageTitle='Welcome '.$name;
 include 'header.php';
 include 'sidebar.php';
