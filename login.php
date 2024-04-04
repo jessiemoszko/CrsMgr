@@ -57,28 +57,15 @@ if (isset($_POST['login_user'])) {
                 }
             }
 
-            // Check role name after retrieving it from the database
-            if (isset($_SESSION['role_name'])) {
-                // Redirect based on the role name
-                if ($_SESSION['role_name'] === "Professor") {
-                    header("Location: professor.php");
-                    exit;
-                } elseif ($_SESSION['role_name'] === "Student") {
-                    header("Location: student.php");
-                    exit;
-                }
-            }
-
-            /*
             if ($check['first_login'] == 1) {
                 // I plan to have the user re-initialize the password
-                header("Location: student.php");
+                header("Location: reset-password.php");
                 exit;
             } else {
-                header("Location: student.php");
+                header("Location: index.php");
                 exit;
             }
-            */
+            
         } else {
             array_push($errors, "Invalid username or password");
         }
