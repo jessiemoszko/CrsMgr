@@ -60,7 +60,7 @@ INSERT INTO user (first_name, last_name, dob, email, username, password, first_l
 ('Christopher', 'Anderson', '1994-06-25', 'chris@example.com', 'chrisanderson', '12345', 1, 4),
 ('Olivia', 'Hernandez', '1989-03-12', 'olivia@example.com', 'oliviahernandez', '12345', 1, 4);
 
-INSERT INTO groups (groupID, group_name) VALUES
+INSERT INTO groups (group_name) VALUES
 ("group_1"),
 ("group_2"),
 ("group_3"),
