@@ -1,39 +1,47 @@
 <?php
-    require 'session.php'; 
-    $pageTitle='Assignments';
-    include 'header.php';
-    include 'sidebar.php';
+require 'session.php';
+$pageTitle = 'Assignments';
+include 'header.php';
+include 'sidebar.php';
 
+$assignmentQuery = 'SELECT `Title`, `Weight`, `Max Mark`, `Post Date`, `Due Date`, `assign_id`, `assign_instructions` FROM `assignments`';
+$assignmentResult = mysqli_query($conn, $assignmentQuery);
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Specify the directory where you want to save the uploaded file
-        $upload_directory = "uploads/";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        // Check if file was uploaded without errors 
-        if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
-            $file_name     = $_FILES["file"]["name"];
-            $file_tmp_name = $_FILES["file"]["tmp_name"];
-            $file_type     = $_FILES["file"]["type"];
-            $file_size     = $_FILES["file"]["size"];
-            $file_error    = $_FILES["file"]["error"];
+    // Add new assignment file instructions
+    if (isset($_POST["title"]) && isset($_POST['post_date'])) {
+        // Add new record
+        $title = $_POST['title'];
+        $weight = $_POST['weight'];
+        $maxMark = $_POST['max_mark'];
+        $postDate = $_POST['post_date'];
+        $dueDate = $_POST['due_date'];
 
-            // Construct the full path where you want to save the file
-            $destination = $upload_directory . $file_name;
+        // Handle file upload
+        $uploadedFile = '';
+        if ($_FILES['file']['name']) {
+            $targetDir = "uploads/uploaded_assignments/";
+            $targetFile = $targetDir . basename($_FILES["file"]["name"]);
 
-            // Move the uploaded file to the desired directory
-            if (move_uploaded_file($file_tmp_name, $destination)) {
-                echo "File uploaded successfully.<br>";
-                echo "Uploaded File Name: " . $file_name . "<br>";
-                echo "Type of File: " . $file_type . "<br>";
-                echo "Size of File: " . $file_size . " bytes<br>";
+            if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFile)) {
+                $uploadedFile = $targetFile;
             } else {
-                echo "Error uploading file.<br>";
+                echo "Sorry, there was an error uploading your file.";
             }
+        }
+        // Update record in sql database
+        $insertQuery = "INSERT INTO assignments (Title, `Weight`, `Max Mark`, `Post Date`, `Due Date`, `assign_instructions`) VALUES ('$title', '$weight', '$maxMark', '$postDate', '$dueDate', '$uploadedFile')";
+
+        if (mysqli_query($conn, $insertQuery)) {
+            // Refresh the page to display the updated table
+            header("Refresh:0");
         } else {
-            echo "Error: " . $_FILES["file"]["error"] . "<br>";
+            echo "Error: " . $insertQuery . "<br>" . mysqli_error($conn);
         }
     }
-    ?>
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,34 +56,107 @@
     <title>Assignment Upload</title>
 </head>
 <main>
-<body >
-    <div class="container">
-        <table>
-            <tr>
-                <th>Assignment Name</th>
-                <th>File</th>
-                <th>Posted Date</th>
-                <th>Due Date</th>
-                <th>Upload</th>
-            </tr>
-            <tr>
-                <td>Assign1</td>
-                <td>File</td>
-                <td>Feb 2</td>
-                <td>April 7</td>
-                <td>
-                    <form method="post" enctype="multipart/form-data" id="f1">
-                        <input type="file" name="file" />
-                        <input type="submit" value="Upload File" name="submit">
-                    </form>
-                </td>
 
-            </tr>
-        </table>
-    </div>
-</body>
+    <body>
+        <div class="container">
+            <table>
+                <tr>
+                    <th>Assignment Name</th>
+                    <th>File</th>
+                    <th>Weight</th>
+                    <th>Max Mark</th>
+                    <th>Posted Date</th>
+                    <th>Due Date</th>
+                    <th>Upload</th>
+                </tr>
+
+                <!-- Table of Assignments -->
+
+                <?php
+                while ($row = mysqli_fetch_assoc($assignmentResult)) {
+                    echo "<tr>";
+                    echo "<td>" . $row['Title'] . '</td>';
+                    $fileName = basename($row['assign_instructions']);
+                    echo "<td><a href='" . $row['assign_instructions'] . "' target='_blank'>" . $fileName . "</a></td>";
+                    echo '<td>' . $row['Weight'] . '</td>';
+                    echo '<td>' . $row['Max Mark'] . '</td>';
+                    echo '<td>' . $row['Post Date'] . '</td>';
+                    echo '<td>' . $row['Due Date'] . '</td>';
+                    echo "</tr>";
+                }
+                ?>
+            </table>
+
+            <!-- Add Assignment -->
+            
+            <?php if (isProfessor()) { ?>
+                <h3>Add New Assignment</h3>
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required><br><br>
+                    <label for="weight">Weight:</label>
+                    <input type="number" id="weight" name="weight" required><br><br>
+                    <label for="max_mark">Max Mark:</label>
+                    <input type="number" id="max_mark" name="max_mark" required><br><br>
+                    <label for="post_date">Post Date:</label>
+                    <input type="date" id="post_date" name="post_date" required><br><br>
+                    <label for="due_date">Due Date:</label>
+                    <input type="date" id="due_date" name="due_date" required><br><br>
+                    <label for="file">Upload File:</label>
+                    <input type="file" id="file" name="file" required><br><br>
+                    <input type="submit" value="Add New Material" class="button">
+                </form>
+            <?php } ?>
+
+        </div>
+
+        <!-- Modal -->
+        <div id="uploadModal" class="editModal">
+            <div class="editModalContent">
+                <span class="close">&times;</span>
+                <h2>Upload Assignment</h2>
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="file">
+                    <input type="submit" value="Upload" name="submit">
+                </form>
+            </div>
+        </div>
+
+
+        <script>
+            var modal = document.getElementById("uploadModal");
+            var btns = document.querySelectorAll(".upload-btn");
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks the button, open the modal
+            btns.forEach(function(btn) {
+                btn.addEventListener("click", function() {
+                    modal.style.display = "block";
+                });
+            });
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            };
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+
+            // Handle file upload
+            document.querySelector('input[type="file"]').addEventListener('change', function() {
+                var file = this.files[0];
+                if (file) {
+                    var fileName = file.name;
+                    document.querySelector('.file-name').textContent = fileName;
+                }
+            });
+        </script>
+    </body>
 </main>
 
 </html>
-
-
