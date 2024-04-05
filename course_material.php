@@ -70,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
+        // Update record in sql database
         $insertQuery = "INSERT INTO course_material (Title, `Post Date`, `Uploaded File`, `TYPE`) VALUES ('$title', '$postDate', '$uploadedFile', '$type')";
         if (mysqli_query($conn, $insertQuery)) {
             // Refresh the page to display the updated table
@@ -145,6 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 ?>
             </table>
+            <!-- Add New Course Material -->
             <?php if (isProfessor()) { ?>
                 <h3>Add New Material</h3>
                 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
