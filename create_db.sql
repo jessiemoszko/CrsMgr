@@ -3,7 +3,7 @@ use CRS;
 
 CREATE TABLE IF NOT EXISTS groups
 (
-  groupID INT AUTO_INCREMENT PRIMARY KEY (groupID),
+  groupID INT AUTO_INCREMENT PRIMARY KEY,
   group_name VARCHAR(50) NOT NULL UNIQUE
 ) AUTO_INCREMENT = 1;
 
@@ -55,7 +55,7 @@ INSERT INTO user (first_name, last_name, dob, email, username, password, first_l
 ('Michael', 'Davis', '1987-07-18', 'michael@example.com', 'michaeldavis', '12345', 1, 4),
 ('user1FN', 'user1LN', '1991-07-12', 'user1@example.com', 'user1', '12345', 1, 4),
 ('Sophia', 'Wilson', '1998-04-05', 'sophia@example.com', 'sophiawilson', '12345', 1, 4),
-('Daniel', 'Martinez', '1993-12-20', 'daniel@example.com', 'danielmartinez', '12345', 1, 4)
+('Daniel', 'Martinez', '1993-12-20', 'daniel@example.com', 'danielmartinez', '12345', 1, 4),
 ('Emma', 'Taylor', '1991-08-08', 'emma@example.com', 'emmataylor', '12345',  1, 4),
 ('Christopher', 'Anderson', '1994-06-25', 'chris@example.com', 'chrisanderson', '12345', 1, 4),
 ('Olivia', 'Hernandez', '1989-03-12', 'olivia@example.com', 'oliviahernandez', '12345', 1, 4);
