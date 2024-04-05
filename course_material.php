@@ -5,8 +5,12 @@ require 'header.php';
 require 'sidebar.php';
 
 // Fetch data from the database
-$query = "SELECT material_ID, Title, `Post Date`, `Uploaded File` FROM course_material";
-$result = mysqli_query($conn, $query);
+$lectureQuery = "SELECT material_ID, Title, `Post Date`, `Uploaded File`, `TYPE` FROM course_material WHERE `TYPE` = 'lecture'";
+$lectureResult = mysqli_query($conn, $lectureQuery);
+
+$tutorialQuery = "SELECT material_ID, Title, `Post Date`, `Uploaded File`, `TYPE` FROM course_material WHERE `TYPE` = 'tutorial'";
+$tutorialResult = mysqli_query($conn, $tutorialQuery);
+
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -51,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Add new record
         $title = $_POST['title'];
         $postDate = $_POST['post_date'];
+        $type = $_POST['type'];
 
         // Handle file upload
         $uploadedFile = '';
@@ -65,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
-        $insertQuery = "INSERT INTO course_material (Title, `Post Date`, `Uploaded File`) VALUES ('$title', '$postDate', '$uploadedFile')";
+        $insertQuery = "INSERT INTO course_material (Title, `Post Date`, `Uploaded File`, `TYPE`) VALUES ('$title', '$postDate', '$uploadedFile', '$type')";
         if (mysqli_query($conn, $insertQuery)) {
             // Refresh the page to display the updated table
             header("Refresh:0");
@@ -119,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     } ?>
                 </tr>
                 <?php
-                while ($row = mysqli_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($lectureResult)) {
                     echo "<tr>";
                     echo "<td>" . $row['Title'] . "</td>";
                     echo "<td>" . $row['Post Date'] . "</td>";
@@ -147,11 +152,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="text" id="title" name="title" required><br><br>
                     <label for="post_date">Post Date:</label>
                     <input type="date" id="post_date" name="post_date" required><br><br>
+                    <label for="type">Type:</label>
+                    <select id="type" name="type">
+                        <option value="lecture">Lecture</option>
+                        <option value="tutorial">Tutorial</option>
+                    </select><br><br>
                     <label for="file">Upload File:</label>
                     <input type="file" id="file" name="file" required><br><br>
                     <input type="submit" value="Add New Material" class="button">
                 </form>
             <?php } ?>
+
+            <div>
+                <h1>Tutorial</h1>
+                <table>
+                    <tr>
+                        <th>Title</th>
+                        <th>Post Date</th>
+                        <th>Uploaded File</th>
+                        <?php if (isProfessor()) {
+                            echo "<th>Delete</th>";
+                            echo "<th>Edit</th>";
+                        } ?>
+                    </tr>
+                    <?php
+                    while ($row = mysqli_fetch_assoc($tutorialResult)) {
+                        echo "<tr>";
+                        echo "<td>" . $row['Title'] . "</td>";
+                        echo "<td>" . $row['Post Date'] . "</td>";
+                        $fileName = basename($row['Uploaded File']);
+                        echo "<td><a href='" . $row['Uploaded File'] . "' target='_blank'>" . $fileName . "</a></td>";
+                        if (isProfessor()) {
+                            echo "<td>";
+                            echo "<form method='POST' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>";
+                            echo "<input type='hidden' name='delete_id' value='" . $row['material_ID'] . "'>";
+                            echo "<input type='submit' value='Delete'>";
+                            echo "</form>";
+                            echo "</td>";
+                            echo "<td>";
+                            echo "<button onclick=\"openEditModal('" . $row['material_ID'] . "', '" . $row['Title'] . "', '" . $row['Post Date'] . "', '" . $row['Uploaded File'] . "')\">Edit</button>";
+                            echo "</td>";
+                        }
+                        echo "</tr>";
+                    }
+                    ?>
+                </table>
+            </div>
+
+
         </div>
     </main>
 
@@ -172,6 +220,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
+
+
+
 </body>
 
 </html>
