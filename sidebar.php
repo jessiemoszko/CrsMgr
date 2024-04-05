@@ -54,7 +54,7 @@
             <a href="course_material.php">Course Material</a>
         </li>
         <li>
-            <a href="#">Group</a>
+            <a href="groups.php">Group</a>
         </li>
         <li>
             <a href="assignment.php">Assignment</a>
