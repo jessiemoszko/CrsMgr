@@ -3,27 +3,35 @@ require 'session.php';
 $pageTitle = "Course Material";
 require 'header.php';
 require 'sidebar.php';
+require 'course_selector.php';
 
-// Fetch data from the database
-$lectureQuery = "SELECT material_ID, Title, `Post Date`, `Uploaded File`, `TYPE` FROM course_material WHERE `TYPE` = 'lecture'";
+
+// Fetch lecture notes specific to the selected course
+$lectureQuery = "SELECT * FROM course_material WHERE `TYPE` = 'lecture' AND `course_id` = $course_id";
 $lectureResult = mysqli_query($conn, $lectureQuery);
+if (!$lectureResult) {
+    die("Error fetching lecture notes: " . mysqli_error($conn));
+}
 
-$tutorialQuery = "SELECT material_ID, Title, `Post Date`, `Uploaded File`, `TYPE` FROM course_material WHERE `TYPE` = 'tutorial'";
+// Fetch tutorial materials specific to the selected course
+$tutorialQuery = "SELECT * FROM course_material WHERE `TYPE` = 'tutorial' AND `course_id` = $course_id";
 $tutorialResult = mysqli_query($conn, $tutorialQuery);
-
+if (!$tutorialResult) {
+    die("Error fetching tutorial materials: " . mysqli_error($conn));
+}
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // For delete butotn
     if (isset($_POST['delete_id'])) {
-        // Delete record
         $deleteID = $_POST['delete_id'];
         $deleteQuery = "DELETE FROM course_material WHERE material_ID = '$deleteID'";
         if (mysqli_query($conn, $deleteQuery)) {
-            // Refresh the page to reflect the updated data
             header("Refresh:0");
         } else {
             echo "Error deleting record: " . mysqli_error($conn);
         }
+        // for edit button
     } elseif (isset($_POST['edit_material_id'])) {
         // Update record
         $editID = $_POST['edit_material_id'];
@@ -43,7 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Sorry, there was an error uploading your file.";
             }
         }
-
         $updateQuery = "UPDATE course_material SET Title = '$editTitle', `Post Date` = '$editPostDate', `Uploaded File` = '$uploadedFile' WHERE material_ID = '$editID'";
         if (mysqli_query($conn, $updateQuery)) {
             // Refresh the page to display the updated table
@@ -51,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Error updating record: " . mysqli_error($conn);
         }
+        // For adding new material
     } elseif (isset($_POST['title']) && isset($_POST['post_date'])) {
         // Add new record
         $title = $_POST['title'];
@@ -69,9 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Sorry, there was an error uploading your file.";
             }
         }
-
         // Update record in sql database
-        $insertQuery = "INSERT INTO course_material (Title, `Post Date`, `Uploaded File`, `TYPE`) VALUES ('$title', '$postDate', '$uploadedFile', '$type')";
+        $insertQuery = "INSERT INTO course_material (Title, `Post Date`, `Uploaded File`, `TYPE`,`course_id`) VALUES ('$title', '$postDate', '$uploadedFile', '$type', '$course_id')";
         if (mysqli_query($conn, $insertQuery)) {
             // Refresh the page to display the updated table
             header("Refresh:0");
@@ -80,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -113,6 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <main>
         <div class="container">
+            <h1 class="page-title"><?php echo $course['course_code'] . " - " . $course['course_name'] ?></h1>
             <h1>Lecture Notes</h1>
             <table>
                 <tr>
