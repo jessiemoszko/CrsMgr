@@ -5,9 +5,13 @@ require 'header.php';
 require 'sidebar.php';
 require 'course_selector.php';
 
+
+// Fetch assignment information specific to selected course
 $assignmentQuery = "SELECT * FROM assignments WHERE `course_id` = $course_id";
 $assignmentResult = mysqli_query($conn, $assignmentQuery);
 
+
+// For adding assignment
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Add new assignment file instructions
@@ -113,6 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <!-- Modal -->
+
         <div id="uploadModal" class="editModal">
             <div class="editModalContent">
                 <span class="close">&times;</span>
@@ -123,7 +128,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </form>
             </div>
         </div>
-
 
         <script>
             var modal = document.getElementById("uploadModal");
@@ -158,7 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             });
         </script>
+        
     </body>
 </main>
-
 </html>
