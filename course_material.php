@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main>
         <div class="container">
             <h1 class="page-title"><?php echo $course['course_code'] . " - " . $course['course_name'] ?></h1>
-            <h1>Lecture Notes</h1>
+            <h2>Lecture Notes</h2>
             <table>
                 <tr>
                     <th>Title</th>
@@ -172,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php } ?>
 
             <div>
-                <h1>Tutorial</h1>
+                <h2>Tutorial</h2>
                 <table>
                     <tr>
                         <th>Title</th>
