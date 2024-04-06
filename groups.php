@@ -1,8 +1,8 @@
 <?php
 require 'session.php';
 $pageTitle = "Student Groups";
-include 'header.php';
-include 'sidebar.php';
+require 'header.php';
+require 'sidebar.php';
 
 $sql = "SELECT userID, first_name, last_name, email FROM user WHERE groupID = 1";
 $result = $conn->query($sql);

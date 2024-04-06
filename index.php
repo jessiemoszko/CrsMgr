@@ -22,8 +22,8 @@ if (isAdmin()) {
 }
 
 $pageTitle='Welcome '.$name;
-include 'header.php';
-include 'sidebar.php';
+require 'header.php';
+require 'sidebar.php';
 
 ?>
 

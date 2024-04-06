@@ -4,7 +4,7 @@ $pageTitle='Admin Panel';
 require_once("session.php");
 require("header.php"); 
 
-function include_page($page)
+function require_page($page)
 {
     $pages = array(
         'roles' => 'modifyingRoles.php',
@@ -16,7 +16,7 @@ function include_page($page)
 
     if (array_key_exists($page, $pages)) {
         $file = $pages[$page];
-        include($file);
+        require($file);
     } else {
         http_response_code(404);
     }
@@ -51,7 +51,7 @@ function include_page($page)
 
                 <?php
                 if (isset($_GET['page'])) {
-                    include_page($_GET['page']);
+                    require_page($_GET['page']);
                 } 
                 ?>
 

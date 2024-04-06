@@ -1,8 +1,8 @@
 <?php
 require 'session.php';
 $pageTitle = 'Assignments';
-include 'header.php';
-include 'sidebar.php';
+require 'header.php';
+require 'sidebar.php';
 
 $assignmentQuery = 'SELECT `Title`, `Weight`, `Max Mark`, `Post Date`, `Due Date`, `assign_id`, `assign_instructions` FROM `assignments`';
 $assignmentResult = mysqli_query($conn, $assignmentQuery);
