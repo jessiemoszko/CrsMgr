@@ -164,6 +164,7 @@ header.header {
 }
 
 .show {
+    z-index: 10;
     display: block;
 }
 
