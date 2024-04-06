@@ -3,8 +3,9 @@ require 'session.php';
 $pageTitle = 'Assignments';
 require 'header.php';
 require 'sidebar.php';
+require 'course_selector.php';
 
-$assignmentQuery = 'SELECT `Title`, `Weight`, `Max Mark`, `Post Date`, `Due Date`, `assign_id`, `assign_instructions` FROM `assignments`';
+$assignmentQuery = "SELECT * FROM assignments WHERE `course_id` = $course_id";
 $assignmentResult = mysqli_query($conn, $assignmentQuery);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
         // Update record in sql database
-        $insertQuery = "INSERT INTO assignments (Title, `Weight`, `Max Mark`, `Post Date`, `Due Date`, `assign_instructions`) VALUES ('$title', '$weight', '$maxMark', '$postDate', '$dueDate', '$uploadedFile')";
+        $insertQuery = "INSERT INTO assignments (Title, `Weight`, `Max Mark`, `Post Date`, `Due Date`, `assign_instructions`, `course_id`) VALUES ('$title', '$weight', '$maxMark', '$postDate', '$dueDate', '$uploadedFile', '$course_id')";
 
         if (mysqli_query($conn, $insertQuery)) {
             // Refresh the page to display the updated table
@@ -59,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <body>
         <div class="container">
+        <h1 class="page-title"><?php echo $course['course_code'] . " - " . $course['course_name'] ?></h1>
             <table>
                 <tr>
                     <th>Assignment Name</th>
