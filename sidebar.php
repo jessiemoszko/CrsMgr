@@ -17,7 +17,7 @@ $result = $conn->query($sql);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="style.css">
     <title>Sidebar</title>
     <script>
         // JavaScript function to submit the form when a course is selected
