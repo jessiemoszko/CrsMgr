@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <body>
         <div class="container">
-        <h1 class="page-title"><?php echo $course['course_code'] . " - " . $course['course_name'] ?></h1>
+            <h1 class="page-title"><?php echo $course['course_code'] . " - " . $course['course_name'] ?></h1>
             <table>
                 <tr>
                     <th>Assignment Name</th>
@@ -89,33 +89,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 ?>
             </table>
+            <!-- Button to trigger modal -->
+            <div class="new_assign">
+            <button class="new-assign" id="openModalBtn">Add New Assignment</button>
+            </div>
 
-            <!-- Add Assignment -->
-            
-            <?php if (isProfessor()) { ?>
-                <h3>Add New Assignment</h3>
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
-                    <label for="title">Title:</label>
-                    <input type="text" id="title" name="title" required><br><br>
-                    <label for="weight">Weight:</label>
-                    <input type="number" id="weight" name="weight" required><br><br>
-                    <label for="max_mark">Max Mark:</label>
-                    <input type="number" id="max_mark" name="max_mark" required><br><br>
-                    <label for="post_date">Post Date:</label>
-                    <input type="date" id="post_date" name="post_date" required><br><br>
-                    <label for="due_date">Due Date:</label>
-                    <input type="date" id="due_date" name="due_date" required><br><br>
-                    <label for="file">Upload File:</label>
-                    <input type="file" id="file" name="file" required><br><br>
-                    <input type="submit" value="Add New Material" class="button">
-                </form>
-            <?php } ?>
+            <!-- Modal -->
+            <div id="uploadModal" class="editModal">
+                <div class="editModalContent">
+                    <span class="close">&times;</span>
+                    <h2>Add New Assignment</h2>
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" required><br><br>
+                        <label for="weight">Weight:</label>
+                        <input type="number" id="weight" name="weight" required><br><br>
+                        <label for="max_mark">Max Mark:</label>
+                        <input type="number" id="max_mark" name="max_mark" required><br><br>
+                        <label for="post_date">Post Date:</label>
+                        <input type="date" id="post_date" name="post_date" required><br><br>
+                        <label for="due_date">Due Date:</label>
+                        <input type="date" id="due_date" name="due_date" required><br><br>
+                        <label for="file">Upload File:</label>
+                        <input type="file" id="file" name="file" required><br><br>
+                        <input type="submit" value="Add New Material" class="button">
+                    </form>
+                </div>
+            </div>
 
         </div>
 
-        <!-- Modal -->
 
-        <div id="uploadModal" class="editModal">
+
+        <!-- <div id="uploadModal" class="editModal">
             <div class="editModalContent">
                 <span class="close">&times;</span>
                 <h2>Upload Assignment</h2>
@@ -124,42 +130,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="submit" value="Upload" name="submit">
                 </form>
             </div>
-        </div>
+        </div> -->
 
         <script>
             var modal = document.getElementById("uploadModal");
-            var btns = document.querySelectorAll(".upload-btn");
-            var span = document.getElementsByClassName("close")[0];
+            var openModalBtn = document.getElementById("openModalBtn");
+            var closeModalBtn = document.querySelector(".close");
 
-            // When the user clicks the button, open the modal
-            btns.forEach(function(btn) {
-                btn.addEventListener("click", function() {
-                    modal.style.display = "block";
-                });
-            });
+            // Function to open modal
+            openModalBtn.onclick = function() {
+                modal.style.display = "block";
+            };
 
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
+            // Function to close modal
+            closeModalBtn.onclick = function() {
                 modal.style.display = "none";
             };
 
-            // When the user clicks anywhere outside of the modal, close it
+            // Close modal when clicking outside of it
             window.onclick = function(event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
             };
-
-            // Handle file upload
-            document.querySelector('input[type="file"]').addEventListener('change', function() {
-                var file = this.files[0];
-                if (file) {
-                    var fileName = file.name;
-                    document.querySelector('.file-name').textContent = fileName;
-                }
-            });
         </script>
-        
+
     </body>
 </main>
+
 </html>
