@@ -19,7 +19,10 @@ CREATE TABLE IF NOT EXISTS user
   first_login BOOLEAN DEFAULT TRUE,
   roleID INT NOT NULL,
   FOREIGN KEY (roleID) REFERENCES role (roleID),
-  INDEX (roleID)
+  INDEX (roleID),
+  groupID INT,
+  FOREIGN KEY (groupID) REFERENCES groups (groupID),
+  INDEX (groupID)
 ) AUTO_INCREMENT = 1000;
 
 CREATE TABLE IF NOT EXISTS groups
@@ -28,10 +31,6 @@ CREATE TABLE IF NOT EXISTS groups
   group_name VARCHAR(50) NOT NULL UNIQUE
 );
 
-ALTER TABLE user
-ADD COLUMN groupID INT,
-ADD FOREIGN KEY (groupID) REFERENCES groups (groupID),
-ADD INDEX (groupID);
 
 CREATE TABLE `assignments` (
   `Title` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
@@ -42,9 +41,7 @@ CREATE TABLE `assignments` (
   `assign_id` int NOT NULL,
   `assign_instructions` text COLLATE utf8mb4_general_ci NOT NULL,
   `course_id` int NOT NULL
-)
-
-
+);
 
 INSERT INTO `assignments` (`Title`, `Weight`, `Max Mark`, `Post Date`, `Due Date`, `assign_id`, `assign_instructions`, `course_id`) VALUES
 ('Test assignment', '5', '100', '2024-04-10', '2024-04-23', 1, '', 2),
@@ -63,9 +60,7 @@ CREATE TABLE `courses` (
   `semester` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
   `room_no` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
   `instructor_name` varchar(150) COLLATE utf8mb4_general_ci NOT NULL
-)
-
-
+);
 
 INSERT INTO `courses` (`course_id`, `course_name`, `course_code`, `dept_name`, `semester`, `room_no`, `instructor_name`) VALUES
 (1, 'Computer Organization and Design', 'COMP5201', 'Computer Science', 'Fall 2023', 'ER201', 'David'),
@@ -79,7 +74,7 @@ CREATE TABLE `course_material` (
   `Title` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `TYPE` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `course_id` int NOT NULL
-) 
+) ;
 
 
 INSERT INTO `course_material` (`Post Date`, `Uploaded File`, `material_ID`, `Title`, `TYPE`, `course_id`) VALUES
@@ -88,9 +83,6 @@ INSERT INTO `course_material` (`Post Date`, `Uploaded File`, `material_ID`, `Tit
 ('2024-04-02', 'uploads/Lab 1.pdf', 12, 'Tutorial 1', 'tutorial', 3),
 ('2024-04-02', 'uploads/Lecture1.pdf', 14, 'Lecture 1', 'lecture', 1),
 ('2024-04-02', 'uploads/00. Course Outline.pdf', 15, 'Course Outline', 'lecture', 2);
-
-
-
 
 INSERT INTO role (role_name) VALUES
 ("Admin"),
