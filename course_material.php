@@ -158,18 +158,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <span class="close">&times;</span>
                     <h3>Add New Material</h3>
                     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
-                        <label for="title">Title:</label>
-                        <input type="text" id="title" name="title" required><br><br>
-                        <label for="post_date">Post Date:</label>
-                        <input type="date" id="post_date" name="post_date" required><br><br>
-                        <label for="type">Type:</label>
-                        <select id="type" name="type">
-                            <option value="lecture">Lecture</option>
-                            <option value="tutorial">Tutorial</option>
-                        </select><br><br>
-                        <label for="file">Upload File:</label>
-                        <input type="file" id="file" name="file" required><br><br>
-                        <input type="submit" value="Add New Material" class="button">
+                        <div class="form-group">
+                            <label for="title" class="form-label">Title:</label>
+                            <input type="text" id="title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="post_date" class="form-label">Post Date:</label>
+                            <input type="date" id="post_date" name="post_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="type" class="form-label">Type:</label>
+                            <select id="type" name="type">
+                                <option value="lecture">Lecture</option>
+                                <option value="tutorial">Tutorial</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="file" class="form-label">Upload File:</label>
+                            <input type="file" id="file" name="file" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Add New Material" class="button-white">
+                        </div>
                     </form>
                 </div>
             </div>
