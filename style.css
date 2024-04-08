@@ -84,6 +84,8 @@ button {
     border-radius: 10px
 }
 
+
+
 .new_assign {
     margin-top: 40px;
     display: flex;
@@ -92,6 +94,56 @@ button {
 
 }
 
+input[type=submit] {
+    font-family: 'Karla', sans-serif;
+    background-color:  #29333F; 
+    border: none;
+    color: white;
+    padding: 5px 10px 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px
+}
+
+input[type=submit].button-white {
+    font-family: 'Karla', sans-serif;
+    background-color:  white;
+    border: none;
+    color: #29333F;
+    padding: 5px 10px 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+   
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-label {
+    display: inline-block;
+    width: 100px; /* Adjust as needed */
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select,
+input[type="file"] {
+    width: calc(100% - 120px); /* Adjust as needed */
+}
 
 *, *::after, *::before {
     box-sizing: border-box;
@@ -277,11 +329,6 @@ select {
 .sidebar a:hover {
     background-color: #0A0D0F;
     border-radius: 10px;
-}
-
-.content {
-    margin-left: 250px; /* Adjust this value to match sidebar width */
-    padding: 20px;
 }
 
 .bottom {

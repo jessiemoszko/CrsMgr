@@ -100,17 +100,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <span class="close">&times;</span>
                     <h2>Add New Assignment</h2>
                     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
-                        <label for="title">Title:</label>
+                        <label for="title" class="form-label">Title:</label>
                         <input type="text" id="title" name="title" required><br><br>
-                        <label for="weight">Weight:</label>
+                        <label for="weight" class="form-label">Weight:</label>
                         <input type="number" id="weight" name="weight" required><br><br>
-                        <label for="max_mark">Max Mark:</label>
+                        <label for="max_mark" class="form-label">Max Mark:</label>
                         <input type="number" id="max_mark" name="max_mark" required><br><br>
-                        <label for="post_date">Post Date:</label>
+                        <label for="post_date" class="form-label">Post Date:</label>
                         <input type="date" id="post_date" name="post_date" required><br><br>
-                        <label for="due_date">Due Date:</label>
+                        <label for="due_date" class="form-label">Due Date:</label>
                         <input type="date" id="due_date" name="due_date" required><br><br>
-                        <label for="file">Upload File:</label>
+                        <label for="file" class="form-label">Upload File:</label>
                         <input type="file" id="file" name="file" required><br><br>
                         <input type="submit" value="Add New Material" class="button">
                     </form>
@@ -118,8 +118,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
         </div>
-
-
 
         <!-- <div id="uploadModal" class="editModal">
             <div class="editModalContent">

@@ -16,13 +16,17 @@ if (isset($_GET['course_id']) && is_numeric($_GET['course_id'])) {
     $result = $stmt->get_result();
 
 } else {
+    echo "<main>";
     echo "Invalid course ID provided.";
+    echo "</main>";
 }
 
 // Check if a course is selected
 if (!isset($_SESSION['selected_course_id']) || !is_numeric($_SESSION['selected_course_id'])) {
     // Display a message and stop further execution
-    echo "<p>Please select a course.</p>";
+    echo "<main>";
+    echo "<h1>Please select a course</h1>";
+    echo "</main>";
     exit; // Stop further execution
 }
 
