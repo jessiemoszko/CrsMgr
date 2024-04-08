@@ -80,6 +80,9 @@ $result = $conn->query($sql);
         </div>
         <div class="side-ul">
             <ul class="bottom">
+            <li>
+                    <a href="manage_account.php">Manage Account</a>
+                </li>
                 <li>
                     <a href="reset-email.php">Reset Email</a>
                 </li>

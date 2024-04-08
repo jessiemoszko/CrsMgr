@@ -42,6 +42,9 @@ $assignmentResult = mysqli_query($conn, $assignmentQuery);
                     <li>
                         <a href="assignment.php">Assignment</a>
                     </li>
+                    <li>
+                        <a href="manage_account.php">Manage Account</a>
+                    </li>
                 </ul>
             </div>
 
