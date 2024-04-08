@@ -119,8 +119,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </div>
 
-
-
         <!-- <div id="uploadModal" class="editModal">
             <div class="editModalContent">
                 <span class="close">&times;</span>
