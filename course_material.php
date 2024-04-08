@@ -153,23 +153,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
             </table>
             <!-- Add New Course Material -->
-            <?php if (isProfessor()) { ?>
-                <h3>Add New Material</h3>
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
-                    <label for="title">Title:</label>
-                    <input type="text" id="title" name="title" required><br><br>
-                    <label for="post_date">Post Date:</label>
-                    <input type="date" id="post_date" name="post_date" required><br><br>
-                    <label for="type">Type:</label>
-                    <select id="type" name="type">
-                        <option value="lecture">Lecture</option>
-                        <option value="tutorial">Tutorial</option>
-                    </select><br><br>
-                    <label for="file">Upload File:</label>
-                    <input type="file" id="file" name="file" required><br><br>
-                    <input type="submit" value="Add New Material" class="button">
-                </form>
-            <?php } ?>
+            <div id="uploadModal" class="editModal">
+                <div class="editModalContent">
+                    <span class="close">&times;</span>
+                    <h3>Add New Material</h3>
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" required><br><br>
+                        <label for="post_date">Post Date:</label>
+                        <input type="date" id="post_date" name="post_date" required><br><br>
+                        <label for="type">Type:</label>
+                        <select id="type" name="type">
+                            <option value="lecture">Lecture</option>
+                            <option value="tutorial">Tutorial</option>
+                        </select><br><br>
+                        <label for="file">Upload File:</label>
+                        <input type="file" id="file" name="file" required><br><br>
+                        <input type="submit" value="Add New Material" class="button">
+                    </form>
+                </div>
+            </div>
+
 
             <div>
                 <h2>Tutorial</h2>
@@ -206,6 +210,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ?>
                 </table>
             </div>
+            <!-- Button to trigger modal -->
+            <div class="new_assign">
+                <button class="new-assign" id="openModalBtn">Add New Material</button>
+            </div>
 
 
         </div>
@@ -229,7 +237,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
+    <script>
+        var modal = document.getElementById("uploadModal");
+        var openModalBtn = document.getElementById("openModalBtn");
+        var closeModalBtn = document.querySelector(".close");
 
+        // Function to open modal
+        openModalBtn.onclick = function() {
+            modal.style.display = "block";
+        };
+
+        // Function to close modal
+        closeModalBtn.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
 
 </body>
 
