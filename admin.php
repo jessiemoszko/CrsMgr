@@ -2,9 +2,9 @@
 $pageTitle = 'Admin Panel';
 
 require("helper_functions.php");
-require("header.php"); 
+ 
 require("session.php"); 
-
+require("header.php");
 ?>
 
 <main>
