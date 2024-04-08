@@ -134,7 +134,7 @@ input[type=submit].button-white {
 
 .form-label {
     display: inline-block;
-    width: 100px; /* Adjust as needed */
+    width: 100px; 
 }
 
 input[type="text"],
@@ -390,3 +390,46 @@ select {
     text-align: left;
 }
 
+.block {
+    margin-bottom: 25px;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.form-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 25px 10px 25px;
+}
+
+.form-body h1 {
+    text-align: left;
+}
+
+.form-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+.form-input label {
+    margin-right: 10px; /* Adjust the spacing between label and input */
+}
+
+.form-input span {
+    display: inline-block;
+}
+
+.form-body input[type="text"],
+.form-body input[type="email"],
+.form-body input[type="password"],
+.form-body input[type="number"],
+.form-body input[type="date"],
+.form-body input[type="file"] {
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+}
