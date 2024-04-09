@@ -1,10 +1,10 @@
 <?php
 require 'Database/DB.php';
 $pageTitle = "Student Groups";
-# include 'header.php';
-#include 'sidebar.php';
+include 'header.php';
+include 'sidebar.php';
 
-$query = "SELECT * FROM user";
+$query = "SELECT * FROM user WHERE groupID = 1 OR groupID = 2 ";
 $result = mysqli_query($conn,$query);
 
 ?>
@@ -17,12 +17,16 @@ $result = mysqli_query($conn,$query);
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
   <title>Student Groups</title>
 </head>
+
+
 <body>
-  <div class="container">
+
+// GROUPS
+  <div class="container" style="float: right;">
     <div class = "row mt-5">
     <div class="col">
       <div class="card mt-5">
-        <div class="card-header"><h2>Group 1</h2></div>
+        <div class="card-header"><a class="btn btn-primary" href="create.php">Add New Student</a></div>
         <div class="card-body">
       <table class="table table-bordered text-center">
           <tr class="bg-dark text-white">
@@ -30,6 +34,7 @@ $result = mysqli_query($conn,$query);
             <td>First Name </td>
             <td>Last Name</td>
             <td>Email</td>
+            <td>Group ID</td>
             <td>Edit<t/td>
             <td>Delete</td>
           </tr>
@@ -42,8 +47,9 @@ while($row = mysqli_fetch_assoc($result)){
 <td><?php echo $row['first_name']?></td>
 <td><?php echo $row['last_name']?></td>
 <td><?php echo $row['email']?></td>
-<td><a href="#" class="btn btn-primary">Edit</a></td>
-<td><a href="#" class="btn btn-danger">Delete</a></td>
+<td><?php echo $row['groupID']?></td>
+<td><a href="#" class="btn btn-primary" href="functions/edit.php">Edit</a></td>
+<td><a href="#" class="btn btn-danger" href="functions/delete.php">Delete</a></td>
 
           </tr>
           <?php
@@ -57,5 +63,6 @@ while($row = mysqli_fetch_assoc($result)){
     </div>
 
 </div>
+
 </body>
 </html>
