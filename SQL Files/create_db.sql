@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS user
   FOREIGN KEY (roleID) REFERENCES role (roleID),
   INDEX (roleID),
   groupID INT,
-FOREIGN KEY (groupID) REFERENCES groups (groupID),
-INDEX (groupID)
+  FOREIGN KEY (groupID) REFERENCES groups (groupID),
+  INDEX (groupID)
 ) AUTO_INCREMENT = 1000;
 
 CREATE TABLE IF NOT EXISTS groups
@@ -43,8 +43,6 @@ CREATE TABLE `assignments` (
   `course_id` int NOT NULL
 );
 
-
-
 INSERT INTO `assignments` (`Title`, `Weight`, `Max Mark`, `Post Date`, `Due Date`, `assign_id`, `assign_instructions`, `course_id`) VALUES
 ('Test assignment', '5', '100', '2024-04-10', '2024-04-23', 1, '', 2),
 ('a3', '2', '3', '2024-04-01', '2024-04-20', 2, 'uploads/uploaded_assignments/db22j-a3.pdf', 3),
@@ -63,8 +61,6 @@ CREATE TABLE `courses` (
   `room_no` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
   `instructor_name` varchar(150) COLLATE utf8mb4_general_ci NOT NULL
 );
-
-
 
 INSERT INTO `courses` (`course_id`, `course_name`, `course_code`, `dept_name`, `semester`, `room_no`, `instructor_name`) VALUES
 (1, 'Computer Organization and Design', 'COMP5201', 'Computer Science', 'Fall 2023', 'ER201', 'David'),
@@ -88,9 +84,6 @@ INSERT INTO `course_material` (`Post Date`, `Uploaded File`, `material_ID`, `Tit
 ('2024-04-02', 'uploads/Lecture1.pdf', 14, 'Lecture 1', 'lecture', 1),
 ('2024-04-02', 'uploads/00. Course Outline.pdf', 15, 'Course Outline', 'lecture', 2);
 
-
-
-
 INSERT INTO role (role_name) VALUES
 ("Admin"),
 ("Professor"),
@@ -110,7 +103,6 @@ INSERT INTO user (first_name, last_name, dob, email, username, password, first_l
 ('Emma', 'Taylor', '1991-08-08', 'emma@example.com', 'emmataylor', '12345',  1, 4),
 ('Christopher', 'Anderson', '1994-06-25', 'chris@example.com', 'chrisanderson', '12345', 1, 4),
 ('Olivia', 'Hernandez', '1989-03-12', 'olivia@example.com', 'oliviahernandez', '12345', 1, 4);
-('Sandy', 'Bobette', '1990-03-12', 'sandy@example.com', 'sandybobette', '12345', 1, 4);
 
 INSERT IGNORE INTO groups (groupID, group_name) VALUES
 (1, "group_1"),
@@ -124,13 +116,9 @@ WHERE roleID IN (1, 2, 3);
 
 UPDATE user
 SET groupID = 1
-WHERE username IN ("danielmartinez", "sophiawilson", "user1" );
+WHERE username IN ("danielmartinez", "sophiawilson", "user1");
 
 UPDATE user
 SET groupID = 2
-WHERE username IN ("oliviahernandez", "chrisanderson", "emmataylor", "sandybobette");
-
-
-
-
+WHERE username IN ("oliviahernandez", "chrisanderson", "emmataylor");
 

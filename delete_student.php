@@ -1,6 +1,8 @@
 <?php
+require 'Database/DB.php';
 // Assuming $conn is your database connection
-$userID = $_POST['userID'];
+
+$userID = $_GET['userID'];
 
 $sql = "DELETE FROM user WHERE userID = $userID";
 
@@ -11,5 +13,5 @@ if ($conn->query($sql) === TRUE) {
 }
 
 // Redirect back to your table page
-header('Location: your_table_page.php');
+header('Location: groups.php');
 ?>

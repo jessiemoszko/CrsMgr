@@ -1,39 +1,52 @@
 <?php
-    require 'Database/DB.php'; 
-    $pageTitle='Assignments';
-    include 'header.php';
-    include 'sidebar.php';
+require 'session.php';
+$pageTitle = 'Assignments';
+require 'header.php';
+require 'sidebar.php';
+require 'course_selector.php';
 
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Specify the directory where you want to save the uploaded file
-        $upload_directory = "uploads/";
+// Fetch assignment information specific to selected course
+$assignmentQuery = "SELECT * FROM assignments WHERE `course_id` = $course_id";
+$assignmentResult = mysqli_query($conn, $assignmentQuery);
 
-        // Check if file was uploaded without errors 
-        if (isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
-            $file_name     = $_FILES["file"]["name"];
-            $file_tmp_name = $_FILES["file"]["tmp_name"];
-            $file_type     = $_FILES["file"]["type"];
-            $file_size     = $_FILES["file"]["size"];
-            $file_error    = $_FILES["file"]["error"];
 
-            // Construct the full path where you want to save the file
-            $destination = $upload_directory . $file_name;
+// For adding assignment
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            // Move the uploaded file to the desired directory
-            if (move_uploaded_file($file_tmp_name, $destination)) {
-                echo "File uploaded successfully.<br>";
-                echo "Uploaded File Name: " . $file_name . "<br>";
-                echo "Type of File: " . $file_type . "<br>";
-                echo "Size of File: " . $file_size . " bytes<br>";
+    // Add new assignment file instructions
+    if (isset($_POST["title"]) && isset($_POST['post_date'])) {
+        // Add new record
+        $title = $_POST['title'];
+        $weight = $_POST['weight'];
+        $maxMark = $_POST['max_mark'];
+        $postDate = $_POST['post_date'];
+        $dueDate = $_POST['due_date'];
+
+        // Handle file upload
+        $uploadedFile = '';
+        if ($_FILES['file']['name']) {
+            $targetDir = "uploads/uploaded_assignments/";
+            $targetFile = $targetDir . basename($_FILES["file"]["name"]);
+
+            if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFile)) {
+                $uploadedFile = $targetFile;
             } else {
-                echo "Error uploading file.<br>";
+                echo "Sorry, there was an error uploading your file.";
             }
+        }
+        // Update record in sql database
+        $insertQuery = "INSERT INTO assignments (Title, `Weight`, `Max Mark`, `Post Date`, `Due Date`, `assign_instructions`, `course_id`) VALUES ('$title', '$weight', '$maxMark', '$postDate', '$dueDate', '$uploadedFile', '$course_id')";
+
+        if (mysqli_query($conn, $insertQuery)) {
+            // Refresh the page to display the updated table
+            header("Refresh:0");
         } else {
-            echo "Error: " . $_FILES["file"]["error"] . "<br>";
+            echo "Error: " . $insertQuery . "<br>" . mysqli_error($conn);
         }
     }
-    ?>
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,41 +54,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assignment.css">
+    <link rel="stylesheet" href="style.css">
     <title>Assignment Upload</title>
 </head>
 <main>
-<body >
-    <div class="container">
-        <table>
-            <tr>
-                <th>Assignment Name</th>
-                <th>File</th>
-                <th>Posted Date</th>
-                <th>Due Date</th>
-                <th>Upload</th>
-            </tr>
-            <tr>
-                <td>Assign1</td>
-                <td>File</td>
-                <td>Feb 2</td>
-                <td>April 7</td>
-                <td>
-                    <form method="post" enctype="multipart/form-data" id="f1">
-                        <input type="file" name="file" />
-                        <input type="submit" value="Upload File" name="submit">
-                    </form>
-                </td>
 
-            </tr>
-        </table>
-    </div>
-</body>
+    <body>
+        <div class="container">
+            <h1 class="page-title"><?php echo $course['course_code'] . " - " . $course['course_name'] ?></h1>
+            <table>
+                <tr>
+                    <th>Assignment Name</th>
+                    <th>File</th>
+                    <th>Weight</th>
+                    <th>Max Mark</th>
+                    <th>Posted Date</th>
+                    <th>Due Date</th>
+                    <th>Upload</th>
+                </tr>
+
+                <!-- Table of Assignments -->
+
+                <?php
+                while ($row = mysqli_fetch_assoc($assignmentResult)) {
+                    echo "<tr>";
+                    echo "<td>" . $row['Title'] . '</td>';
+                    $fileName = basename($row['assign_instructions']);
+                    echo "<td><a href='" . $row['assign_instructions'] . "' target='_blank'>" . $fileName . "</a></td>";
+                    echo '<td>' . $row['Weight'] . '</td>';
+                    echo '<td>' . $row['Max Mark'] . '</td>';
+                    echo '<td>' . $row['Post Date'] . '</td>';
+                    echo '<td>' . $row['Due Date'] . '</td>';
+                    echo '<td><button class="upload-btn" data-title="' . $row['Title'] . '">Upload</button></td>';
+                    echo "</tr>";
+                }
+                ?>
+            </table>
+            <!-- Button to trigger modal -->
+            <div class="new_assign">
+                <button class="new-assign" id="openModalBtn">Add New Assignment</button>
+            </div>
+
+            <!-- Modal -->
+            <div id="addModal" class="editModal">
+                <div class="editModalContent">
+                    <span class="close">&times;</span>
+                    <h2>Add New Assignment</h2>
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
+                        <label for="title" class="form-label">Title:</label>
+                        <input type="text" id="title" name="title" required><br><br>
+                        <label for="weight" class="form-label">Weight:</label>
+                        <input type="number" id="weight" name="weight" required><br><br>
+                        <label for="max_mark" class="form-label">Max Mark:</label>
+                        <input type="number" id="max_mark" name="max_mark" required><br><br>
+                        <label for="post_date" class="form-label">Post Date:</label>
+                        <input type="date" id="post_date" name="post_date" required><br><br>
+                        <label for="due_date" class="form-label">Due Date:</label>
+                        <input type="date" id="due_date" name="due_date" required><br><br>
+                        <label for="file" class="form-label">Upload File:</label>
+                        <input type="file" id="file" name="file" required><br><br>
+                        <input type="submit" value="Add New Material" class="button">
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal for uploading assignment -->
+            <div id="uploadModal" class="editModal">
+                <div class="editModalContent">
+                    <span class="close">&times;</span>
+                    <h2>Upload Assignment</h2>
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" id="uploadFile">
+                        <input type="submit" value="Upload" name="submit">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+            var addModal = document.getElementById("addModal");
+            var uploadModal = document.getElementById("uploadModal");
+            var openModalBtn = document.getElementById("openModalBtn");
+            var uploadBtns = document.getElementsByClassName("upload-btn");
+            var closeModalBtns = document.querySelectorAll(".editModalContent .close");
+
+            // Function to open modal for adding assignment
+            openModalBtn.onclick = function() {
+                addModal.style.display = "block";
+            };
+
+            // Function to open modal for uploading assignment
+            Array.from(uploadBtns).forEach(function(uploadBtn) {
+                uploadBtn.onclick = function() {
+                    uploadModal.style.display = "block";
+                };
+            });
+
+            // Function to close modals
+            Array.from(closeModalBtns).forEach(function(closeModalBtn) {
+                closeModalBtn.onclick = function() {
+                    addModal.style.display = "none";
+                    uploadModal.style.display = "none";
+                };
+            });
+
+            // Close modals when clicking outside of them
+            window.onclick = function(event) {
+                if (event.target == addModal || event.target == uploadModal) {
+                    addModal.style.display = "none";
+                    uploadModal.style.display = "none";
+                }
+            };
+        </script>
+    </body>
 </main>
 
 </html>
-
-

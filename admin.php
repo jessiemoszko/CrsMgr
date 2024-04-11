@@ -1,48 +1,33 @@
-<?php
-$pageTitle='Admin Panel';
+<?php 
+$pageTitle = 'Admin Panel';
 
-require_once("session.php");
-require("header.php"); 
-
-function include_page($page)
-{
-    $pages = array(
-        'roles' => 'modifyingRoles.php',
-        'users' => 'modifyingUsers.php',
-        'assigningProfessors' => 'assigningProfessors.php',
-        'assigningTA' => 'assigningTA.php',
-        'assigningStudents' => 'assigningStudents.php'
-    );
-
-    if (array_key_exists($page, $pages)) {
-        $file = $pages[$page];
-        include($file);
-    } else {
-        http_response_code(404);
-    }
-}
-
+require("helper_functions.php");
+ 
+require("session.php"); 
+require("header.php");
 ?>
 
 <main>
-
     <div class="main-body">
-        <section>
-            <div class="col-left">
-                <div class="main-menu">
-                    <h2>Manage</h2>
-                    <ul class="menu-list">
-                        <li><a href="?page=roles">Roles</a></li>
-                        <li><a href="?page=users">Users</a></li>
-                    </ul>
+        <section class="col-left">
+            <div class="main-menu">
+                <h2>Manage</h2>
+                <ul class="menu-list">
+                    <li><a href="?page=roles">Modifying Roles</a></li>
+                    <li><a href="?page=users">Modifiying users</a></li>
+                </ul>
 
-                    <h2>Assign</h2>
-                    <ul class="menu-list">
-                        <li><a href="?page=assigningProfessors">Professors</a></li>
-                        <li><a href="?page=assigningTA">Teaching Assistants</a></li>
-                        <li><a href="?page=assigningStudents">Students</a></li>
-                    </ul>
-                </div>
+                <h2>Assign</h2>
+                <ul class="menu-list">
+                    <li><a href="?page=assign-professors">Professors</a></li>
+                    <li><a href="?page=assign-tas">Teaching Assistants</a></li>
+                    <li><a href="?page=assign-students">Students</a></li>
+                </ul>
+
+                <h2>Home</h2>
+                <ul class="menu-list">
+                    <li><a href="admin.php">Home</a></li>
+                </ul>
             </div>
         </section>
 
@@ -50,13 +35,14 @@ function include_page($page)
             <div class="col-right">
 
                 <?php
-                if (isset($_GET['page'])) {
-                    include_page($_GET['page']);
-                } 
+                    if (isset($_GET['page'])) {
+                        $page = $_GET['page'];
+                        if (file_exists($page . ".php")) {
+                            include($page . ".php");
+                        }
+                    }
                 ?>
-
             </div>
         </section>
     </div>
-
 </main>

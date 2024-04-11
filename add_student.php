@@ -1,6 +1,7 @@
 <?php
-$firstName = $_POST['firstName'];
-$lastName = $_POST['lastName'];
+require 'Database/DB.php';
+$firstName = $_POST['first_name'];
+$lastName = $_POST['last_name'];
 $email = $_POST['email'];
 // Assume $groupID is the ID of the group to which you're adding the student
 
@@ -12,5 +13,5 @@ if ($conn->query($sql) === TRUE) {
     echo "Error: " . $conn->error;
 }
 
-header('Location: your_table_page.php');
+header('Location: groups.php');
 ?>
