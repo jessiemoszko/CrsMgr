@@ -1,5 +1,5 @@
 <?php
-require 'session.php';
+require 'Database/DB.php';
 $pageTitle = "Course Material";
 require 'header.php';
 require 'sidebar.php';

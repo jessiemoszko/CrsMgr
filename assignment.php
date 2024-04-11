@@ -1,5 +1,5 @@
 <?php
-    require 'session.php'; 
+    require 'Database/DB.php'; 
     $pageTitle='Assignments';
     include 'header.php';
     include 'sidebar.php';
