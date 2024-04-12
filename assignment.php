@@ -85,17 +85,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo '<td>' . $row['Max Mark'] . '</td>';
                     echo '<td>' . $row['Post Date'] . '</td>';
                     echo '<td>' . $row['Due Date'] . '</td>';
+                    echo '<td><button class="upload-btn" data-title="' . $row['Title'] . '">Upload</button></td>';
                     echo "</tr>";
                 }
                 ?>
             </table>
             <!-- Button to trigger modal -->
             <div class="new_assign">
-            <button class="new-assign" id="openModalBtn">Add New Assignment</button>
+                <button class="new-assign" id="openModalBtn">Add New Assignment</button>
             </div>
 
             <!-- Modal -->
-            <div id="uploadModal" class="editModal">
+            <div id="addModal" class="editModal">
                 <div class="editModalContent">
                     <span class="close">&times;</span>
                     <h2>Add New Assignment</h2>
@@ -117,42 +118,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
 
+            <!-- Modal for uploading assignment -->
+            <div id="uploadModal" class="editModal">
+                <div class="editModalContent">
+                    <span class="close">&times;</span>
+                    <h2>Upload Assignment</h2>
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" id="uploadFile">
+                        <input type="submit" value="Upload" name="submit">
+                    </form>
+                </div>
+            </div>
+
         </div>
 
-        <!-- <div id="uploadModal" class="editModal">
-            <div class="editModalContent">
-                <span class="close">&times;</span>
-                <h2>Upload Assignment</h2>
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" id="file">
-                    <input type="submit" value="Upload" name="submit">
-                </form>
-            </div>
-        </div> -->
-
         <script>
-            var modal = document.getElementById("uploadModal");
+            var addModal = document.getElementById("addModal");
+            var uploadModal = document.getElementById("uploadModal");
             var openModalBtn = document.getElementById("openModalBtn");
-            var closeModalBtn = document.querySelector(".close");
+            var uploadBtns = document.getElementsByClassName("upload-btn");
+            var closeModalBtns = document.querySelectorAll(".editModalContent .close");
 
-            // Function to open modal
+            // Function to open modal for adding assignment
             openModalBtn.onclick = function() {
-                modal.style.display = "block";
+                addModal.style.display = "block";
             };
 
-            // Function to close modal
-            closeModalBtn.onclick = function() {
-                modal.style.display = "none";
-            };
+            // Function to open modal for uploading assignment
+            Array.from(uploadBtns).forEach(function(uploadBtn) {
+                uploadBtn.onclick = function() {
+                    uploadModal.style.display = "block";
+                };
+            });
 
-            // Close modal when clicking outside of it
+            // Function to close modals
+            Array.from(closeModalBtns).forEach(function(closeModalBtn) {
+                closeModalBtn.onclick = function() {
+                    addModal.style.display = "none";
+                    uploadModal.style.display = "none";
+                };
+            });
+
+            // Close modals when clicking outside of them
             window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
+                if (event.target == addModal || event.target == uploadModal) {
+                    addModal.style.display = "none";
+                    uploadModal.style.display = "none";
                 }
             };
         </script>
-
     </body>
 </main>
 

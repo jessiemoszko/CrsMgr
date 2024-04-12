@@ -1,5 +1,5 @@
 <?php
-require 'session.php';
+require 'Database/DB.php';
 
 if (isStudent()) {
     header("Location: student.php");
