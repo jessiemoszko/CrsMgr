@@ -84,18 +84,6 @@ $result = $conn->query($sql);
                     <a href="manage_account.php">Manage Account</a>
                 </li>
                 <li>
-                    <a href="reset-email.php">Reset Email</a>
-                </li>
-                <li>
-                    <a href="reset-password.php">Reset Password</a>
-                </li>
-                <li>
-                    <a href="reset-username.php">Reset Username</a>
-                </li>
-                <li>
-                    <a href="reset-name.php">Reset First Name</a>
-                </li>
-                <li>
                     <a href="logout.php">Logout</a>
                 </li>
             </ul>
