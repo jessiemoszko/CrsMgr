@@ -340,14 +340,15 @@ select {
 
 /*  HOMEPAGE */
 
-
 .tiles {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     list-style-type: none;
     width: 100%;
+    
 }   
+
 
 .tiles li {
     flex: 0 0 20%; /* Each tile occupies 20% of the container width */

@@ -154,7 +154,6 @@ if (isset($_POST['reset_first_name'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
     <title>Reset Email</title>
 </head>
 
@@ -166,13 +165,25 @@ if (isset($_POST['reset_first_name'])) {
     <br>
     <main>
         <div class="container">
-
-            <div class="block">
-
+            <div class="tiles">
+                <ul class="tiles">
+                    <li id="reset-email-button">
+                        <a href="#">Reset Email</a>
+                    </li>
+                    <li id="reset-username-button">
+                        <a href="#">Reset Username</a>
+                    </li>
+                    <li id="reset-password-button">
+                        <a href="#">Reset Password</a>
+                    </li>
+                    <li id="reset-name-button">
+                        <a href="#">Reset Name</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="block" id="reset-email">
                 <form class="form-body" action="" method="POST">
                     <h1>Reset Email</h1>
-                
-
                     <?php if (!isset($_POST['reset_email']) || !empty($errors)) { ?>
                         <div class="form-input">
                             <label>Current Email</label>
@@ -204,13 +215,13 @@ if (isset($_POST['reset_first_name'])) {
 
                 </form>
 
-              
+
             </div>
-            <div class="block">
+            <div class="block" id="reset-username">
 
                 <form class="form-body" action="" method="POST">
                     <h1>Reset Username</h1>
-                  
+
 
                     <?php if (!isset($_POST['reset_username']) || !empty($errors)) { ?>
                         <div class="form-input">
@@ -243,13 +254,10 @@ if (isset($_POST['reset_first_name'])) {
 
                 </form>
             </div>
-            <div class="block">
 
-
+            <div class="block" id="reset-password">
                 <form class="form-body" action="" method="POST">
                     <h1>Reset Password</h1>
-                  
-
                     <?php if (!isset($_POST['reset_password']) || !empty($errors)) { ?>
                         <div class="form-input">
                             <label>Old Password</label>
@@ -289,11 +297,9 @@ if (isset($_POST['reset_first_name'])) {
 
                 </form>
             </div>
-            <div class="block">
-
+            <div class="block" id="reset-name">
                 <form class="form-body" action="" method="POST">
                     <h1>Reset Name</h1>
-               
                     <?php if (!isset($_POST['reset_first_name']) || !empty($errors)) { ?>
                         <div class="form-input">
                             <label>Current First Name</label>
@@ -325,8 +331,62 @@ if (isset($_POST['reset_first_name'])) {
 
                 </form>
             </div>
-
-
         </div>
 
     </main>
+
+    <script>
+        // Hide all blocks initially
+        document.getElementById("reset-email").style.display = "none";
+        document.getElementById("reset-username").style.display = "none";
+        document.getElementById("reset-password").style.display = "none";
+        document.getElementById("reset-name").style.display = "none";
+
+        // Function to hide all blocks
+        function hideAllBlocks() {
+            document.getElementById("reset-email").style.display = "none";
+            document.getElementById("reset-username").style.display = "none";
+            document.getElementById("reset-password").style.display = "none";
+            document.getElementById("reset-name").style.display = "none";
+        }
+
+        // Function to show the corresponding block based on the clicked tile
+        function showBlock(event) {
+            hideAllBlocks();  // Hide all blocks
+            const clickedTileId = event.target.parentNode.id;  // Get the ID of the clicked tile
+            
+            // Map the clicked tile ID to the corresponding block ID
+            let blockId;
+            switch (clickedTileId) {
+                case "reset-email-button":
+                    blockId = "reset-email";
+                    break;
+                case "reset-username-button":
+                    blockId = "reset-username";
+                    break;
+                case "reset-password-button":
+                    blockId = "reset-password";
+                    break;
+                case "reset-name-button":
+                    blockId = "reset-name";
+                    break;
+                default:
+                    return;  // Exit if no match
+            }
+            
+            // Show the corresponding block
+            document.getElementById(blockId).style.display = "block";
+        }
+
+        // Attach click event listeners to each tile link
+        document.getElementById("reset-email-button").addEventListener("click", showBlock);
+        document.getElementById("reset-username-button").addEventListener("click", showBlock);
+        document.getElementById("reset-password-button").addEventListener("click", showBlock);
+        document.getElementById("reset-name-button").addEventListener("click", showBlock);
+    </script>
+
+
+
+</body>
+
+</html>
