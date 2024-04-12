@@ -3,32 +3,32 @@ use CRS;
 
 CREATE TABLE IF NOT EXISTS role
 (
-  roleID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  role_name VARCHAR(50) NOT NULL UNIQUE
+  `roleID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `role_name` VARCHAR(50) NOT NULL UNIQUE
 ) AUTO_INCREMENT = 1;
 
-CREATE TABLE IF NOT EXISTS groups
+CREATE TABLE IF NOT EXISTS `groups`
 (
-  groupID INT PRIMARY KEY,
-  group_name VARCHAR(50) NOT NULL UNIQUE
+  `groupID` INT PRIMARY KEY,
+  `group_name` VARCHAR(50) NOT NULL UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS user
+CREATE TABLE IF NOT EXISTS `user`
 (
-  userID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  first_name VARCHAR(50) NOT NULL,
-  last_name VARCHAR(50) NOT NULL,
-  dob DATE NOT NULL,
-  email VARCHAR(150) NOT NULL UNIQUE,
-  username VARCHAR(50) NOT NULL UNIQUE,
+  `userID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `first_name` VARCHAR(50) NOT NULL,
+  `last_name` VARCHAR(50) NOT NULL,
+  `dob` DATE NOT NULL,
+  `email` VARCHAR(150) NOT NULL UNIQUE,
+  `username` VARCHAR(50) NOT NULL UNIQUE,
   password VARCHAR(50) NOT NULL,
-  first_login BOOLEAN DEFAULT TRUE,
-  roleID INT NOT NULL,
-  FOREIGN KEY (roleID) REFERENCES role (roleID),
-  INDEX (roleID),
-  groupID INT,
-  FOREIGN KEY (groupID) REFERENCES groups (groupID),
-  INDEX (groupID)
+  `first_login` BOOLEAN DEFAULT TRUE,
+  `roleID` INT NOT NULL,
+  FOREIGN KEY (`roleID`) REFERENCES role (`roleID`),
+  INDEX (`roleID`),
+  `groupID` INT,
+  FOREIGN KEY (`groupID`) REFERENCES `groups` (`groupID`),
+  INDEX (`groupID`)
 ) AUTO_INCREMENT = 1000;
 
 
@@ -86,13 +86,13 @@ INSERT INTO `course_material` (`Post Date`, `Uploaded File`, `material_ID`, `Tit
 ('2024-04-02', 'uploads/Lecture1.pdf', 14, 'Lecture 1', 'lecture', 1),
 ('2024-04-02', 'uploads/00. Course Outline.pdf', 15, 'Course Outline', 'lecture', 2);
 
-INSERT INTO role (role_name) VALUES
+INSERT INTO role (`role_name`) VALUES
 ("Admin"),
 ("Professor"),
 ("TA"),
 ("Student");
 
-INSERT INTO user (first_name, last_name, dob, email, username, password, first_login, roleID) VALUES 
+INSERT INTO `user` (`first_name`, `last_name`, `dob`, `email`, `username`, password, `first_login`, `roleID`) VALUES 
 ('John', 'Doe', '1990-05-15', 'john@example.com', 'johndoe', '12345', 1, 1),
 ('Alice', 'Smith', '1988-09-23', 'alice@example.com', 'alicesmith', '12345', 1, 2),
 ('user2FN', 'user2LN', '1999-11-01', 'user2@example.com', 'user2', '12345', 1, 2),
@@ -106,21 +106,21 @@ INSERT INTO user (first_name, last_name, dob, email, username, password, first_l
 ('Christopher', 'Anderson', '1994-06-25', 'chris@example.com', 'chrisanderson', '12345', 1, 4),
 ('Olivia', 'Hernandez', '1989-03-12', 'olivia@example.com', 'oliviahernandez', '12345', 1, 4);
 
-INSERT IGNORE INTO groups (groupID, group_name) VALUES
+INSERT IGNORE INTO `groups` (`groupID`, `group_name`) VALUES
 (1, "group_1"),
 (2, "group_2"),
 (3, "group_3"),
 (4, "group_4");
 
-UPDATE user
-SET groupID = NULL
-WHERE roleID IN (1, 2, 3);
+UPDATE `user`
+SET `groupID` = NULL
+WHERE `roleID` IN (1, 2, 3);
 
-UPDATE user
-SET groupID = 1
-WHERE username IN ("danielmartinez", "sophiawilson", "user1");
+UPDATE `user`
+SET `groupID` = 1
+WHERE `username` IN ("danielmartinez", "sophiawilson", "user1");
 
-UPDATE user
-SET groupID = 2
-WHERE username IN ("oliviahernandez", "chrisanderson", "emmataylor");
+UPDATE `user`
+SET `groupID` = 2
+WHERE `username` IN ("oliviahernandez", "chrisanderson", "emmataylor");
 
