@@ -1,4 +1,5 @@
 <?php
+require 'session.php';
 require 'Database/DB.php';
 $pageTitle = "Student Groups";
 include 'header.php';
