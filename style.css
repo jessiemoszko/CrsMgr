@@ -280,11 +280,18 @@ select {
     margin-top: 10px;
 }
 
+h2.side {
+    font-size: 30px;
+    font-weight: 500;
+}
+
 .side h2 {
     color: white;
+ 
     margin-left: 10px;
     margin-right: 10px;
 }
+
 
 .side-ul ul {
     padding-left: 0%;
@@ -324,13 +331,20 @@ select {
 
 .sidebar li {
     list-style-type: none;
+    font-size: 20px;
+}
+
+.material-icons {
+    padding-right: 16px;
 }
 
 .sidebar a {
     padding: 10px;
-    display: block;
+    display: flex;
     color: white;
     text-decoration: none;
+    align-items: center;
+
 }
 
 .sidebar a:hover {
