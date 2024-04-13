@@ -76,7 +76,7 @@ $result = $conn->query($sql);
                     <a href="groups.php"><span class="material-icons">group</span>Group</a>
                 </li>
                 <li>
-                    <a href="assignment.php"><span class="material-icons">assignment</span>Assignment</a>
+                    <a href="assignment.php"><span class="material-icons">assignment</span>Assignments</a>
                 </li>
                 <li>
                     <a href="grades.php"><span class="material-icons">grade</span>Grades</a>
