@@ -76,6 +76,12 @@ $result = $conn->query($sql);
                 <li>
                     <a href="assignment.php">Assignment</a>
                 </li>
+                <li>
+                    <a href="grades.php">Grades</a>
+                </li>
+                <li>
+                    <a href="FAQ.php">FAQ</a>
+                </li>
             </ul>
         </div>
         <div class="side-ul">
