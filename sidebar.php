@@ -15,6 +15,8 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <title>Sidebar</title>
     <script>
         // JavaScript function to submit the form when a course is selected
@@ -62,25 +64,25 @@ $result = $conn->query($sql);
         <div class="side-ul">
             <ul>
                 <li>
-                    <a href="index.php">Home</a>
+                    <a href="index.php"><span class="material-icons">home</span>Home</a>
                 </li>
                 <li>
-                    <a href="#">Announcement</a>
+                    <a href="announcements.php"><span class="material-icons">campaign</span>Announcements</a>
                 </li>
                 <li>
-                    <a href="course_material.php">Course Material</a>
+                    <a href="course_material.php"><span class="material-icons">description</span>Course Material</a>
                 </li>
                 <li>
-                    <a href="groups.php">Group</a>
+                    <a href="groups.php"><span class="material-icons">group</span>Group</a>
                 </li>
                 <li>
-                    <a href="assignment.php">Assignment</a>
+                    <a href="assignment.php"><span class="material-icons">assignment</span>Assignment</a>
                 </li>
                 <li>
-                    <a href="grades.php">Grades</a>
+                    <a href="grades.php"><span class="material-icons">grade</span>Grades</a>
                 </li>
                 <li>
-                    <a href="FAQ.php">FAQ</a>
+                    <a href="FAQ.php"><span class="material-icons">quiz</span>FAQ</a>
                 </li>
             </ul>
         </div>
