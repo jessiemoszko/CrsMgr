@@ -46,6 +46,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+
+    $targetDir = "uploads/submissions/";
+    $targetFile = $targetDir . basename($_FILES['file']['name']);
+
+    if (move_uploaded_file($_FILES['file']['tmp_name'], $targetFile)) {
+        echo "File uploaded successfully.";
+
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -125,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h2>Upload Assignment</h2>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                         <input type="file" name="file" id="uploadFile">
-                        <input type="submit" value="Upload" name="submit">
+                        <input type="submit" value="Upload" name="submit" class="modal-button">
                     </form>
                 </div>
             </div>
