@@ -89,10 +89,10 @@ $result = $conn->query($sql);
         <div class="side-ul">
             <ul class="bottom">
             <li>
-                    <a href="manage_account.php">Manage Account</a>
+                    <a href="manage_account.php"><span class="material-icons">manage_accounts</span>Manage Account</a>
                 </li>
                 <li>
-                    <a href="logout.php">Logout</a>
+                    <a href="logout.php"><span class="material-icons">logout</span>Logout</a>
                 </li>
             </ul>
         </div>
