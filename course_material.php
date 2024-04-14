@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <th>Title</th>
                     <th>Post Date</th>
                     <th>Uploaded File</th>
-                    <?php if (isProfessor()) {
+                    <?php if (isProfessor() || isTA() || isAdmin())  {
                         echo "<th>Delete</th>";
                         echo "<th>Edit</th>";
                     } ?>
@@ -137,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<td>" . $row['Post Date'] . "</td>";
                     $fileName = basename($row['Uploaded File']);
                     echo "<td><a href='" . $row['Uploaded File'] . "' target='_blank'>" . $fileName . "</a></td>";
-                    if (isProfessor()) {
+                    if (isProfessor() || isTA() || isAdmin()) {
                         echo "<td>";
                         echo "<form method='POST' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>";
                         echo "<input type='hidden' name='delete_id' value='" . $row['material_ID'] . "'>";
@@ -192,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <th>Title</th>
                         <th>Post Date</th>
                         <th>Uploaded File</th>
-                        <?php if (isProfessor()) {
+                        <?php if (isProfessor() || isTA() || isAdmin()) {
                             echo "<th>Delete</th>";
                             echo "<th>Edit</th>";
                         } ?>
@@ -204,7 +204,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         echo "<td>" . $row['Post Date'] . "</td>";
                         $fileName = basename($row['Uploaded File']);
                         echo "<td><a href='" . $row['Uploaded File'] . "' target='_blank'>" . $fileName . "</a></td>";
-                        if (isProfessor()) {
+                        if (isProfessor() || isTA() || isAdmin()) {
                             echo "<td>";
                             echo "<form method='POST' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>";
                             echo "<input type='hidden' name='delete_id' value='" . $row['material_ID'] . "'>";

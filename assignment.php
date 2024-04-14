@@ -54,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
     if (move_uploaded_file($_FILES['file']['tmp_name'], $targetFile)) {
         echo "File uploaded successfully.";
-
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
@@ -104,9 +103,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                 ?>
             </table>
             <!-- Button to trigger modal -->
-            <div class="new_assign">
-                <button class="new-assign" id="openModalBtn">Add New Assignment</button>
-            </div>
+
+            <?php if (isProfessor() || isTA() || isAdmin()) {
+                echo "<div class='new_assign'>";
+                echo "<button class='new-assign' id='openModalBtn'>Add New Assignment</button>";
+                echo "</div>";
+            }
+            ?>
 
             <!-- Modal -->
             <div id="addModal" class="editModal">
