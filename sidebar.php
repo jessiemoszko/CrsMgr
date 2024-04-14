@@ -1,10 +1,10 @@
 <?php
 
-
 require 'Database/DB.php';
 
 $sql = "SELECT `course_id`, `course_name`, `course_code`, `dept_name`, `semester`, `room_no`, `instructor_name` FROM `courses`";
 $result = $conn->query($sql);
+$selected_course_id = isset($_SESSION['selected_course_id']) ? $_SESSION['selected_course_id'] : '';
 
 ?>
 
@@ -43,6 +43,8 @@ $result = $conn->query($sql);
                 <form id="courseForm" method="GET">
                     <label for="courses" class="label">Select a Course:</label>
                     <select id="courses" name="course_id" onchange="this.form.submit()">
+                    <!-- Default option for no course selected -->
+                    <option value="" <?php if (!isset($_GET['course_id']) || $_GET['course_id'] == '') echo 'selected'; ?>>...</option>
                         <?php
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
