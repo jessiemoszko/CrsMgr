@@ -15,7 +15,7 @@ JOIN user u ON g.userID = u.userID";
 $sqlResult = mysqli_query($conn, $sql);
 
 if (!$sqlResult) {
-    die("Error fetching data: ". mysqli_error($conn));
+    die("Error fetching data: " . mysqli_error($conn));
 }
 
 
@@ -37,20 +37,23 @@ if (!$sqlResult) {
 
             <table>
                 <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
+                    <?php if (isProfessor() || isTA() || isAdmin()) {
+                        echo "<th>User Id</th>";
+                        echo "<th>Name</th>";
+                    } ?>
                     <th>Course</th>
                     <th>Grade Item</th>
                     <th>Grade</th>
                     <th>Weight</th>
-                </tr>
-
-                    <!-- Fetch and display existing data from the database -->
-                    <?php
+                    </tr>
+                <!-- Fetch and display existing data from the database -->
+                <?php
                 while ($row = mysqli_fetch_assoc($sqlResult)) {
                     echo "<tr>";
-                    echo "<td>{$row['userID']}</td>";
-                    echo "<td>{$row['first_name']} {$row['last_name']}</td>";
+                    if (isProfessor() || isTA() || isAdmin()) {
+                        echo "<td>{$row['userID']}</td>";
+                        echo "<td>{$row['first_name']} {$row['last_name']}</td>";
+                    }
                     echo "<td>{$row['course_code']}</td>";
                     echo "<td>{$row['grade_item']}</td>";
                     echo "<td>{$row['grade']}</td>";
@@ -59,10 +62,6 @@ if (!$sqlResult) {
                 }
                 ?>
             </table>
-
-
-
-
         </div>
     </main>
 </body>
