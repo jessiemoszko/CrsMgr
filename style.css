@@ -92,6 +92,14 @@ button {
     color: #29333F;
 }
 
+#addModal input.modal-button {
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: white;
+    color: #29333F;
+}
+
 
 .new_assign {
     margin-top: 40px;
