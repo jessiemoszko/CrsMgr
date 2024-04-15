@@ -7,14 +7,13 @@ require("session.php");
 // Function to extract initials from a name
 function extractInitials($name)
 {
-    // Split the name into individual words
     $words = explode(" ", $name);
     $initials = "";
-    // Iterate over each word to extract the first letter
+
     foreach ($words as $word) {
-        // Append the first letter to the initials string
         $initials .= strtoupper(substr($word, 0, 1));
     }
+
     return $initials;
 }
 
@@ -60,9 +59,7 @@ function extractInitials($name)
             <div class="tiles">
                 <h2>Assign</h2>
                 <ul class="tiles">
-                    <li><a href="?page=assign-professors">Professors</a></li>
-                    <li><a href="?page=assign-tas">Teaching Assistants</a></li>
-                    <li><a href="?page=assign-students">Students</a></li>
+                    <li><a href="assign-user.php">Assigning Someone to a class</a></li>
                 </ul>
             </div>
             <div class="tiles">
