@@ -48,7 +48,7 @@ function extractInitials($name)
     <div class="admin-container">
 
         <div class="tile-group">
-            <div class="tiles">
+            <div class="tiles-large">
                 <h2>Manage</h2>
                 <ul class="tiles">
                     <li><a href="?page=roles">Modifying Roles</a></li>
@@ -56,13 +56,13 @@ function extractInitials($name)
                 </ul>
             </div>
 
-            <div class="tiles">
+            <div class="tiles-large">
                 <h2>Assign</h2>
                 <ul class="tiles">
                     <li><a href="assign-user.php">Assigning Someone to a class</a></li>
                 </ul>
             </div>
-            <div class="tiles">
+            <div class="tiles-large">
                 <h2>Home</h2>
                 <ul class="tiles">
                     <li><a href="admin.php">Home</a></li>

@@ -89,22 +89,23 @@ header.header {
 .tile-group {
     display: flex;
     flex-direction: row;
+    gap: 20px;
 }
 
-.tiles h2 {
-    justify-content: center;
+.tiles-large {
+    flex: 1;
     text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #c9d7f2;
 }
 
 .tiles {
-    background-color: #c9d7f2;
-    margin: 0px 20px 0px 20px;
-    color: #29333F;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
+    flex-direction: row;
+    color: #29333F;
     list-style-type: none;
-    width: 100%;
     padding: 10px;
     border-radius: 10px; 
     
