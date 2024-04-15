@@ -35,29 +35,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Sorry, there was an error uploading your file.";
             }
         }
+
         // Update record in sql database
         $insertQuery = "INSERT INTO assignments (Title, `Weight`, `Max Mark`, `Post Date`, `Due Date`, `assign_instructions`, `course_id`) VALUES ('$title', '$weight', '$maxMark', '$postDate', '$dueDate', '$uploadedFile', '$course_id')";
 
         if (mysqli_query($conn, $insertQuery)) {
             // Refresh the page to display the updated table
-            header("Refresh:0");
+            header('Location: ' . $_SERVER['PHP_SELF']);
+            exit();
         } else {
             echo "Error: " . $insertQuery . "<br>" . mysqli_error($conn);
         }
+    } else if  (isset($_POST['submit'])) {
+
+        // for Uploading
+
+        $targetDir = "uploads/submissions/";
+        $targetFile = $targetDir . basename($_FILES['file']['name']);
+    
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $targetFile)) {
+            echo "File uploaded successfully.";
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+        
+    } else if (isset($_POST['delete_id'])) {
+
+        $deleteID = $_POST['delete_id'];
+        // Make sure to use the correct table and column names in the delete query
+        $deleteQuery = "DELETE FROM assignments WHERE assign_id = '$deleteID'";
+        if (mysqli_query($conn, $deleteQuery)) {
+            // Refresh the page to reflect the changes
+            header('Location: ' . $_SERVER['PHP_SELF']);
+            exit();
+        } else {
+            echo "Error deleting record: " . mysqli_error($conn);
+        }
+
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
-
-    $targetDir = "uploads/submissions/";
-    $targetFile = $targetDir . basename($_FILES['file']['name']);
-
-    if (move_uploaded_file($_FILES['file']['tmp_name'], $targetFile)) {
-        echo "File uploaded successfully.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -83,6 +100,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                     <th>Posted Date</th>
                     <th>Due Date</th>
                     <th>Upload</th>
+                    <?php if (isProfessor() || isTA() || isAdmin()) {
+                        echo "<th>Delete</th>";
+                    } ?>
                 </tr>
 
                 <!-- Table of Assignments -->
@@ -98,11 +118,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                     echo '<td>' . $row['Post Date'] . '</td>';
                     echo '<td>' . $row['Due Date'] . '</td>';
                     echo '<td><button class="upload-btn" data-title="' . $row['Title'] . '">Upload</button></td>';
+                    if (isProfessor() || isTA() || isAdmin()) {
+                        echo "<td>";
+                        echo "<form method='POST' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>";
+                        echo "<input type='hidden' name='delete_id' value='" . $row['assign_id'] . "'>";
+                        echo "<input type='submit' value='Delete'>";
+                        echo "</form>";
+                        echo "</td>";
+                    }
                     echo "</tr>";
                 }
                 ?>
             </table>
-            <!-- Button to trigger modal -->
+            <!-- Button to trigger Modal : Add New Assignment-->
 
             <?php if (isProfessor() || isTA() || isAdmin()) {
                 echo "<div class='new_assign'>";
@@ -111,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             }
             ?>
 
-            <!-- Modal -->
+            <!-- Modal for Add New Assignment-->
             <div id="addModal" class="editModal">
                 <div class="editModalContent">
                     <span class="close">&times;</span>
@@ -129,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                         <input type="date" id="due_date" name="due_date" required><br><br>
                         <label for="file" class="form-label">Upload File:</label>
                         <input type="file" id="file" name="file" required><br><br>
-                        <input type="submit" value="Add New Material" class="button">
+                        <input type="submit" value="Add New Assignment" class="modal-button">
                     </form>
                 </div>
             </div>
