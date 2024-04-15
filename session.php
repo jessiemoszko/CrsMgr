@@ -10,6 +10,20 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
+/* I am trying to implement an automatic log out*/
+/* 
+$_SESSION['last_activity'] = time();
+if (isset($_SESSION['userID'])) {
+    $inactive_time = time() - $_SESSION['last_activity'];
+    
+    $timeout = 60; // in seconds
+    
+    if ($inactive_time > $timeout) {
+        header("Location: logout.php");
+        exit();
+    }
+}
+*/
 $username = $_SESSION['username'];
 $name = $_SESSION['name'];
 $role_name = $_SESSION['role_name'];
