@@ -1,11 +1,14 @@
 <?php
 require 'session.php';
-require 'Database/DB.php';
 $pageTitle = "Student Groups";
 include 'header.php';
 include 'sidebar.php';
 
-$query = "SELECT * FROM user WHERE groupID = 1 OR groupID = 2";
+$query = "SELECT u.`userID`, u.`first_name`, u.`last_name`, u.`email`, g.`group_name`
+FROM `student_groups` s
+JOIN `user` u ON s.`userID` = u.`userID`
+JOIN `group_info` g ON s.`groupID` = g.`groupID`
+ORDER BY g.`group_name`, u.`last_name`, u.`first_name`";
 $result = mysqli_query($conn,$query);
 
 ?>
@@ -27,7 +30,7 @@ $result = mysqli_query($conn,$query);
     <div class = "row mt-5">
     <div class="col">
       <div class="card mt-5">
-        <div class="card-header"><a class="btn btn-primary" href="add_student.php">Add New Student</a></div>
+        <div class="card-header"><a class="btn btn-primary" href="add_student.php">Add New Group</a></div>
         <div class="card-body">
       <table class="table table-bordered text-center">
           <tr class="bg-dark text-white">
@@ -44,26 +47,34 @@ $result = mysqli_query($conn,$query);
 
 while($row = mysqli_fetch_assoc($result)){
 ?>
-<td> <?php echo $row['userID']?></td>
-<td><?php echo $row['first_name']?></td>
-<td><?php echo $row['last_name']?></td>
-<td><?php echo $row['email']?></td>
-<td><?php echo $row['groupID']?></td>
-<td><a class="btn btn-primary" href="edit_student_form.php?userID=<?php echo $row['userID']; ?>">Edit</a></td>
-<td><a class="btn btn-danger" href="delete_student.php?userID=<?php echo $row['userID']; ?>">Delete</a></td>
-
-
-          </tr>
-          <?php
-          }
-          ?>
-         </table>
+<td><?php echo $row['userID']; ?></td>
+<td><?php echo $row['first_name']; ?></td>
+<td><?php echo $row['last_name']; ?></td>
+<td><?php echo $row['email']; ?></td>
+<td><?php echo $row['group_name']; ?></td>
+<td>
+  <?php if (isProfessor()) { ?>
+    <button type="button" class="btn btn-primary" ondblclick="editGroupID(<?php echo $row['userID']; ?>)"><?php echo $row['group_name']; ?></button>
+  <?php } else { ?>
+    <?php echo $row['group_name']; ?>
+  <?php } ?>
+  </td>
+  <td>
+  <?php if (isProfessor()) { ?>
+    <form action="delete_student_groups.php" method="POST">
+      <input type="hidden" name="userID" value="<?php echo $row['userID']; ?>">
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+  <?php } ?>
+</td>
+</tr>
+<?php
+} // Add this closing brace
+?>
+</table>
 </div>
 </div>
-        </div>
-      </div>
-    </div>
-     
+</div>
 </div>
 
 </body>
