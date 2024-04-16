@@ -1,17 +1,11 @@
 CREATE DATABASE IF NOT EXISTS CRS;
 use CRS;
 
-CREATE TABLE IF NOT EXISTS role
+CREATE TABLE IF NOT EXISTS `role`
 (
   `roleID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `role_name` VARCHAR(50) NOT NULL UNIQUE
 ) AUTO_INCREMENT = 1;
-
-CREATE TABLE IF NOT EXISTS `groups`
-(
-  `groupID` INT PRIMARY KEY,
-  `group_name` VARCHAR(50) NOT NULL UNIQUE
-);
 
 CREATE TABLE IF NOT EXISTS `user`
 (
@@ -21,15 +15,28 @@ CREATE TABLE IF NOT EXISTS `user`
   `dob` DATE NOT NULL,
   `email` VARCHAR(150) NOT NULL UNIQUE,
   `username` VARCHAR(50) NOT NULL UNIQUE,
-  password VARCHAR(50) NOT NULL,
+  `password` VARCHAR(50) NOT NULL,
   `first_login` BOOLEAN DEFAULT TRUE,
   `roleID` INT NOT NULL,
-  FOREIGN KEY (`roleID`) REFERENCES role (`roleID`),
-  INDEX (`roleID`),
-  `groupID` INT,
-  FOREIGN KEY (`groupID`) REFERENCES `groups` (`groupID`),
-  INDEX (`groupID`)
+  FOREIGN KEY (`roleID`) REFERENCES `role` (`roleID`),
+  INDEX (`roleID`)
 ) AUTO_INCREMENT = 1000;
+
+CREATE TABLE IF NOT EXISTS `group_info`
+(
+  `groupID` INT PRIMARY KEY,
+  `group_name` VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS `student_groups`
+(
+  `userID` INT NOT NULL,
+  `groupID` INT,
+  FOREIGN KEY (`userID`) REFERENCES `user` (`userID`),
+  FOREIGN KEY (`groupID`) REFERENCES `group_info` (`groupID`),
+  INDEX (`userID`),
+  INDEX (`groupID`)
+);
 
 CREATE TABLE IF NOT EXISTS `courses` (
   `course_id` int NOT NULL AUTO_INCREMENT,
@@ -70,65 +77,61 @@ CREATE TABLE IF NOT EXISTS `course_material` (
 
 /*Added on April 15th*/
 
-CREATE TABLE IF NOT EXISTS section (
-  sectionID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  section_name VARCHAR(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `section` (
+  `sectionID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `section_name` VARCHAR(10) NOT NULL,
   `course_id` INT NOT NULL,
-  FOREIGN KEY (`course_id`) REFERENCES courses(`course_id`)
+  FOREIGN KEY (`course_id`) REFERENCES `courses`(`course_id`)
 );
 
-CREATE TABLE IF NOT EXISTS user_course_section (
-  userID INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `user_course_section` (
+  `userID` INT NOT NULL,
   `course_id` INT NOT NULL,
-  sectionID INT NOT NULL,
-  PRIMARY KEY (userID, sectionID),
-  FOREIGN KEY (userID) REFERENCES user(userID) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`course_id`) REFERENCES courses(`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (sectionID) REFERENCES section(sectionID) ON DELETE CASCADE ON UPDATE CASCADE
+  `sectionID` INT NOT NULL,
+  PRIMARY KEY (`userID`, `sectionID`),
+  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`course_id`) REFERENCES `courses`(`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`sectionID`) REFERENCES `section`(`sectionID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE tbl_student
+CREATE TABLE IF NOT EXISTS `tbl_student`
 (
-  studentID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  userID INT NOT NULL,
-  FOREIGN KEY (userID) REFERENCES user(userID),
-  INDEX (userID)
+  `studentID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `userID` INT NOT NULL,
+  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`),
+  INDEX (`userID`)
 );
 
-CREATE TABLE tbl_ta
+CREATE TABLE IF NOT EXISTS `tbl_ta`
 (
-  taID_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  userID INT NOT NULL,
-  FOREIGN KEY (userID) REFERENCES user(userID),
-  INDEX (userID)
+  `taID_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `userID` INT NOT NULL,
+  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`),
+  INDEX (`userID`)
 );
 
-CREATE TABLE tbl_professor
+CREATE TABLE IF NOT EXISTS `tbl_professor`
 (
-  professorID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  userID INT NOT NULL,
-  FOREIGN KEY (userID) REFERENCES user(userID),
-  INDEX (userID)
+  `professorID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `userID` INT NOT NULL,
+  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`),
+  INDEX (`userID`)
 );
 
-
-
-
-
-
-
-
-
+CREATE TABLE IF NOT EXISTS `group_info` (
+  `groupID` INT PRIMARY KEY,
+  `group_name` VARCHAR(50) NOT NULL UNIQUE
+);
 
 /*Fill the database*/
 
-INSERT INTO role (`role_name`) VALUES
+INSERT INTO `role` (`role_name`) VALUES
 ("Admin"),
 ("Professor"),
 ("TA"),
 ("Student");
 
-INSERT INTO `user` (`first_name`, `last_name`, `dob`, `email`, `username`, password, `first_login`, `roleID`) VALUES 
+INSERT INTO `user` (`first_name`, `last_name`, `dob`, `email`, `username`, `password`, `first_login`, `roleID`) VALUES 
 ('John', 'Doe', '1990-05-15', 'john@example.com', 'johndoe', '12345', 1, 1),
 ('Alice', 'Smith', '1988-09-23', 'alice@example.com', 'alicesmith', '12345', 1, 2),
 ('user2FN', 'user2LN', '1999-11-01', 'user2@example.com', 'user2', '12345', 1, 2),
@@ -142,23 +145,17 @@ INSERT INTO `user` (`first_name`, `last_name`, `dob`, `email`, `username`, passw
 ('Christopher', 'Anderson', '1994-06-25', 'chris@example.com', 'chrisanderson', '12345', 1, 4),
 ('Olivia', 'Hernandez', '1989-03-12', 'olivia@example.com', 'oliviahernandez', '12345', 1, 4);
 
-INSERT IGNORE INTO `groups` (`groupID`, `group_name`) VALUES
-(1, "group_1"),
-(2, "group_2"),
-(3, "group_3"),
-(4, "group_4");
+INSERT IGNORE INTO `group_info` (`groupID`, `group_name`) VALUES
+(1, "Group 1"),
+(2, "Group 2"),
+(3, "Group 3"),
+(4, "Group 4");
 
-UPDATE `user`
-SET `groupID` = NULL
-WHERE `roleID` IN (1, 2, 3);
-
-UPDATE `user`
-SET `groupID` = 1
-WHERE `username` IN ("danielmartinez", "sophiawilson", "user1");
-
-UPDATE `user`
-SET `groupID` = 2
-WHERE `username` IN ("oliviahernandez", "chrisanderson", "emmataylor");
+INSERT INTO `student_groups` (`userID`, `groupID`)
+SELECT `userID`, 
+  (@rownum := @rownum + 1) % (SELECT COUNT(*) FROM `group_info`) +1 AS `groupID`
+FROM `user`, (SELECT @rownum := 0) r
+WHERE `roleID` = 4;
 
 INSERT IGNORE INTO `courses` (`course_id`, `course_name`, `course_code`, `dept_name`, `semester`, `room_no`, `instructor_name`) VALUES
 (1, 'Computer Organization and Design', 'COMP5201', 'Computer Science', 'Fall 2023', 'ER201', 'David'),
