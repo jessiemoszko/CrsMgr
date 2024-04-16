@@ -91,7 +91,7 @@ CREATE TABLE tbl_student
 (
   studentID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   userID INT NOT NULL,
-  FOREIGN KEY (userID) REFERENCES users(userID),
+  FOREIGN KEY (userID) REFERENCES user(userID),
   INDEX (userID)
 );
 
@@ -99,7 +99,7 @@ CREATE TABLE tbl_ta
 (
   taID_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   userID INT NOT NULL,
-  FOREIGN KEY (userID) REFERENCES users(userID),
+  FOREIGN KEY (userID) REFERENCES user(userID),
   INDEX (userID)
 );
 
@@ -107,7 +107,7 @@ CREATE TABLE tbl_professor
 (
   professorID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   userID INT NOT NULL,
-  FOREIGN KEY (userID) REFERENCES users(userID),
+  FOREIGN KEY (userID) REFERENCES user(userID),
   INDEX (userID)
 );
 
