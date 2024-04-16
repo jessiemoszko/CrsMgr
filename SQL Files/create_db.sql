@@ -20,10 +20,7 @@ CREATE TABLE IF NOT EXISTS `user`
   `first_login` BOOLEAN DEFAULT TRUE,
   `roleID` INT NOT NULL,
   FOREIGN KEY (`roleID`) REFERENCES `role` (`roleID`),
-  INDEX (`roleID`),
-  `groupID` INT,
-  FOREIGN KEY (`groupID`) REFERENCES `groups` (`groupID`),
-  INDEX (`groupID`)
+  INDEX (`roleID`)
 ) AUTO_INCREMENT = 1000;
 
 CREATE TABLE IF NOT EXISTS `group_info`
