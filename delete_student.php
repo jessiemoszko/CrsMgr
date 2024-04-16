@@ -1,10 +1,9 @@
 <?php
 require 'Database/DB.php';
-// Assuming $conn is your database connection
 
 $userID = $_GET['userID'];
 
-$sql = "DELETE FROM user WHERE userID = $userID";
+$sql = "DELETE FROM student_groups WHERE userID = $userID";
 
 if ($conn->query($sql) === TRUE) {
     echo "Student deleted successfully";
