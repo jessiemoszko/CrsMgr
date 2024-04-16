@@ -283,38 +283,38 @@ CREATE TABLE IF NOT EXISTS section (
   FOREIGN KEY (`course_id`) REFERENCES courses(`course_id`)
 );
 
-CREATE TABLE IF NOT EXISTS user_course_section (
-  userID INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `user_course_section` (
+  `userID` INT NOT NULL,
   `course_id` INT NOT NULL,
-  sectionID INT NOT NULL,
-  PRIMARY KEY (userID, sectionID),
-  FOREIGN KEY (userID) REFERENCES user(userID) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`course_id`) REFERENCES courses(`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (sectionID) REFERENCES section(sectionID) ON DELETE CASCADE ON UPDATE CASCADE
+  `sectionID` INT NOT NULL,
+  PRIMARY KEY (`userID`, `sectionID`),
+  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`course_id`) REFERENCES `courses`(`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`sectionID`) REFERENCES `section`(`sectionID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE tbl_student
 (
-  studentID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  userID INT NOT NULL,
-  FOREIGN KEY (userID) REFERENCES user(userID),
-  INDEX (userID)
+  `studentID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `userID` INT NOT NULL,
+  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`),
+  INDEX (`userID`)
 );
 
 CREATE TABLE tbl_ta
 (
-  taID_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  userID INT NOT NULL,
-  FOREIGN KEY (userID) REFERENCES user(userID),
-  INDEX (userID)
+  `taID_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `userID` INT NOT NULL,
+  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`),
+  INDEX (`userID`)
 );
 
 CREATE TABLE tbl_professor
 (
-  professorID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  userID INT NOT NULL,
-  FOREIGN KEY (userID) REFERENCES user(userID),
-  INDEX (userID)
+  `professorID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `userID` INT NOT NULL,
+  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`),
+  INDEX (`userID`)
 );
 
 
