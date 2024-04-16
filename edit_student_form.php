@@ -1,7 +1,7 @@
 <?php
 	require 'Database/DB.php';
 	$id=$_GET['userID'];
-	$query=mysqli_query($conn,"select * from `user` where userID='$id'");
+	$query=mysqli_query($conn,"select * from `student_groups` where userID='$id'");
 	$row=mysqli_fetch_array($query);
 ?>
 <!DOCTYPE html>
@@ -13,8 +13,7 @@
 <body>
 	<h2>Edit</h2>
 	<form method="POST" action="edit_student.php?id=<?php echo $id; ?>">
-		<label>Firstname:</label><input type="text" value="<?php echo $row['first_name']; ?>" name="firstname">
-		<label>Lastname:</label><input type="text" value="<?php echo $row['last_name']; ?>" name="lastname">
+		<label>Group Name:</label><input type="text" value="<?php echo $row['groupID']; ?>" name="groupID">
 		<input type="submit" name="submit">
 		<a href="groups.php">Back</a>
 	</form>
