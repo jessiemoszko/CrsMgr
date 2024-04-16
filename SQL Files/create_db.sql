@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `user_course_section` (
   FOREIGN KEY (`sectionID`) REFERENCES `section`(`sectionID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE `tbl_student`
+CREATE TABLE IF NOT EXISTS `tbl_student`
 (
   `studentID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `userID` INT NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE `tbl_student`
   INDEX (`userID`)
 );
 
-CREATE TABLE `tbl_ta`
+CREATE TABLE IF NOT EXISTS `tbl_ta`
 (
   `taID_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `userID` INT NOT NULL,
@@ -111,7 +111,7 @@ CREATE TABLE `tbl_ta`
   INDEX (`userID`)
 );
 
-CREATE TABLE `tbl_professor`
+CREATE TABLE IF NOT EXISTS  `tbl_professor`
 (
   `professorID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `userID` INT NOT NULL,
