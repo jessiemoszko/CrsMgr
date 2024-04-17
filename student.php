@@ -4,6 +4,16 @@ $pageTitle = 'Welcome ' . ucwords($name);
 require 'header.php';
 require 'sidebar.php';
 
+if (isTA()) {
+    header("Location: TA.php");
+    exit();
+}
+
+if (isprofessor()) {
+    header("Location: professor.php");
+    exit();
+}
+
 $assignmentQuery = "SELECT a.*, c.course_code 
                     FROM assignments a 
                     INNER JOIN courses c ON a.course_id = c.course_id
