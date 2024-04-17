@@ -2,6 +2,25 @@
 
 $pageTitle = 'Admin Panel';
 
+require("helper_functions.php");
+require("session.php");
+
+// Function to extract initials from a name
+function extractInitials($name)
+{
+    $words = explode(" ", $name);
+    $initials = "";
+
+    foreach ($words as $word) {
+        $initials .= strtoupper(substr($word, 0, 1));
+    }
+
+    return $initials;
+}
+
+//global $success;
+//global $errors;
+
 function addUser($conn, $first_name, $last_name, $dob, $email, $username, $password, $first_login, $roleID, $groupID) {
     global $errors;
     global $success;
@@ -40,7 +59,6 @@ function updateUser($conn, $first_name, $last_name, $dob, $email, $username, $pa
     }
     return array($success, $errors);
 }
-
 
 function deleteUser($conn, $userID) {
     global $errors;
