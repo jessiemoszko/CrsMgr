@@ -51,21 +51,15 @@ function extractInitials($name)
             <div class="tiles-large">
                 <h2>Manage</h2>
                 <ul class="tiles">
-                    <li><a href="roles.php">Modifying Roles</a></li>
-                    <li><a href="users.php">Modifiying users</a></li>
+                    <li><a href="roles.php">Modify Roles</a></li>
+                    <li><a href="users.php">Modifiy Users</a></li>
                 </ul>
             </div>
 
             <div class="tiles-large">
                 <h2>Assign</h2>
                 <ul class="tiles">
-                    <li><a href="assign-user.php">Assigning Someone to a class</a></li>
-                </ul>
-            </div>
-            <div class="tiles-large">
-                <h2>Home</h2>
-                <ul class="tiles">
-                    <li><a href="admin.php">Home</a></li>
+                    <li><a href="assign-user.php">Assign User to Class and Section</a></li>
                 </ul>
             </div>
         </div>
