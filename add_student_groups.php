@@ -23,11 +23,36 @@
 <body>
     <h2>Add User to Group</h2>
     <form method="POST" action="add_student_groups.php">
-        <label>User ID:</label><input type="text" name="userID">
-        <label>Group ID:</label><input type="text" name="groupID">
+        <label>User ID:</label><input type="text" name="userID"><br>
+        <label>Group ID:</label><input type="text" name="groupID"><br>
         <input type="submit" name="submit">
         <a href="groups.php" class="back_button">Back</a>
     </form>
     </form>
 </body>
+
+<style>
+
+input[type="text"] {
+	width: 75px;
+}
+
+.back_button {
+   font-family: 'Karla', sans-serif;
+   background-color:  #29333F; 
+   border: none;
+   color: white;
+   padding: 5px 10px 5px 10px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   margin: 15px 2px;
+   cursor: pointer;
+   border-radius: 10px
+   
+}
+
+</style>
+
 </html>
