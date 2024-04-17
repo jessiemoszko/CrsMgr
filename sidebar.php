@@ -75,7 +75,7 @@ $selected_course_id = isset($_SESSION['selected_course_id']) ? $_SESSION['select
                     <a href="course_material.php"><span class="material-icons">description</span>Course Material</a>
                 </li>
                 <li>
-                    <a href="groups.php"><span class="material-icons">group</span>Group</a>
+                    <a href="groups.php"><span class="material-icons">group</span>Groups</a>
                 </li>
                 <li>
                     <a href="assignment.php"><span class="material-icons">assignment</span>Assignments</a>
@@ -85,6 +85,9 @@ $selected_course_id = isset($_SESSION['selected_course_id']) ? $_SESSION['select
                 </li>
                 <li>
                     <a href="FAQ.php"><span class="material-icons">quiz</span>FAQ</a>
+                </li>
+                <li>
+                    <a href="messages.php"><span class="material-icons">message</span>Messages</a>
                 </li>
             </ul>
         </div>
