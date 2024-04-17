@@ -2,6 +2,17 @@
 require 'session.php';
 $pageTitle = 'Welcome ' . ucwords($name);
 require 'header.php';
+
+
+if (isStudent()) {
+    header("Location: student.php");
+    exit();
+}
+
+if (isTA()) {
+    header("Location: TA.php");
+    exit();
+}
 require 'sidebar.php';
 
 $assignmentQuery = "SELECT a.*, c.course_code 
