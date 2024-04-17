@@ -18,7 +18,8 @@ function extractInitials($name)
     return $initials;
 }
 
-function addUser($conn, $first_name, $last_name, $dob, $email, $username, $password, $first_login, $roleID) {
+function addUser($conn, $first_name, $last_name, $dob, $email, $username, $password, $first_login, $roleID)
+{
     global $errors;
     global $success;
 
@@ -38,7 +39,8 @@ function addUser($conn, $first_name, $last_name, $dob, $email, $username, $passw
     return array($success, $errors);
 }
 
-function updateUser($conn, $first_name, $last_name, $dob, $email, $username, $password, $roleID, $userID) {
+function updateUser($conn, $first_name, $last_name, $dob, $email, $username, $password, $roleID, $userID)
+{
     global $errors;
     global $success;
 
@@ -57,7 +59,8 @@ function updateUser($conn, $first_name, $last_name, $dob, $email, $username, $pa
     return array($success, $errors);
 }
 
-function deleteUser($conn, $userID) {
+function deleteUser($conn, $userID)
+{
     global $errors;
     global $success;
 
@@ -95,6 +98,17 @@ if ($addedOrUpdated) {
 
 ?>
 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
 <div class="content-body">
     <?php display_success($success); ?>
     <?php display_error($errors); ?>
@@ -111,13 +125,13 @@ if ($addedOrUpdated) {
                 <th>Username</th>
                 <th>Password</th>
                 <th>Role</th>
-                <?php if (isAdmin()): ?>
+                <?php if (isAdmin()) : ?>
                     <th colspan="2">Action</th>
                 <?php endif; ?>
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($results as $row): ?>
+            <?php foreach ($results as $row) : ?>
                 <tr>
                     <td><?= $row['first_name'] ?></td>
                     <td><?= $row['last_name'] ?></td>
@@ -126,7 +140,7 @@ if ($addedOrUpdated) {
                     <td><?= $row['username'] ?></td>
                     <td><?= $row['password'] ?></td>
                     <td><?= $row['roleID'] ?></td>
-                    <?php if (isAdmin()): ?>
+                    <?php if (isAdmin()) : ?>
                         <td><a href="?page=user&update_view=true&update_id=<?= $row['userID'] ?>">Update</a></td>
                         <td><a href="?page=user&delete_id=<?= $row['userID'] ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a></td>
                     <?php endif; ?>
@@ -135,11 +149,11 @@ if ($addedOrUpdated) {
         </tbody>
     </table>
 
-    <?php if (isAdmin()): ?>
+    <?php if (isAdmin()) : ?>
         <a href="?page=user&add_view=true">
             <button>Add User</button>
         </a>
-        <?php if (isset($_GET['add_view'])): ?>
+        <?php if (isset($_GET['add_view'])) : ?>
             <hr>
             <div class="form-container">
                 <form class="form-body" action="" method="POST">
@@ -179,7 +193,7 @@ if ($addedOrUpdated) {
             </div>
         <?php endif; ?>
 
-        <?php if (isset($_GET['update_view'])): ?>
+        <?php if (isset($_GET['update_view'])) : ?>
             <?php
             $id = mysqli_real_escape_string($conn, $_GET['update_id']);
             $query = "SELECT * FROM user WHERE userID='$id'";
@@ -230,7 +244,7 @@ if ($addedOrUpdated) {
                 </form>
             </div>
         <?php endif; ?>
-        <?php endif; ?>
+    <?php endif; ?>
     <a href="admin.php">
         <button>Back to Admin Panel</button>
     </a>
@@ -238,3 +252,5 @@ if ($addedOrUpdated) {
         <button>Refresh</button>
     </a>
 </div>
+
+</html>
