@@ -4,6 +4,21 @@ $pageTitle = 'Admin Panel';
 require("helper_functions.php");
 require("session.php");
 
+if (isStudent()) {
+    header("Location: student.php");
+    exit();
+}
+
+if (isprofessor()) {
+    header("Location: professor.php");
+    exit();
+}
+
+if (isTA()) {
+    header("Location: TA.php");
+    exit();
+}
+
 // Function to extract initials from a name
 function extractInitials($name)
 {
@@ -28,7 +43,7 @@ function extractInitials($name)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="admin.css">
-    <title>Document</title>
+    <title>Admin Panel</title>
 </head>
 
 <header class="header">
@@ -42,7 +57,6 @@ function extractInitials($name)
     </div>
 </header>
 
-
 <body>
 
     <div class="admin-container">
@@ -53,6 +67,9 @@ function extractInitials($name)
                 <ul class="tiles">
                     <li><a href="roles.php">Modify Roles</a></li>
                     <li><a href="users.php">Modifiy Users</a></li>
+                    <li><a href="CRUD-courses.php">Modifiy Courses</a></li>
+<!--                     <li><a href="CRUD-section.php">Modifiy Sections</a></li>
+ -->
                 </ul>
             </div>
 
