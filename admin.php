@@ -51,8 +51,8 @@ function extractInitials($name)
             <div class="tiles-large">
                 <h2>Manage</h2>
                 <ul class="tiles">
-                    <li><a href="?page=roles">Modifying Roles</a></li>
-                    <li><a href="?page=users">Modifiying users</a></li>
+                    <li><a href="roles.php">Modifying Roles</a></li>
+                    <li><a href="users.php">Modifiying users</a></li>
                 </ul>
             </div>
 
@@ -69,18 +69,6 @@ function extractInitials($name)
                 </ul>
             </div>
         </div>
-
-        <div>
-            <?php
-            if (isset($_GET['page'])) {
-                $page = $_GET['page'];
-                if (file_exists($page . ".php")) {
-                    include($page . ".php");
-                }
-            }
-            ?>
-        </div>
-
     </div>
     <script>
         function toggleDropdown() {
