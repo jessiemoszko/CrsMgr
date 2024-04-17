@@ -4,75 +4,91 @@ $pageTitle = "Grades";
 require 'header.php';
 require 'sidebar.php';
 
+// Ensure connection is established
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Query for grades
 $sql = "SELECT
-c.course_id, c.course_code,
-g.grade_item, g.grade, g.weight,
-u.userID, u.first_name, u.last_name
+    c.course_id, c.course_code,
+    g.grade_item, g.grade, g.weight,
+    u.userID, u.first_name, u.last_name
 FROM grades g
 JOIN courses c ON g.course_id = c.course_id
 JOIN user u ON g.userID = u.userID";
 
 $sqlResult = mysqli_query($conn, $sql);
-
 if (!$sqlResult) {
     die("Error fetching data: " . mysqli_error($conn));
 }
 
+// Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['delete_id'])) {
         // Handle deletion of grade item
-        $delete_id = mysqli_real_escape_string($conn, $_POST['delete_id']);
-        $delete_sql = "DELETE FROM grades WHERE grade_item = '$delete_id'";
-        if (mysqli_query($conn, $delete_sql)) {
-            // Redirect or provide feedback
-            header('Location: ' . $_SERVER['PHP_SELF']);
-            exit;
-        } else {
-            echo "Error deleting grade: " . mysqli_error($conn);
-        }
-    } else if (isset($_POST['gradeItem']) && isset($_POST['grade']) && isset($_POST['userID']) && isset($_POST['courseCode']) && isset($_POST['weight'])) {
-        $gradeItem = mysqli_real_escape_string($conn, $_POST['gradeItem']);
-        $grade = mysqli_real_escape_string($conn, $_POST['grade']);
-        $userID = mysqli_real_escape_string($conn, $_POST['userID']);
-        $courseCode = mysqli_real_escape_string($conn, $_POST['courseCode']);
-        $weight = mysqli_real_escape_string($conn, $_POST['weight']);
+        handleDeleteGrade($conn, $_POST['delete_id']);
+    } elseif (isset($_POST['addGrade'])) {
+        // Handle addition of new grade
+        handleAddGrade($conn, $_POST);
+    } elseif (isset($_POST['gradeItem'])) {
+        // Handle updating an existing grade
+        handleUpdateGrade($conn, $_POST);
+    } else {
+        echo "Invalid request.";
+    }
+}
 
-        // Update the grades record in the database
-        $update_sql = "UPDATE grades SET grade = '$grade', userID = '$userID', course_id = (SELECT course_id FROM courses WHERE course_code = '$courseCode'), weight = '$weight' WHERE grade_item = '$gradeItem'";
+// Functions to handle different actions
+function handleDeleteGrade($conn, $delete_id)
+{
+    $delete_id = mysqli_real_escape_string($conn, $delete_id);
+    $delete_sql = "DELETE FROM grades WHERE grade_item = '$delete_id'";
+    if (mysqli_query($conn, $delete_sql)) {
+        header("Refresh:0");
+        exit;
+    } else {
+        echo "Error deleting grade: " . mysqli_error($conn);
+    }
+}
 
-        if (mysqli_query($conn, $update_sql)) {
-            // Redirect after successful update
-            header('Location: ' . $_SERVER['PHP_SELF']);
-            exit;
-        } else {
-            echo "Error updating grades: " . mysqli_error($conn);
-        }
-    } else if (isset($_POST['addGrade'])) {
-        // Handle adding a new grade
-        $courseCode = mysqli_real_escape_string($conn, $_POST['courseCode']);
-        $userID = mysqli_real_escape_string($conn, $_POST['userID']);
-        $gradeItem = mysqli_real_escape_string($conn, $_POST['gradeItem']);
-        $grade = mysqli_real_escape_string($conn, $_POST['grade']);
-        $weight = mysqli_real_escape_string($conn, $_POST['weight']);
+function handleAddGrade($conn, $data)
+{
+    // Extract and sanitize data
+    $courseID = mysqli_real_escape_string($conn, $data['courseID']);
+    $userID = mysqli_real_escape_string($conn, $data['userID']);
+    $gradeItem = mysqli_real_escape_string($conn, $data['gradeItem']);
+    $grade = mysqli_real_escape_string($conn, $data['grade']);
+    $weight = mysqli_real_escape_string($conn, $data['weight']);
 
-        $courseQuery = "SELECT course_id FROM courses WHERE course_code = '$courseCode'";
-        $courseResult = mysqli_query($conn, $courseQuery);
+    // Insert query
+    $insertQuery = "INSERT INTO grades (course_id, userID, grade_item, grade, weight) VALUES ('$courseID', '$userID', '$gradeItem', '$grade', '$weight')";
+    if (mysqli_query($conn, $insertQuery)) {
+        // Redirect after successful insertion
+        header("Refresh:0");
+        exit;
+    } else {
+        echo "Error inserting new grade: " . mysqli_error($conn);
+    }
+}
 
-        if ($courseResult) {
-            $course = mysqli_fetch_assoc($courseResult);
-            $courseID = $course['course_id'];
+function handleUpdateGrade($conn, $data)
+{
+    // Extract and sanitize data
+    $gradeItem = mysqli_real_escape_string($conn, $data['gradeItem']);
+    $grade = mysqli_real_escape_string($conn, $data['grade']);
+    $userID = mysqli_real_escape_string($conn, $data['userID']);
+    $courseID = mysqli_real_escape_string($conn, $data['courseID']);
+    $weight = mysqli_real_escape_string($conn, $data['weight']);
 
-            $insertQuery = "INSERT INTO grades (course_id, userID, grade_item, grade, weight) VALUES ('$courseID', '$userID', '$gradeItem', '$grade', '$weight')";
-            if (mysqli_query($conn, $insertQuery)) {
-                // Redirect after successful insertion
-                header('Location: ' . $_SERVER['PHP_SELF']);
-                exit;
-            } else {
-                echo "Error inserting new grade: " . mysqli_error($conn);
-            }
-        } else {
-            echo "Error fetching course ID: " . mysqli_error($conn);
-        }
+    // Update query
+    $update_sql = "UPDATE grades SET grade = '$grade', userID = '$userID', course_id = (SELECT course_id FROM courses WHERE course_code = '$courseID'), weight = '$weight' WHERE grade_item = '$gradeItem'";
+    if (mysqli_query($conn, $update_sql)) {
+        // Redirect after successful update
+        header('Refresh:0');
+        exit;
+    } else {
+        echo "Error updating grades: " . mysqli_error($conn);
     }
 }
 
@@ -90,39 +106,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Grades</title>
     <script>
         /* ADD GRADE MODAL*/
-
         // Function to open Add Grade modal
-        document.getElementById('openAddGradeModal').onclick = function() {
-            document.getElementById('addGradeModal').style.display = 'block';
-        };
+        document.addEventListener('DOMContentLoaded', function() {
+            const addGradeModal = document.getElementById('addGradeModal');
+            const openAddGradeModalBtn = document.getElementById('openAddGradeModal');
 
-
-        // Close modal when user clicks outside of it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                document.getElementById('addGradeModal').style.display = 'none';
+            if (openAddGradeModalBtn && addGradeModal) {
+                openAddGradeModalBtn.onclick = function() {
+                    addGradeModal.style.display = 'block';
+                };
             }
-        };
+            // Event listener for close button on Add Grade modal
+            const addGradeModalCloseBtn = addGradeModal.querySelector('.close');
+            if (addGradeModalCloseBtn) {
+                addGradeModalCloseBtn.addEventListener('click', function() {
+                    addGradeModal.style.display = 'none';
+                });
+            }
 
+            // Event listener for close button on Edit Grade modal
+            const editGradeModalCloseBtn = editGradeModal.querySelector('.close');
+            if (editGradeModalCloseBtn) {
+                editGradeModalCloseBtn.addEventListener('click', function() {
+                    editGradeModal.style.display = 'none';
+                });
+            }
+        });
 
-        function openEditModal(gradeItem, grade, userID, courseCode, weight) {
-            // Display the modal
-            document.getElementById('editGradeModal').style.display = 'block';
+        // Function to open Edit Grade modal
+        function openEditModal(gradeItem, grade, userID, courseID, weight) {
+            const editGradeModal = document.getElementById('editGradeModal');
+            if (editGradeModal) {
+                // Display the modal
+                editGradeModal.style.display = 'block';
 
-            // Populate the form fields
-            document.getElementById('gradeItem').value = gradeItem;
-            document.getElementById('grade').value = grade;
-            document.getElementById('userID').value = userID;
-            document.getElementById('courseCode').value = courseCode;
-            document.getElementById('weight').value = weight;
+                // Populate the form fields
+                document.getElementById('gradeItem').value = gradeItem;
+                document.getElementById('grade').value = grade;
+                document.getElementById('userID').value = userID;
+                document.getElementById('courseID').value = courseID;
+                document.getElementById('weight').value = weight;
+            }
         }
- 
-        // Close the modal when the user clicks outside of it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                document.getElementById('editGradeModal').style.display = 'none';
-            }
-        };
     </script>
 </head>
 
@@ -131,6 +156,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="container">
             <table id="gradesTable">
                 <thead>
+
+                    <!-- Display table headings -->
+
                     <tr>
                         <?php if (isProfessor() || isTA() || isAdmin()) {
                             echo "<th onclick='sortTable(0)'>User Id <span>&#x25B2;</span></th>";
@@ -147,6 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </tr>
                 </thead>
                 <tbody>
+
                     <!-- Fetch and display existing data from the database -->
                     <?php
                     while ($row = mysqli_fetch_assoc($sqlResult)) {
@@ -179,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <!-- Add Grade button -->
             <?php if (isProfessor() || isTA() || isAdmin()) { ?>
-                <button id="openAddGradeModal" class="modal-button">Add Grade</button>
+                <button class="button-white" id="openAddGradeModal">Add Grade</button>
             <?php } ?>
         </div>
     </main>
@@ -193,8 +222,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                 <label for="userID" class="form-label">User ID:</label>
                 <input type="text" id="userID" name="userID" required>
-                <label for="courseCode" class="form-label">Course Code:</label>
-                <input type="text" id="courseCode" name="courseCode" required>
+                <label for="courseID" class="form-label">Course Code:</label>
+                <input type="text" id="courseID" name="courseID" required>
                 <label for="gradeItem" class="form-label">Grade Item:</label>
                 <input type="text" id="gradeItem" name="gradeItem">
                 <label for="grade" class="form-label">Grade:</label>
@@ -214,15 +243,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <span class="close">&times;</span>
         <h2>Add Grade</h2>
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-            <label for="courseCode">Course Code:</label>
-            <input type="text" id="courseCode" name="courseCode" required>
-            <label for="userID">User ID:</label>
+            <label for="courseID" class="form-label">Course Code:</label>
+            <input type="text" id="courseID" name="courseID" required>
+            <label for="userID" class="form-label">User ID:</label>
             <input type="text" id="userID" name="userID" required>
-            <label for="gradeItem">Grade Item:</label>
+            <label for="gradeItem" class="form-label">Grade Item:</label>
             <input type="text" id="gradeItem" name="gradeItem" required>
-            <label for="grade">Grade:</label>
+            <label for="grade" class="form-label">Grade:</label>
             <input type="number" id="grade" name="grade" required>
-            <label for="weight">Weight:</label>
+            <label for="weight" class="form-label">Weight:</label>
             <input type="number" id="weight" name="weight" required>
             <button type="submit" name="addGrade" class="modal-button">Add</button>
         </form>
