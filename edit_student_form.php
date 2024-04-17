@@ -1,5 +1,5 @@
 <?php
-	require 'Database/DB.php';
+	require 'session.php';
 	$id=$_GET['userID'];
 	$query=mysqli_query($conn,"select * from `student_groups` where userID='$id'");
 	$row=mysqli_fetch_array($query);
@@ -15,7 +15,7 @@
 	<form method="POST" action="edit_student.php?id=<?php echo $id; ?>">
 		<label>Group Name:</label><input type="text" value="<?php echo $row['groupID']; ?>" name="groupID">
 		<input type="submit" name="submit">
-		<a href="groups.php">Back</a>
+		<a href="groups.php" class="back_button">Back</a>
 	</form>
 </body>
 </html>
