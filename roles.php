@@ -86,20 +86,13 @@ if (isset($_GET['delete_id'])) {
 $query = "SELECT * FROM role ORDER BY roleID ASC";
 $results = mysqli_query($conn, $query);
 
+$addedOrUpdated = !empty($success);
+if ($addedOrUpdated) {
+    header("Location: {$_SERVER['PHP_SELF']}");
+    exit();
+}
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-</head>
-
-<body>
-    
 <div class="content-body">
     <?php display_success($success); ?>
     <?php display_error($errors); ?>
@@ -177,8 +170,10 @@ $results = mysqli_query($conn, $query);
     </div>
         <?php endif; ?>
     <?php endif; ?>
+    <a href="admin.php">
+        <button>Back to Admin Panel</button>
+    </a>
+    <a href="roles.php">
+        <button>Refresh</button>
+    </a>
 </div>
-
-    
-</body>
-</html>
