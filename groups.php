@@ -117,13 +117,17 @@ button[type=submit], .btn {
    margin: 4px 2px;
    cursor: pointer;
    border-radius: 10px
+   
 }
 
 .add-student {
   margin-bottom:10px;
 }
 
+</style>
 
+</body>
+</html>
 
 </style>
 
