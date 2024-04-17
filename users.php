@@ -18,10 +18,7 @@ function extractInitials($name)
     return $initials;
 }
 
-//global $success;
-//global $errors;
-
-function addUser($conn, $first_name, $last_name, $dob, $email, $username, $password, $first_login, $roleID, $groupID) {
+function addUser($conn, $first_name, $last_name, $dob, $email, $username, $password, $first_login, $roleID) {
     global $errors;
     global $success;
 
@@ -29,8 +26,8 @@ function addUser($conn, $first_name, $last_name, $dob, $email, $username, $passw
         $errors[] = "All fields are required";
     } else {
 
-        $stmt = mysqli_prepare($conn, "INSERT INTO user (first_name, last_name, dob, email, username, password, first_login, roleID, groupID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($stmt, "ssssssiii", $first_name, $last_name, $dob, $email, $username, $password, $first_login, $roleID, $groupID);
+        $stmt = mysqli_prepare($conn, "INSERT INTO user (first_name, last_name, dob, email, username, password, first_login, roleID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($stmt, "ssssssii", $first_name, $last_name, $dob, $email, $username, $password, $first_login, $roleID);
         if (mysqli_stmt_execute($stmt)) {
             $success[] = "User added successfully";
         } else {
@@ -41,15 +38,15 @@ function addUser($conn, $first_name, $last_name, $dob, $email, $username, $passw
     return array($success, $errors);
 }
 
-function updateUser($conn, $first_name, $last_name, $dob, $email, $username, $password, $roleID, $groupID, $userID) {
+function updateUser($conn, $first_name, $last_name, $dob, $email, $username, $password, $roleID, $userID) {
     global $errors;
     global $success;
 
     if (empty($first_name) || empty($last_name) || empty($dob) || empty($email) || empty($username) || empty($password) || empty($roleID)) {
         $errors[] = "All fields are required";
     } else {
-        $stmt = mysqli_prepare($conn, "UPDATE user SET first_name = ?, last_name = ?, dob = ?, email = ?, username = ?, password = ?, roleID = ?, groupID = ? WHERE userID = ?");
-        mysqli_stmt_bind_param($stmt, "ssssssiii", $first_name, $last_name, $dob, $email, $username, $password, $roleID, $groupID, $userID);
+        $stmt = mysqli_prepare($conn, "UPDATE user SET first_name = ?, last_name = ?, dob = ?, email = ?, username = ?, password = ?, roleID = ? WHERE userID = ?");
+        mysqli_stmt_bind_param($stmt, "ssssssii", $first_name, $last_name, $dob, $email, $username, $password, $roleID, $userID);
         if (mysqli_stmt_execute($stmt)) {
             $success[] = "User updated successfully";
         } else {
@@ -77,9 +74,9 @@ function deleteUser($conn, $userID) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['add_user'])) {
-        list($success, $errors) = addUser($conn, $_POST['first_name'], $_POST['last_name'], $_POST['dob'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['first_login'], $_POST['roleID'], $_POST['groupID']);
+        list($success, $errors) = addUser($conn, $_POST['first_name'], $_POST['last_name'], $_POST['dob'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['first_login'], $_POST['roleID']);
     } elseif (isset($_POST['update_user'])) {
-        list($success, $errors) = updateUser($conn, $_POST['first_name'], $_POST['last_name'], $_POST['dob'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['roleID'], $_POST['groupID'], $_GET['update_id']);
+        list($success, $errors) = updateUser($conn, $_POST['first_name'], $_POST['last_name'], $_POST['dob'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['roleID'], $_GET['update_id']);
     }
 }
 
@@ -89,6 +86,12 @@ if (isset($_GET['delete_id'])) {
 
 $query = "SELECT * FROM user ORDER BY userID ASC";
 $results = mysqli_query($conn, $query);
+
+$addedOrUpdated = !empty($success);
+if ($addedOrUpdated) {
+    header("Location: {$_SERVER['PHP_SELF']}");
+    exit();
+}
 
 ?>
 
@@ -108,7 +111,6 @@ $results = mysqli_query($conn, $query);
                 <th>Username</th>
                 <th>Password</th>
                 <th>Role</th>
-                <th>Group</th>
                 <?php if (isAdmin()): ?>
                     <th colspan="2">Action</th>
                 <?php endif; ?>
@@ -124,7 +126,6 @@ $results = mysqli_query($conn, $query);
                     <td><?= $row['username'] ?></td>
                     <td><?= $row['password'] ?></td>
                     <td><?= $row['roleID'] ?></td>
-                    <td><?= $row['groupID'] ?></td>
                     <?php if (isAdmin()): ?>
                         <td><a href="?page=user&update_view=true&update_id=<?= $row['userID'] ?>">Update</a></td>
                         <td><a href="?page=user&delete_id=<?= $row['userID'] ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a></td>
@@ -138,7 +139,6 @@ $results = mysqli_query($conn, $query);
         <a href="?page=user&add_view=true">
             <button>Add User</button>
         </a>
-
         <?php if (isset($_GET['add_view'])): ?>
             <hr>
             <div class="form-container">
@@ -171,10 +171,6 @@ $results = mysqli_query($conn, $query);
                     <div class="form-input">
                         <label>Role</label>
                         <span><input type="number" name="roleID"></span>
-                    </div>
-                    <div class="form-input">
-                        <label>Group</label>
-                        <span><input type="number" name="groupID"></span>
                     </div>
                     <div class="form-submit">
                         <input type="submit" name="add_user" value="Add">
@@ -228,15 +224,17 @@ $results = mysqli_query($conn, $query);
                         <label>Role</label>
                         <span><input type="number" name="roleID" value="<?= $row['roleID'] ?>"></span>
                     </div>
-                    <div class="form-input">
-                        <label>Group</label>
-                        <span><input type="number" name="groupID" value="<?= $row['groupID'] ?>"></span>
-                    </div>
                     <div class="form-submit">
                         <input type="submit" name="update_user" value="Update">
                     </div>
                 </form>
             </div>
         <?php endif; ?>
-    <?php endif; ?>
+        <?php endif; ?>
+    <a href="admin.php">
+        <button>Back to Admin Panel</button>
+    </a>
+    <a href="users.php">
+        <button>Refresh</button>
+    </a>
 </div>
