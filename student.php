@@ -62,6 +62,12 @@ $result = mysqli_query($conn, $query);
                     <li>
                         <a href="manage_account.php">Manage Account</a>
                     </li>
+                    <li>
+                        <a href="messages.php">Messages</a>
+                    </li>
+                    <li>
+                        <a href="FAQ.php">FAQ</a>
+                    </li>
                 </ul>
             </div>
 
