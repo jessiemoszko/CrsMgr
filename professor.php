@@ -20,6 +20,12 @@ $assignmentQuery = "SELECT a.*, c.course_code
                     INNER JOIN courses c ON a.course_id = c.course_id
                     ORDER BY a.`Due Date` DESC";
 $assignmentResult = mysqli_query($conn, $assignmentQuery);
+
+
+// Query the announcements from the database
+$query = "SELECT title, content, announcement_date, userID 
+          FROM announcements ORDER BY announcement_date DESC";
+$result = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +68,31 @@ $assignmentResult = mysqli_query($conn, $assignmentQuery);
             <div class="general-tile">
                 <div class="mid-tile">
                     <h1 class="mid-content">Announcements</h1>
-                    <p>Include new announcements here</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Content</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Display each announcement in a table row
+                            if ($result && mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<tr>";
+                                    echo "<td>" . htmlspecialchars($row['title']) . "</td>";
+                                    echo "<td>" . nl2br(htmlspecialchars($row['content'])) . "</td>";
+                                    echo "<td>" . htmlspecialchars($row['announcement_date']) . "</td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='4'>No announcements available.</td></tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="mid-tile">
                     <h1 class="mid-content">Asssignments</h1>

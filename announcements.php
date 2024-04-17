@@ -56,7 +56,9 @@ $result = mysqli_query($conn, $query);
                             <th>Title</th>
                             <th>Content</th>
                             <th>Date</th>
+                            <?php  if (isProfessor() || isTA() || isAdmin()) { ?>
                             <th>User ID</th>
+                            <?php } ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,7 +70,8 @@ $result = mysqli_query($conn, $query);
                                 echo "<td>" . htmlspecialchars($row['title']) . "</td>";
                                 echo "<td>" . nl2br(htmlspecialchars($row['content'])) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['announcement_date']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['userID']) . "</td>";
+                                if (isProfessor() || isTA() || isAdmin()) {
+                                echo "<td>" . htmlspecialchars($row['userID']) . "</td>";}
                                 echo "</tr>";
                             }
                         } else {
@@ -78,23 +81,21 @@ $result = mysqli_query($conn, $query);
                     </tbody>
                 </table>
             </div>
-
+            <?php  if (isProfessor() || isTA() || isAdmin()) { ?>
             <h1>Post Announcement</h1>
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-                <label for="title">Title:</label>
+                <label for="title" class="form-label">Title:</label>
                 <input type="text" id="title" name="title" required><br>
-
-                <label for="content">Content:</label><br>
+                <label for="content" class="form-label">Content:</label><br>
                 <textarea id="content" name="content" required></textarea><br>
-
-                <label for="date">Announcement Date:</label>
+                <label for="date" class="form-label">Announcement Date:</label>
                 <input type="date" id="date" name="date" required><br>
-
-                <label for="userID">User ID:</label>
+                <label for="userID" class="form-label">User ID:</label>
                 <input type="number" id="userID" name="userID" required><br>
 
                 <button type="submit">Post Announcement</button>
             </form>
+            <?php } ?>
         </div>
     </main>
 </body>
