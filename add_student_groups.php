@@ -6,9 +6,12 @@
         $groupID = $_POST['groupID'];
         $query = mysqli_query($conn, "SELECT * FROM `user` WHERE userID='$userID'");
         if(mysqli_num_rows($query) > 0){
+            $check_query = mysqli_query($conn, "SELECT * FROM `student_groups` WHERE userID='$userID'");
+            if(mysqli_num_rows($check_query) == 0){
             $insert_query = mysqli_query($conn, "INSERT INTO `student_groups` (userID, groupID) VALUES ('$userID', '$groupID')");
-            
-    }
+            }
+        }
+    header('Location: groups.php');
 } 
 ?>
 <!DOCTYPE html>
