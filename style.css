@@ -466,3 +466,18 @@ h2.side {
     flex-direction: row;
     width: 200px;
 }
+
+
+/* Gen's edits */
+.question-form {
+    width: 80%; /* Adjust this to make the form wider or narrower */
+    margin: 0 auto; /* This will center the form */
+}
+
+.question-form textarea {
+    width: 100%; /* This will make the textarea as wide as the form */
+}
+
+.question {
+    text-align: center;
+}
