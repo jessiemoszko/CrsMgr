@@ -9,6 +9,13 @@ if (isStudent()) {
     exit();
 }
 
+if (isprofessor()) {
+    header("Location: professor.php");
+    exit();
+}
+
+
+
 require 'sidebar.php';
 ?>
 
