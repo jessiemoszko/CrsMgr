@@ -208,7 +208,7 @@ function handleUpdateGrade($conn, $data)
 
             <!-- Add Grade button -->
             <?php if (isProfessor() || isTA() || isAdmin()) { ?>
-                <button class="button-white" id="openAddGradeModal">Add Grade</button>
+                <button class="new-assign" id="openAddGradeModal">Add Grade</button>
             <?php } ?>
         </div>
     </main>
@@ -229,8 +229,12 @@ function handleUpdateGrade($conn, $data)
                 <label for="grade" class="form-label">Grade:</label>
                 <input type="number" id="grade" name="grade" required>
                 <label for="weight" class="form-label">Weight:</label>
+                
                 <input type="number" id="weight" name="weight" required>
-                <button type="submit" class="modal-button">Save</button>
+
+                <div>
+                <input type="submit" class="modal-button"></input>
+                </div>
             </form>
 
         </div>
@@ -252,8 +256,11 @@ function handleUpdateGrade($conn, $data)
             <label for="grade" class="form-label">Grade:</label>
             <input type="number" id="grade" name="grade" required>
             <label for="weight" class="form-label">Weight:</label>
+           
             <input type="number" id="weight" name="weight" required>
-            <button type="submit" name="addGrade" class="modal-button">Add</button>
+            <div>
+            <input type="submit" name="addGrade" class="modal-button"></input>
+            </div>
         </form>
     </div>
 </div>

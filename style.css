@@ -70,6 +70,8 @@ th, td {
 
 
 button {
+    display: flex;
+    justify-content: center;
     font-family: 'Karla', sans-serif;
     background-color:  #29333F; 
     border: none;
@@ -79,9 +81,9 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 18px 2px;
     cursor: pointer;
-    border-radius: 10px
+    border-radius: 10px;
 }
 
 #uploadModal input.modal-button {
@@ -92,15 +94,8 @@ button {
     color: #29333F;
 }
 
-#addModal input.modal-button {
-    font-family: 'Karla', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: white;
-    color: #29333F;
-}
-
-#editGradeModal input.modal-button {
+#addModal input.modal-button, #editGradeModal input.modal-button {
+    margin-top: 10px;
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-weight: 700;
