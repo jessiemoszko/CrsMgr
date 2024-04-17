@@ -119,9 +119,36 @@ CREATE TABLE IF NOT EXISTS  `tbl_professor`
   INDEX (`userID`)
 );
 
+/* Added by Gen */
+CREATE TABLE `FAQ` (
+  `FAQID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `course_id` int(11) DEFAULT NULL,
+  `post_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `userID` int(11) NOT NULL,
+  `question` tinytext DEFAULT NULL,
+  FOREIGN KEY (`course_id`) REFERENCES `courses`(`course_id`),
+  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`)
+) AUTO_INCREMENT=1000;
 
+CREATE TABLE `FAQResponse` (
+  `ReplyID` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `Response` tinytext DEFAULT NULL,
+  `post_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `FAQID` int NOT NULL,
+  `userID` int NOT NULL,
+  FOREIGN KEY (`FAQID`) REFERENCES `FAQ`(`FAQID`),
+  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`)
+) AUTO_INCREMENT=1000;
 
-
+CREATE TABLE `email` (
+  `emailID` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `userID` int NOT NULL,
+  `is_sender` BOOLEAN,
+  `subject` varchar(100) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `sent_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`)
+) AUTO_INCREMENT=1000;
 
 
 
