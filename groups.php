@@ -42,7 +42,6 @@ $result = mysqli_query($conn,$query);
             <td>Edit<t/td>
             <td>Delete</td>
           </tr>
-          <tr>
 <?php
 
 while($row = mysqli_fetch_assoc($result)){
