@@ -1,4 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+main {
+    background-color: #eff4ff;
+    position: absolute;
+    top: 60px;
+    left: 250px;
+    right: 0px;
+    bottom: 0px;
+}
 .container {
-   margin-left: 250px;
-   
+    margin: 25px 25px 25px 25px;
+    width: 100%;
+    position: relative;
+    background: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+
+button {
+   font-family: 'Karla', sans-serif;
+   background-color:  #29333F; 
+   border: none;
+   color: white;
+   padding: 5px 10px 5px 10px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   margin: 4px 2px;
+   cursor: pointer;
+   border-radius: 10px
+}
+
+input[type=submit] {
+   font-family: 'Karla', sans-serif;
+   background-color:  #29333F; 
+   border: none;
+   color: white;
+   padding: 5px 10px 5px 10px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   margin: 4px 2px;
+   cursor: pointer;
+   border-radius: 10px
 }
