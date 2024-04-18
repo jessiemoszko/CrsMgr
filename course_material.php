@@ -220,10 +220,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ?>
                 </table>
             </div>
-            <!-- Button to trigger modal -->
+
+              <!-- Button to trigger modal -->
+            <?php if (isProfessor() || isTA() || isAdmin()) { ?>
             <div class="new_assign">
                 <button class="new-assign" id="openModalBtn">Add New Material</button>
             </div>
+            <?php } ?>
 
 
         </div>
