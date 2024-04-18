@@ -151,10 +151,6 @@ CREATE TABLE `email` (
 ) AUTO_INCREMENT=1000;
 
 
-
-
-
-
 /*Fill the database*/
 
 INSERT INTO `role` (`role_name`) VALUES
@@ -232,3 +228,23 @@ JOIN `section` s1 ON s1.course_id = c.course_id AND s1.`section_name` = 'Section
 JOIN `section` s2 ON s2.course_id = c.course_id AND s2.`section_name` = 'Section B'
 JOIN `section` s3 ON s3.course_id = c.course_id AND s3.`section_name` = 'Section C'
 WHERE u.roleID = 4;
+
+
+/* Added April 17 - Jessie  */
+
+CREATE TABLE IF NOT EXISTS `announcements` (
+  `announcement_id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `announcement_date` date NOT NULL,
+  `userID` int NOT NULL,
+  PRIMARY KEY (`announcement_id`) USING BTREE,
+  KEY `userID` (`userID`) USING BTREE,
+  CONSTRAINT `announcements_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+-- Dumping data for table zmc55314.announcements: ~0 rows (approximately)
+INSERT IGNORE INTO `announcements` (`announcement_id`, `title`, `content`, `announcement_date`, `userID`) VALUES
+	(10, 'Hello', 'This is to say Hello!', '2024-04-05', 1005),
+	(12, 'announcement', 'Hellooo', '2024-04-19', 1004);
