@@ -116,15 +116,6 @@ if ($addedOrUpdated) {
 
     <h2>Sections</h2>
     <hr>
-    <div>
-        <label for="course-select">Select Course:</label>
-        <select id="course-select" onchange="location = this.value;">
-            <option value="">Select a course</option>
-            <?php foreach ($results as $row): ?>
-                <option value="?page=sections&course_id=<?= $row['course_id'] ?>"><?= $row['course_name'] ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
     <table>
         <thead>
             <tr>
@@ -172,6 +163,10 @@ if ($addedOrUpdated) {
                     <div class="form-submit">
                         <input type="submit" name="add_section" value="Add">
                     </div>
+                    <div class="form-submit">
+                        <input type="submit" name="add_section" value="Add">
+                            <a href="CRUD-section.php"><button type="button">Cancel</button></a>
+                    </div>
                 </form>
             </div>
         <?php endif; ?>
@@ -205,6 +200,10 @@ if ($addedOrUpdated) {
                     </div>
                     <div class="form-submit">
                         <input type="submit" name="update_section" value="Update">
+                    </div>
+                    <div class="form-submit">
+                        <input type="submit" name="add_section" value="Add">
+                            <a href="CRUD-section.php"><button type="button">Cancel</button></a>
                     </div>
                 </form>
             </div>
