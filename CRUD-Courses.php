@@ -174,6 +174,7 @@ if ($addedOrUpdated) {
                     </div>
                     <div class="form-submit">
                         <input type="submit" name="add_course" value="Add">
+                        <a href="CRUD-Courses.php"><button type="button">Cancel</button></a>
                     </div>
                 </form>
             </div>
@@ -232,6 +233,7 @@ if ($addedOrUpdated) {
                     </div>
                     <div class="form-submit">
                         <input type="submit" name="update_course" value="Update">
+                        <a href="CRUD-Courses.php"><button type="button">Cancel</button></a>
                     </div>
                 </form>
             </div>
