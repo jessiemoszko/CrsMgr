@@ -48,7 +48,6 @@ if (isTA()) {
 <body>
 
     <div class="admin-container">
-
         <div class="tile-group">
             <div class="tiles-large">
                 <h2>Manage</h2>
@@ -57,7 +56,17 @@ if (isTA()) {
                     <li><a href="users.php">Modifiy Users</a></li>
                     <li><a href="CRUD-courses.php">Modifiy Courses</a></li>
                      <li><a href="CRUD-section.php">Modifiy Sections</a></li>
+                </ul>
+            </div>
 
+            <div class="tile-group">
+            <div class="tiles-large">
+                <h2>Manage Class related</h2>
+                <ul class="tiles">
+                     <li><a href="groups.php">Modifiy Sections</a></li>
+                     <li><a href="announcements.php">Modifiy Sections</a></li>
+                     <li><a href="FAQ.php">Modifiy Sections</a></li>
+                     <li><a href="grades.php">Modifiy Sections</a></li>
                 </ul>
             </div>
 
