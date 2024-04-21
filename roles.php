@@ -152,6 +152,7 @@ if ($addedOrUpdated) {
                         </div>
                         <div class="form-submit">
                             <input type="submit" name="add_role" value="Add">
+                            <a href="roles.php"><button type="button">Cancel</button></a>
                         </div>
                     </form>
                 </div>
@@ -178,6 +179,7 @@ if ($addedOrUpdated) {
                         </div>
                         <div class="form-submit">
                             <input type="submit" name="update_role" value="Update">
+                            <a href="roles.php"><button type="button">Cancel</button></a>
                         </div>
                     </form>
                 </div>
