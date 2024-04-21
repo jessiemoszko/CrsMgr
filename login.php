@@ -58,7 +58,6 @@ if (isset($_POST['login_user'])) {
             }
 
             if ($check['first_login'] == 1) {
-                // I plan to have the user re-initialize the password
                 header("Location: reset-password.php");
                 exit;
             } else {
@@ -125,15 +124,18 @@ if (isset($_POST['login_user'])) {
 
                     <div class="form-submit">
                         <input type="submit" name="login_user" value="Login">
+                        <a href="recover-password.php">Forgot password?</a>
                     </div>
+
                     <br><br>
 
                 </div>
+
             </form>
+
         </div>
 
     </div>
-
 
 </body>
 
