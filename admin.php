@@ -3,6 +3,7 @@ $pageTitle = 'Admin Panel';
 
 require("helper_functions.php");
 require("session.php");
+require("InitialsExtraction.php");
 
 if (isStudent()) {
     header("Location: student.php");
@@ -17,19 +18,6 @@ if (isprofessor()) {
 if (isTA()) {
     header("Location: TA.php");
     exit();
-}
-
-// Function to extract initials from a name
-function extractInitials($name)
-{
-    $words = explode(" ", $name);
-    $initials = "";
-
-    foreach ($words as $word) {
-        $initials .= strtoupper(substr($word, 0, 1));
-    }
-
-    return $initials;
 }
 
 ?>
@@ -68,7 +56,7 @@ function extractInitials($name)
                     <li><a href="roles.php">Modify Roles</a></li>
                     <li><a href="users.php">Modifiy Users</a></li>
                     <li><a href="CRUD-courses.php">Modifiy Courses</a></li>
-                    <li><a href="CRUD-section.php">Modifiy Sections</a></li>
+                     <li><a href="CRUD-section.php">Modifiy Sections</a></li>
 
                 </ul>
             </div>

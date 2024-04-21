@@ -1,18 +1,5 @@
 <?php
-
-// Function to extract initials from a name
-function extractInitials($name)
-{
-    // Split the name into individual words
-    $words = explode(" ", $name);
-    $initials = "";
-    // Iterate over each word to extract the first letter
-    foreach ($words as $word) {
-        // Append the first letter to the initials string
-        $initials .= strtoupper(substr($word, 0, 1));
-    }
-    return $initials;
-}
+require("InitialsExtraction.php");
 
 ?>
 
