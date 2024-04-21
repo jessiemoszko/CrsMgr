@@ -68,8 +68,8 @@ function extractInitials($name)
                     <li><a href="roles.php">Modify Roles</a></li>
                     <li><a href="users.php">Modifiy Users</a></li>
                     <li><a href="CRUD-courses.php">Modifiy Courses</a></li>
-<!--                     <li><a href="CRUD-section.php">Modifiy Sections</a></li>
- -->
+                    <li><a href="CRUD-section.php">Modifiy Sections</a></li>
+
                 </ul>
             </div>
 
