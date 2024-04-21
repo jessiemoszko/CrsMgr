@@ -187,6 +187,7 @@ if ($addedOrUpdated) {
                     </div>
                     <div class="form-submit">
                         <input type="submit" name="add_user" value="Add">
+                        <a href="users.php"><button type="button">Cancel</button></a>                        
                     </div>
                 </form>
             </div>
@@ -239,6 +240,7 @@ if ($addedOrUpdated) {
                     </div>
                     <div class="form-submit">
                         <input type="submit" name="update_user" value="Update">
+                        <a href="users.php"><button type="button">Cancel</button></a>
                     </div>
                 </form>
             </div>
