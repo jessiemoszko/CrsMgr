@@ -79,27 +79,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if (isset($_GET['delete_id'])) {
     list($success, $errors) = deleteSection($conn, mysqli_real_escape_string($conn, $_GET['delete_id']));
 }
-/* 
-$query = "SELECT s.sectionID, s.section_name, s.course_id, c.course_name 
-            FROM section as s
-            JOIN courses as c ON s.course_id = c.course_id 
-            ORDER BY sectionID ASC";
-$results = mysqli_query($conn, $query);
-*/
 
-if (isset($_GET['course_id'])) {
-    $selected_course_id = mysqli_real_escape_string($conn, $_GET['course_id']);
-    $query = "SELECT s.sectionID, s.section_name, s.course_id, c.course_name 
-                FROM section as s
-                JOIN courses as c ON s.course_id = c.course_id 
-                WHERE s.course_id = '$selected_course_id'
-                ORDER BY s.sectionID ASC";
-} else {
-    $query = "SELECT s.sectionID, s.section_name, s.course_id, c.course_name 
+
+$query = "SELECT s.sectionID, s.section_name, s.course_id, c.course_name 
                 FROM section as s
                 JOIN courses as c ON s.course_id = c.course_id 
                 ORDER BY s.sectionID ASC";
-}
+
 $results = mysqli_query($conn, $query);
 
 
@@ -162,10 +148,7 @@ if ($addedOrUpdated) {
                     </div>
                     <div class="form-submit">
                         <input type="submit" name="add_section" value="Add">
-                    </div>
-                    <div class="form-submit">
-                        <input type="submit" name="add_section" value="Add">
-                            <a href="CRUD-section.php"><button type="button">Cancel</button></a>
+                        <a href="CRUD-section.php"><button type="button">Cancel</button></a>
                     </div>
                 </form>
             </div>
@@ -200,10 +183,7 @@ if ($addedOrUpdated) {
                     </div>
                     <div class="form-submit">
                         <input type="submit" name="update_section" value="Update">
-                    </div>
-                    <div class="form-submit">
-                        <input type="submit" name="add_section" value="Add">
-                            <a href="CRUD-section.php"><button type="button">Cancel</button></a>
+                        <a href="CRUD-section.php"><button type="button">Cancel</button></a>
                     </div>
                 </form>
             </div>
