@@ -9,7 +9,7 @@ With the Course Manager Web App, educators can effortlessly create and manage co
 ## Steps:
 
 1. Clone the repository.
-2. Install XAMPP. You can do so [here] (https://www.apachefriends.org/download.html) and follow the default configuration.
+2. Install XAMPP. You can do so [here](https://www.apachefriends.org/download.html) and follow the default configuration.
 3. Change DB.php with your sql configuration.
 4. Log in to PHPmyAdmin and run the sql script.
 
