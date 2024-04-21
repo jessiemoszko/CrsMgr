@@ -62,15 +62,6 @@ if (isset($_GET['delete_view'])) {
     }
 }
 
-/* $query = "SELECT ucs.userID, ucs.sectionID, c.course_id, c.course_name, s.section_name, u.first_name, u.last_name 
-            FROM user_course_section ucs 
-                JOIN user u ON u.userID = ucs.userID 
-                JOIN courses c ON c.course_id = ucs.course_id 
-                JOIN section s ON s.sectionID = ucs.sectionID 
-            ORDER BY u.userID ASC";
-
-$results = mysqli_query($conn, $query);
- */
 ?>
 
 
@@ -199,6 +190,7 @@ $results = mysqli_query($conn, $query);
 
                 <div class="form-submit">
                     <input type="submit" name="add" id="submit" value="Add">
+                    <a href="assign-user.php"><button type="button">Cancel</button></a>
                 </div>
             </form>
         </div>
