@@ -58,6 +58,8 @@ if (isTA()) {
                      <li><a href="CRUD-section.php">Modifiy Sections</a></li>
                      <li><a href="groups.php">Modifiy Groups</a></li>
                      <li><a href="announcements.php">Modifiy Announcements</a></li>
+                     <li><a href="assignments.php">Modifiy Assignments</a></li>
+                     <li><a href="course_material.php">Modifiy Course Material</a></li>
                      <li><a href="FAQ.php">Modifiy FAQ</a></li>
                      <li><a href="grades.php">Modifiy Grades</a></li>
                 </ul>
