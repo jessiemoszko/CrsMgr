@@ -124,8 +124,10 @@ if (isset($_POST['login_user'])) {
 
                     <div class="form-submit">
                         <input type="submit" name="login_user" value="Login">
-                        <a href="recover-password.php">Forgot password?</a>
+                       
                     </div>
+                    <br>
+                    <a href="recover-password.php">Forgot password?</a>
 
                     <br><br>
 

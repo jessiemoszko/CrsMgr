@@ -1,8 +1,6 @@
 CREATE DATABASE IF NOT EXISTS `CRS`;
 USE `CRS`;
 
-
-
 CREATE TABLE IF NOT EXISTS `role`
 (
   `roleID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -23,15 +21,13 @@ CREATE TABLE IF NOT EXISTS `user`
   `roleID` INT NOT NULL,
   FOREIGN KEY (`roleID`) REFERENCES `role` (`roleID`),
   INDEX (`roleID`)
-) AUTO_INCREMENT = 10000;
-
+) AUTO_INCREMENT = 1000;
 
 CREATE TABLE IF NOT EXISTS `group_info`
 (
   `groupID` INT PRIMARY KEY,
   `group_name` VARCHAR(50) NOT NULL UNIQUE
 );
-
 
 CREATE TABLE IF NOT EXISTS `student_groups`
 (
@@ -43,7 +39,6 @@ CREATE TABLE IF NOT EXISTS `student_groups`
   INDEX (`groupID`)
 );
 
-
 CREATE TABLE IF NOT EXISTS `courses` (
   `course_id` INT NOT NULL AUTO_INCREMENT,
   `course_name` VARCHAR(150) NOT NULL,
@@ -53,8 +48,7 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `room_no` VARCHAR(150) NOT NULL,
   `instructor_name` VARCHAR(150) NOT NULL,
   PRIMARY KEY (`course_id`)
-) AUTO_INCREMENT=1;
-
+) AUTO_INCREMENT=4;
 
 CREATE TABLE IF NOT EXISTS `assignments` (
   `Title` VARCHAR(100) NOT NULL,
@@ -70,7 +64,6 @@ CREATE TABLE IF NOT EXISTS `assignments` (
   CONSTRAINT `assignments_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 CREATE TABLE IF NOT EXISTS `course_material` (
   `Post Date` DATE NOT NULL,
   `Uploaded File` TEXT NOT NULL,
@@ -81,8 +74,9 @@ CREATE TABLE IF NOT EXISTS `course_material` (
   PRIMARY KEY (`material_ID`),
   KEY `course_id` (`course_id`),
   CONSTRAINT `course_material_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) AUTO_INCREMENT=1;
+) AUTO_INCREMENT=16;
 
+/*Added on April 15th*/
 
 CREATE TABLE IF NOT EXISTS `section` (
   `sectionID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -90,7 +84,6 @@ CREATE TABLE IF NOT EXISTS `section` (
   `course_id` INT NOT NULL,
   FOREIGN KEY (`course_id`) REFERENCES `courses`(`course_id`)
 );
-
 
 CREATE TABLE IF NOT EXISTS `user_course_section` (
   `userID` INT NOT NULL,
@@ -102,7 +95,6 @@ CREATE TABLE IF NOT EXISTS `user_course_section` (
   FOREIGN KEY (`sectionID`) REFERENCES `section`(`sectionID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 CREATE TABLE IF NOT EXISTS `tbl_student`
 (
   `studentID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -110,7 +102,6 @@ CREATE TABLE IF NOT EXISTS `tbl_student`
   FOREIGN KEY (`userID`) REFERENCES `user`(`userID`),
   INDEX (`userID`)
 );
-
 
 CREATE TABLE IF NOT EXISTS `tbl_ta`
 (
@@ -120,7 +111,6 @@ CREATE TABLE IF NOT EXISTS `tbl_ta`
   INDEX (`userID`)
 );
 
-
 CREATE TABLE IF NOT EXISTS  `tbl_professor`
 (
   `professorID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -129,7 +119,7 @@ CREATE TABLE IF NOT EXISTS  `tbl_professor`
   INDEX (`userID`)
 );
 
-
+/* Added by Gen */
 CREATE TABLE `FAQ` (
   `FAQID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `course_id` int(11) DEFAULT NULL,
@@ -139,7 +129,6 @@ CREATE TABLE `FAQ` (
   FOREIGN KEY (`course_id`) REFERENCES `courses`(`course_id`),
   FOREIGN KEY (`userID`) REFERENCES `user`(`userID`)
 ) AUTO_INCREMENT=1000;
-
 
 CREATE TABLE `FAQResponse` (
   `ReplyID` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -151,7 +140,6 @@ CREATE TABLE `FAQResponse` (
   FOREIGN KEY (`userID`) REFERENCES `user`(`userID`)
 ) AUTO_INCREMENT=1000;
 
-
 CREATE TABLE `email` (
   `emailID` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `userID` int NOT NULL,
@@ -161,22 +149,6 @@ CREATE TABLE `email` (
   `sent_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   FOREIGN KEY (`userID`) REFERENCES `user`(`userID`)
 ) AUTO_INCREMENT=1000;
-
-
-CREATE TABLE IF NOT EXISTS `announcements` (
-  `announcement_id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `announcement_date` date NOT NULL,
-  `userID` int NOT NULL,
-  PRIMARY KEY (`announcement_id`) USING BTREE,
-  KEY `userID` (`userID`) USING BTREE,
-  CONSTRAINT `announcements_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`)
-) AUTO_INCREMENT=1;
-
-
-
-
 
 
 
@@ -191,23 +163,19 @@ INSERT INTO `role` (`role_name`) VALUES
 ("TA"),
 ("Student");
 
-
 INSERT INTO `user` (`first_name`, `last_name`, `dob`, `email`, `username`, `password`, `first_login`, `roleID`) VALUES 
-('user1FN', 'user1LN', '1991-07-12', 'user1@example.com', 'user1', '12345', 1, 4),
-('user2FN', 'user2LN', '1999-11-01', 'user2@example.com', 'user2', '12345', 1, 2),
-('user3FN', 'user3LN', '2000-09-13', 'user3@example.com', 'user3', '12345', 1, 3),
-('user4FN', 'user4LN', '1998-05-24', 'user4@example.com', 'user4', '12345', 1, 1),
 ('John', 'Doe', '1990-05-15', 'john@example.com', 'johndoe', '12345', 1, 1),
 ('Alice', 'Smith', '1988-09-23', 'alice@example.com', 'alicesmith', '12345', 1, 2),
+('user2FN', 'user2LN', '1999-11-01', 'user2@example.com', 'user2', '12345', 1, 2),
 ('Bob', 'Johnson', '1995-02-10', 'bob@example.com', 'bobjohnson', '12345', 1, 3),
 ('Emily', 'Brown', '1992-11-30', 'emily@example.com', 'emilybrown', '12345', 1, 3),
 ('Michael', 'Davis', '1987-07-18', 'michael@example.com', 'michaeldavis', '12345', 1, 4),
+('user1FN', 'user1LN', '1991-07-12', 'user1@example.com', 'user1', '12345', 1, 4),
 ('Sophia', 'Wilson', '1998-04-05', 'sophia@example.com', 'sophiawilson', '12345', 1, 4),
 ('Daniel', 'Martinez', '1993-12-20', 'daniel@example.com', 'danielmartinez', '12345', 1, 4),
 ('Emma', 'Taylor', '1991-08-08', 'emma@example.com', 'emmataylor', '12345',  1, 4),
 ('Christopher', 'Anderson', '1994-06-25', 'chris@example.com', 'chrisanderson', '12345', 1, 4),
 ('Olivia', 'Hernandez', '1989-03-12', 'olivia@example.com', 'oliviahernandez', '12345', 1, 4);
-
 
 INSERT IGNORE INTO `group_info` (`groupID`, `group_name`) VALUES
 (1, "Group 1"),
@@ -215,19 +183,16 @@ INSERT IGNORE INTO `group_info` (`groupID`, `group_name`) VALUES
 (3, "Group 3"),
 (4, "Group 4");
 
-
 INSERT INTO `student_groups` (`userID`, `groupID`)
 SELECT `userID`, 
   (@rownum := @rownum + 1) % (SELECT COUNT(*) FROM `group_info`) +1 AS `groupID`
 FROM `user`, (SELECT @rownum := 0) r
 WHERE `roleID` = 4;
 
-
 INSERT IGNORE INTO `courses` (`course_id`, `course_name`, `course_code`, `dept_name`, `semester`, `room_no`, `instructor_name`) VALUES
 (1, 'Computer Organization and Design', 'COMP5201', 'Computer Science', 'Fall 2023', 'ER201', 'David'),
 (2, 'Principles of Data Structures', 'COMP5511', 'Computer Science', 'Fall 2023', 'H831', 'Bipin Desai'),
 (3, 'Files and Databases', 'COMP5531', 'Computer Science', 'Winter 2024', 'H5201', 'Bipin Desai');
-
 
 INSERT IGNORE INTO `assignments` (`Title`, `Weight`, `Max Mark`, `Post Date`, `Due Date`, `assign_id`, `assign_instructions`, `course_id`) VALUES
 ('Test assignment', '5', '100', '2024-04-10', '2024-04-23', 1, '', 2),
@@ -237,7 +202,6 @@ INSERT IGNORE INTO `assignments` (`Title`, `Weight`, `Max Mark`, `Post Date`, `D
 ('Asn1', '2', '2', '2024-04-07', '2024-04-16', 6, 'uploads/uploaded_assignments/Assignment1.pdf', 1),
 ('a2', '45', '12', '2024-04-08', '2024-04-17', 7, 'uploads/uploaded_assignments/a2.pdf', 1);
 
-
 INSERT IGNORE INTO `course_material` (`Post Date`, `Uploaded File`, `material_ID`, `Title`, `TYPE`, `course_id`) VALUES
 ('2024-01-10', 'uploads/10-Storage-files-indexing.pdf', 5, 'Lecture 10', 'Lecture', 3),
 ('2024-04-02', 'uploads/2-Simple-Sql.pdf', 9, 'Lecture 2', 'Lecture', 3),
@@ -245,6 +209,7 @@ INSERT IGNORE INTO `course_material` (`Post Date`, `Uploaded File`, `material_ID
 ('2024-04-02', 'uploads/Lecture1.pdf', 14, 'Lecture 1', 'lecture', 1),
 ('2024-04-02', 'uploads/00. Course Outline.pdf', 15, 'Course Outline', 'lecture', 2);
 
+/*Added on April 15th*/
 
 INSERT IGNORE INTO `section` (`section_name`, `course_id`) VALUES
 ('Section A', 1),
@@ -253,7 +218,6 @@ INSERT IGNORE INTO `section` (`section_name`, `course_id`) VALUES
 ('Section A', 2),
 ('Section A', 3),
 ('Section B', 3);
-
 
 INSERT IGNORE INTO `user_course_section` (`userID`, `course_id`, `sectionID`)
 SELECT u.`userID`, c.course_id, 
@@ -270,6 +234,13 @@ JOIN `section` s3 ON s3.course_id = c.course_id AND s3.`section_name` = 'Section
 WHERE u.roleID = 4;
 
 
-INSERT IGNORE INTO `announcements` (`announcement_id`, `title`, `content`, `announcement_date`, `userID`) VALUES
-	(10, 'Hello', 'This is to say Hello!', '2024-04-05', 1005),
-	(12, 'announcement', 'Hellooo', '2024-04-19', 1004);
+/* Activity Log */
+
+CREATE TABLE IF NOT EXISTS `activity_log` (
+  `activity_id` BIGINT(30) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `activity_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `activity` text NOT NULL,
+  `url` text NOT NULL,
+  `userID` INT NOT NULL,
+  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`)
+) AUTO_INCREMENT=1;

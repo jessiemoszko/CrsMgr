@@ -1,16 +1,5 @@
 <?php
 
-
-var_dump($_POST);
-var_dump($_POST1);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-//ini_set('log_errors', 1);
-//ini_set('error_log', "/Applications/XAMPP/xamppfiles/htdocs/CrsMgr/error_log.log");
-
-
-
 require 'session.php';
 $pageTitle = "FAQ";
 include 'header.php';
@@ -59,70 +48,67 @@ if (isset($_GET['question_id'])) {
 
 <body>
     <main>
-        <div class="container">
-            <form action="FAQ.php" method="post" class="question-form">
-                <label for="content">Question:</label><br>
-                <textarea id="content" name="content" rows="4" cols="50"></textarea><br>
-                <input type="hidden" id="userID" name="userID" value="<?php echo $_SESSION['userID']; ?>">
-                <input type="submit" name="submit_question" value="Submit Question">
-            </form>
-            <?php
-            // Fetch questions
-            $query = "SELECT FAQ.question, user.first_name, user.last_name FROM FAQ INNER JOIN user ON FAQ.userID = user.userID";
-            $result = mysqli_query($conn, $query);
-            $questions = mysqli_num_rows($result) > 0 ? mysqli_fetch_all($result, MYSQLI_ASSOC) : [];
+        <form action="FAQ.php" method="post" class="question-form">
+            <label for="content">Question:</label><br>
+            <textarea id="content" name="content" rows="4" cols="50"></textarea><br>
+            <input type="hidden" id="userID" name="userID" value="<?php echo $_SESSION['userID']; ?>">
+            <input type="submit" name="submit_question" value="Submit Question">
+        </form>
+        <?php
+        // Fetch questions
+        $query = "SELECT FAQ.question, user.first_name, user.last_name FROM FAQ INNER JOIN user ON FAQ.userID = user.userID";
+        $result = mysqli_query($conn, $query);
+        $questions = mysqli_num_rows($result) > 0 ? mysqli_fetch_all($result, MYSQLI_ASSOC) : [];
 
 
-            // Check if there are any questions
-            if (empty($questions)) {
-                echo "<p>No questions.</p>";
-            } else {
-                // Display questions
-                foreach ($questions as $question) {
-                    echo "<div class='question'>";
-                    echo "<h2>" . htmlspecialchars($question['question']) . "</h2>";
-                    echo "<p>Posted by: " . htmlspecialchars($question['first_name']) . " " . htmlspecialchars($question['last_name']) . "</p>";
-                    echo "<button type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#myModal'>Reply</button>";
-                    // modal
-                    echo "<div class='modal fade' id='myModal' role='dialog'>";
-                    echo "<div class='modal-dialog'>";
-                    echo "<div class='modal-header'>";
-                    echo "<button type='button' class='close' data-dismiss='modal'>&times;</button>";
-                    echo "<h4 class='modal-title'> {$question['question']} </h4>";
-                    echo "</div>";
-                    echo "<div class='modal-body'>";
-                    echo "<form action='FAQ.php' method='post' class='reply-form'>";
-                    echo "<label for='content'>Reply:</label><br>";
-                    echo "<textarea id='content' name='content' rows='4' cols='50'></textarea><br>";
-                    echo "<input type='hidden' id='userID' name='userID' value='<?php echo {$_SESSION['userID']}; ?>'>";
-                    echo "<input type='submit' name='reply' value='Submit reply'>";
-                    echo "</form>";
-                    echo "</div>";
-                    echo "<div class='modal-footer'>";
-                    echo "<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>";
-                    if (isset($_POST1['submit_reply'])) {
-                        $content = $_POST1['content'];
-                        $userID = $_POST1['userID'];
+        // Check if there are any questions
+        if (empty($questions)) {
+            echo "<p>No questions.</p>";
+        } else {
+            // Display questions
+            foreach ($questions as $question) {
+                echo "<div class='question'>";
+                echo "<h2>" . htmlspecialchars($question['question']) . "</h2>";
+                echo "<p>Posted by: " . htmlspecialchars($question['first_name']) . " " . htmlspecialchars($question['last_name']) . "</p>";
+                echo "<button type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#myModal'>Reply</button>";
+                // modal
+                echo "<div class='modal fade' id='myModal' role='dialog'>";
+                echo "<div class='modal-dialog'>";
+                echo "<div class='modal-header'>";
+                echo "<button type='button' class='close' data-dismiss='modal'>&times;</button>";
+                echo "<h4 class='modal-title'> {$question['question']} </h4>";
+                echo "</div>";
+                echo "<div class='modal-body'>";
+                echo "<form action='FAQ.php' method='post' class='reply-form'>";
+                echo "<label for='content'>Reply:</label><br>";
+                echo "<textarea id='content' name='content' rows='4' cols='50'></textarea><br>";
+                echo "<input type='hidden' id='userID' name='userID' value='<?php echo {$_SESSION['userID']}; ?>'>";
+                echo "<input type='submit' name='reply' value='Submit reply'>";
+                echo "</form>";
+                echo "</div>";
+                echo "<div class='modal-footer'>";
+                echo "<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>";
+                if (isset($_POST1['submit_reply'])) {
+                    $response = $_POST1['response'];
+                    $userID = $_POST1['userID'];
 
-                        $query = "INSERT INTO FAQResponse (Response, userID) VALUES (?, ?)";
-                        $stmt = mysqli_prepare($conn, $query);
-                        mysqli_stmt_bind_param($stmt, "si", $content, $userID);
-                        mysqli_stmt_execute($stmt);
-                    }
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</div>";
+                    $query = "INSERT INTO FAQResponse (Response, userID) VALUES (?, ?)";
+                    $stmt = mysqli_prepare($conn, $query);
+                    mysqli_stmt_bind_param($stmt, "si", $response, $userID);
+                    mysqli_stmt_execute($stmt);
                 }
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
             }
-            ?>
+        }
+        ?>
 </body>
-</div>
-</main>
-
 </html>
 
 <?php
-include 'footer.php';
+// $activityLog = new ActivityLog(...$dbData);
+// $activityLog->setAction($_SESSION['user_id'], "accessed the home page");
 ?>

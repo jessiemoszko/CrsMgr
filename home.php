@@ -1,7 +1,8 @@
 <?php
  $pageTitle='Welcome';
- 
+
 session_start();
+
 
 unset($_REQUEST);
 
@@ -63,3 +64,8 @@ function isStudent()
     </div>
 
 </div>
+
+<?php
+$activityLog = new ActivityLog(...$dbData);
+$activityLog->setAction($_SESSION['user_id'], "accessed the home page");
+?>

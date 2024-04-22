@@ -5,6 +5,7 @@ require 'header.php';
 require 'sidebar.php';
 require 'course_selector.php';
 
+
 // Process form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve and sanitize form data
@@ -14,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userID = mysqli_real_escape_string($conn, $_POST['userID']);
 
     // Insert the announcement into the database
-    $sql = "INSERT INTO announcements (title, content, announcement_date, userID) 
+    $sql = "INSERT INTO announcements (title, content, announcement_date, userID)
             VALUES ('$title', '$content', '$date', '$userID')";
 
     if (mysqli_query($conn, $sql)) {
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Query the announcements from the database
-$query = "SELECT title, content, announcement_date, userID 
+$query = "SELECT title, content, announcement_date, userID
           FROM announcements ORDER BY announcement_date DESC";
 $result = mysqli_query($conn, $query);
 
@@ -101,3 +102,7 @@ $result = mysqli_query($conn, $query);
 </body>
 
 </html>
+<?php
+$activityLog = new ActivityLog(...$dbData);
+$activityLog->setAction($_SESSION['user_id'], "accessed the announcements page");
+?>

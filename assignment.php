@@ -5,7 +5,6 @@ require 'header.php';
 require 'sidebar.php';
 require 'course_selector.php';
 
-
 // Fetch assignment information specific to selected course
 $assignmentQuery = "SELECT * FROM assignments WHERE `course_id` = $course_id";
 $assignmentResult = mysqli_query($conn, $assignmentQuery);
@@ -52,13 +51,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $targetDir = "uploads/submissions/";
         $targetFile = $targetDir . basename($_FILES['file']['name']);
-    
+
         if (move_uploaded_file($_FILES['file']['tmp_name'], $targetFile)) {
             echo "File uploaded successfully.";
         } else {
             echo "Sorry, there was an error uploading your file.";
         }
-        
+
     } else if (isset($_POST['delete_id'])) {
 
         $deleteID = $_POST['delete_id'];
@@ -215,3 +214,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </main>
 
 </html>
+
+<?php
+$activityLog = new ActivityLog(...$dbData);
+$activityLog->setAction($_SESSION['user_id'], "accessed the Assignment page");
+?>
