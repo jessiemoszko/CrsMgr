@@ -4,7 +4,7 @@
 $db_host = 'zmc5531.encs.concordia.ca';
 $db_name = 'zmc55314';
 $db_user = 'zmc55314';
-$db_pass = 'JYaYhQ';
+$db_pass = '';
 
 $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
